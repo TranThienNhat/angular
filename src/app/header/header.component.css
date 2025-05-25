@@ -1,0 +1,42 @@
+.navbar {
+    box-shadow:  3px 5px rgba(0, 0, 0, 0.05);
+    padding: 5px 0;
+    max-height: 92px;
+}
+.navbar-brand img {
+    width: 90px; 
+    height: auto;
+}
+
+.nav-link {
+    cursor: pointer;
+    align-items: center;
+    font-size: 16px;
+}
+
+.nav-link-hover {
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-link-hover:hover {
+    color: #dd9933;
+}
+
+.nav-link-hover::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #dd9933;
+    transition: width 0.3s;
+}
+
+.nav-link-hover:hover::after {
+    width: 100%;
+}
+.nav-link i{
+    margin-right: 2px;
+}

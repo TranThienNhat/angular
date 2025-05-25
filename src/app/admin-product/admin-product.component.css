@@ -1,0 +1,57 @@
+.table-container {
+  overflow-x: auto;
+  padding: 16px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.product-table th, .product-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.product-table th {
+  background-color: #f2f2f2;
+}
+
+.table-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.btn {
+  font-size: 17px;
+  padding: 4px 8px;
+  margin: 2px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+}
+.btn-add{
+    text-align: center;
+    margin: 20px 0;
+}
+.btn-primary{
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}

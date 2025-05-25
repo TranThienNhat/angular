@@ -1,0 +1,79 @@
+footer{
+    background-color: #303036;
+}
+h3{font-size: 26px;}
+h4{
+    text-transform: uppercase;
+}
+img{
+    width: 100px;
+}
+.footer-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #222;
+    color: white;
+    padding: 40px;
+}
+.footer-column{
+    width: 22%;
+    min-width: 200px;
+}
+.footer-column ul{
+    list-style: none;
+    padding: 0;
+}
+.footer-column ul li a{
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+.footer-column ul li a:hover{
+    text-decoration: underline;
+    color: #dd9933
+}
+.social-icons a{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    padding-right: 1px;
+    text-decoration: none;
+}
+.social-icons a i{
+    font-size: 24px;
+    padding-right: 2px;
+}
+.footer-column p a{
+    font-size: 14px;
+    margin-top: 10px;
+    color: #e9ecef;
+    text-decoration: none;
+}
+.email{
+    text-decoration: none;
+    color: white;
+}
+.subscribe-btn{
+   padding: 2px 6px;
+   border: none;
+   cursor: pointer;
+   font-weight: bold;
+   border-radius: 5px;
+   margin-top: 10px; 
+}
+.bt-store{
+    padding: 8px 20px;
+    color: currentColor;
+    text-transform: uppercase;
+    border: 1px solid #fff;
+    text-decoration: none;
+}
+.social-icons{
+   display: flex;
+   justify-content: center;
+   gap: 20px; 
+}

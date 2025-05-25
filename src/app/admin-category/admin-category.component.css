@@ -1,0 +1,99 @@
+/* Custom styles để bổ sung cho Bootstrap */
+
+/* Animation cho form trượt xuống */
+.collapse.show {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effect cho table rows */
+.table-hover tbody tr:hover {
+  background-color: var(--bs-gray-100) !important;
+}
+
+/* Custom styling cho edit form */
+.table-warning {
+  --bs-table-bg: #fff3cd;
+  border-color: #ffeaa7 !important;
+}
+
+/* Button group styling */
+.btn-group .btn {
+  border-radius: 0.375rem;
+  margin-right: 0.25rem;
+}
+
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+/* Icon spacing */
+.fas {
+  font-size: 0.875rem;
+}
+
+/* Card styling */
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header {
+  background-color: var(--bs-light);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Badge styling */
+.badge {
+  font-size: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    margin-bottom: 0.25rem;
+    margin-right: 0;
+  }
+  
+  .btn-group .btn:last-child {
+    margin-bottom: 0;
+  }
+  
+  .d-grid.gap-2.d-md-flex {
+    display: grid !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* Loading states */
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Focus states */
+.form-control:focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Empty state styling */
+.fa-folder-open {
+  color: var(--bs-gray-400) !important;
+}

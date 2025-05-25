@@ -1,0 +1,15 @@
+<div *ngIf="products.length > 0" class="product-container">
+    <div *ngFor="let product of products" class="product-card">
+        <img [src]="'https://localhost:44384' + product.ImageUrl" alt="{{ product.Name }}" class="product-image">
+        <h3>{{ product.Name }}</h3>
+        <p><strong>Mô tả:</strong> {{ product.Description }}</p>
+        <p><strong>Số lượng:</strong> {{ product.Quantity }}</p>
+        <p><strong>Giá:</strong> {{ product.Price}}</p>
+        <p><strong>Trạng thái:</strong> {{ product.IsOutOfStock ? 'Hết hàng' : 'Còn hàng' }}</p>
+        <p><strong>Danh mục:</strong> {{ product.Categories.join(', ') }}</p>
+        <button class="btn btn-secondary" [routerLink]="['/products', product.Id]">Mua</button>
+    </div>
+</div>
+<div *ngIf="products.length === 0">
+    <p>Không có sản phẩm nào được tìm thấy.</p>
+</div>

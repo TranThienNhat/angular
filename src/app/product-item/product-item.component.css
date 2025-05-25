@@ -1,0 +1,43 @@
+.container{
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+.card{
+    background: #ffffff92;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+h1{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+p{
+    font-size: 16px;
+    color: #555;
+}
+.number{
+    text-align: center;
+    font-size: 16px;
+}
+form input, form textarea{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.btn btn-success:disabled{
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.product-image{
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 15px;
+}
