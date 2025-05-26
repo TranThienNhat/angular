@@ -25,7 +25,7 @@
 
         <!-- Thay đổi phần category thành checkbox -->
         <div class="mb-3">
-            <label class="form-label">Đề mục:</label>
+            <label class="form-label">Đề mục: <span class="text-danger">*</span></label>
             <div class="row" formArrayName="categoryIds">
                 <div class="col-md-4 mb-2" *ngFor="let category of categories; let i = index">
                     <div class="form-check">
@@ -43,7 +43,7 @@
         </div>
 
         <div class="mb-3 text-center">
-            <label class="form-label">Hình ảnh:</label>
+            <label class="form-label">Hình ảnh: <span class="text-danger">*</span></label>
             <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
         </div>
 
