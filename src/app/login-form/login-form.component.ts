@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { WindowService } from '../service/window.service';
 
 @Component({
   selector: 'app-login-form',
@@ -15,9 +14,10 @@ import { WindowService } from '../service/window.service';
 export class LoginFormComponent {
   errorMessage: string = '';
 
-  constructor(private loginService: LoginService, private router: Router, private windowService: WindowService) {
-    const window = this.windowService.getNativeWindow();
-  } 
+  constructor(
+    private loginService: LoginService, 
+    private router: Router
+  ) {}
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -25,14 +25,14 @@ export class LoginFormComponent {
   });
 
   onSubmit() {
-    this.errorMessage = ''; // Reset thông báo lỗi trước khi kiểm tra điều kiện
+    this.errorMessage = '';
 
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.loginService.login(username!, password!).subscribe(
         (response) => {
           this.loginService.saveUserData(response);
-          window.location.replace('/admin/dashboard');
+          this.router.navigateByUrl('/admin/dashboard', { replaceUrl: true });
         },
         () => {
           this.errorMessage = 'Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại.';

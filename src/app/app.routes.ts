@@ -11,14 +11,39 @@ import { AdminCategoryComponent } from './admin-category/admin-category.componen
 import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'category/:Id', component: ProductComponent},
-    {path: 'products/:Id', component: ProductItemComponent},
-    {path: 'admin/login', component: LoginFormComponent},
-
-    //admin-router
-    { path: 'admin/dashboard', component: AdminProductComponent, canActivate: [authGuard] },
-    {path: 'admin/dashboard/product/create', component: AdminProductAddComponent, canActivate: [authGuard]},
-    {path: 'admin/dashboard/product/:Id', component: AdminProductUpdateComponent, canActivate: [authGuard]}, 
-    {path: 'admin/dashboard/category', component: AdminCategoryComponent, canActivate:[authGuard] }
+    { path: '', component: HomeComponent },
+    
+    // Lazy loading cho các component
+    {
+        path: 'category/:Id',
+        loadComponent: () => import('./product/product.component').then(m => m.ProductComponent)
+    },
+    {
+        path: 'products/:Id',
+        loadComponent: () => import('./product-item/product-item.component').then(m => m.ProductItemComponent)
+    },
+    {
+        path: 'admin/login',
+        loadComponent: () => import('./login-form/login-form.component').then(m => m.LoginFormComponent)
+    },
+    {
+        path: 'admin/dashboard',
+        loadComponent: () => import('./admin-product/admin-product.component').then(m => m.AdminProductComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'admin/dashboard/product/create',
+        loadComponent: () => import('./admin-product-add/admin-product-add.component').then(m => m.AdminProductAddComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'admin/dashboard/product/:Id',
+        loadComponent: () => import('./admin-product-update/admin-product-update.component').then(m => m.AdminProductUpdateComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'admin/dashboard/category',
+        loadComponent: () => import('./admin-category/admin-category.component').then(m => m.AdminCategoryComponent),
+        canActivate: [authGuard]
+    }
 ];

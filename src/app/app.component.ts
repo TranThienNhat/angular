@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   constructor(private login: LoginService, private router: Router) {}
 
   ngOnInit(): void {
-    if (this.login.isAdmin() && this.router.url === '/') {
+    if (this.login.isAdmin() && this.router.url === '/admin/dashboard') {
       this.router.navigate(['/admin/dashboard']);
     }
   }
