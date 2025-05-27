@@ -27,7 +27,7 @@ img{
 .footer-column ul li a{
     color: white;
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: "Montserrat", sans-serif !important;
 }
 .footer-column ul li a:hover{
     text-decoration: underline;
@@ -76,4 +76,7 @@ img{
    display: flex;
    justify-content: center;
    gap: 20px; 
+}
+.bt-icon{
+    margin-bottom: 5px;
 }

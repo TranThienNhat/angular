@@ -10,6 +10,6 @@
         <button class="btn btn-secondary" [routerLink]="['/products', product.Id]">Mua</button>
     </div>
 </div>
-<div *ngIf="products.length === 0">
+<div *ngIf="products.length === 0" class="card">
     <p>Không có sản phẩm nào được tìm thấy.</p>
 </div>

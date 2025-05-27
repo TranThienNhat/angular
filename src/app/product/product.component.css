@@ -52,3 +52,8 @@ p {
 .btn:hover {
     background-color: #cc5200;
 }
+.card p{
+    text-align: center;
+    padding-top: 250px;
+    padding-bottom: 250px;
+}
