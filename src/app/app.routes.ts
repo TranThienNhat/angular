@@ -45,5 +45,15 @@ export const routes: Routes = [
         path: 'admin/dashboard/category',
         loadComponent: () => import('./admin-category/admin-category.component').then(m => m.AdminCategoryComponent),
         canActivate: [authGuard]
+    },
+    {
+        path: 'admin/dashboard/orders',
+        loadComponent: () => import('./admin-order/admin-order.component').then(m => m.AdminOrderComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'admin/dashboard/product/orders/:Id',
+        loadComponent: () => import('./product-item/product-item.component').then(m => m.ProductItemComponent),
+        canActivate: [authGuard]
     }
 ];

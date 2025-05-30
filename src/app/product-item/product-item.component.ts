@@ -26,6 +26,7 @@ export class ProductItemComponent implements OnInit {
     this.orderForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
       note: ['']
     });
@@ -66,6 +67,7 @@ export class ProductItemComponent implements OnInit {
     const orderData = {
       Name: this.orderForm.get('name')?.value,
       PhoneNumber: this.orderForm.get('phone')?.value, 
+      Email: this.orderForm.get('email')?.value, // Thêm email
       Address: this.orderForm.get('address')?.value,
       Note: this.orderForm.get('note')?.value,
       Items: [{
@@ -76,13 +78,11 @@ export class ProductItemComponent implements OnInit {
 
     this.orrderService.createOrder(orderData).subscribe({
       next: (response) => {
-        console.log('Phản hồi từ API:', response);
         alert('Đơn hàng đã được gửi thành công!');
         this.orderForm.reset();
         this.quantityControl.setValue(1);
       },
       error: (err) => {
-        console.error('Lỗi khi gửi đơn hàng:', err);
         alert('Gửi đơn hàng thất bại, kiểm tra lại kết nối!');
       }
     });
