@@ -1,145 +1,147 @@
-footer{
-    background-color: #303036;
+footer {
+  background-color: #303036;
 }
-h3{font-size: 26px;}
-h4{
-    text-transform: uppercase;
+h3 {
+  font-size: 26px;
+}
+h4 {
+  text-transform: uppercase;
 }
 .footer-column img {
-    width: 80px;
-    height: auto;
-    margin: 10px 0;
-    border-radius: 4px;
+  width: 80px;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 4px;
 }
 .footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: #222;
-    color: white;
-    padding: 40px;
-    font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #222;
+  color: white;
+  padding: 40px;
+  font-family: "Montserrat", sans-serif;
 }
 .footer-column {
-    flex: 1;
-    min-width: 250px;
-    margin-bottom: 30px;
-    padding: 0 15px;
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 30px;
+  padding: 0 15px;
 }
 .footer-column h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 .footer-column h4 {
-    font-size: 16px;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin: 15px 0 10px 0;
-    color: #e9ecef;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 15px 0 10px 0;
+  color: #e9ecef;
 }
 /*footer link*/
 .footer-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .footer-column ul li {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 .footer-column ul li a {
-    color: #b8b8b8;
-    text-decoration: none;
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    transition: color 0.3s ease;
-    display: inline-block;
-    padding: 2px 0;
+  color: #b8b8b8;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 2px 0;
 }
-.footer-column ul li a:hover{
-    text-decoration: underline;
-    color: #dd9933
+.footer-column ul li a:hover {
+  text-decoration: underline;
+  color: #dd9933;
 }
 /*social icon*/
 .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 5px;
-    align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 5px;
+  align-items: flex-start;
 }
 .social-icons a {
-    display: flex;
-    align-items: center;
-    color: #b8b8b8;
-    font-size: 14px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    padding: 5px 0;
+  display: flex;
+  align-items: center;
+  color: #b8b8b8;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 5px 0;
 }
 .social-icons a:hover {
-    color: #dd9933;
+  color: #dd9933;
 }
 .social-icons a i {
-    font-size: 18px;
-    margin-right: 8px;
-    width: 20px;
+  font-size: 18px;
+  margin-right: 8px;
+  width: 20px;
 }
 /* thông tin liên lạc */
 .footer-column p {
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 10px 0;
-    color: #b8b8b8;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0;
+  color: #b8b8b8;
 }
 .footer-column p a {
-    color: #e9ecef;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: #e9ecef;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 .footer-column p a:hover {
-    color: #dd9933;
+  color: #dd9933;
 }
-.email{
-    text-decoration: none;
-    color: white;
+.email {
+  text-decoration: none;
+  color: white;
 }
-.subscribe-btn{
-   padding: 2px 6px;
-   border: none;
-   cursor: pointer;
-   font-weight: bold;
-   border-radius: 5px;
-   margin-top: 10px; 
+.subscribe-btn {
+  padding: 2px 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 .bt-store {
-    display: inline-block;
-    padding: 12px 73px;
-    color: white;
-    text-transform: uppercase;
-    border: 2px solid #fff;
-    text-decoration: none;
-    margin-top: 15px;
-    font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    text-align: center;
-    margin-left: 60px;
+  display: inline-block;
+  padding: 12px 73px;
+  color: white;
+  text-transform: uppercase;
+  border: 2px solid #fff;
+  text-decoration: none;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-left: 60px;
 }
 .bt-store:hover {
-    background-color: #dd9933;
-    border-color: #dd9933;
-    color: white;
+  background-color: #dd9933;
+  border-color: #dd9933;
+  color: white;
 }
-.social-icons{
-   display: flex;
-   justify-content: center;
-   gap: 20px; 
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
-.bt-icon{
-    margin-bottom: 5px;
+.bt-icon {
+  margin-bottom: 5px;
 }

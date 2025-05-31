@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductServiceService } from '../service/product.service';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { OrderService } from '../service/order.service';
 import { LoginService } from '../service/login.service';
 
@@ -11,11 +17,14 @@ import { LoginService } from '../service/login.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './product-item.component.html',
-  styleUrl: './product-item.component.css'
+  styleUrl: './product-item.component.css',
 })
 export class ProductItemComponent implements OnInit {
   product: any = {};
-  quantityControl = new FormControl(1, [Validators.required, Validators.min(1)]);
+  quantityControl = new FormControl(1, [
+    Validators.required,
+    Validators.min(1),
+  ]);
   orderForm: FormGroup;
 
   constructor(
@@ -24,21 +33,21 @@ export class ProductItemComponent implements OnInit {
     private productService: ProductServiceService,
     private orrderService: OrderService,
     private loginService: LoginService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.orderForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      note: ['']
+      note: [''],
     });
   }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('Id'));
     if (id) {
-      this.productService.getProductById(id).subscribe(data => {
+      this.productService.getProductById(id).subscribe((data) => {
         this.product = data;
       });
     }
@@ -70,32 +79,34 @@ export class ProductItemComponent implements OnInit {
   }
 
   submitOrder(): void {
-  if (this.orderForm.valid) {
-    const orderData = {
-      Name: this.orderForm.get('name')?.value,
-      PhoneNumber: this.orderForm.get('phone')?.value, 
-      Email: this.orderForm.get('email')?.value, 
-      Address: this.orderForm.get('address')?.value,
-      Note: this.orderForm.get('note')?.value,
-      Items: [{
-        ProductId: this.product.Id,
-        Quantity: this.quantityControl.value!
-      }]
-    };
+    if (this.orderForm.valid) {
+      const orderData = {
+        Name: this.orderForm.get('name')?.value,
+        PhoneNumber: this.orderForm.get('phone')?.value,
+        Email: this.orderForm.get('email')?.value,
+        Address: this.orderForm.get('address')?.value,
+        Note: this.orderForm.get('note')?.value,
+        Items: [
+          {
+            ProductId: this.product.Id,
+            Quantity: this.quantityControl.value!,
+          },
+        ],
+      };
 
-    this.orrderService.createOrder(orderData).subscribe({
-      next: (response) => {
-        alert('Đơn hàng đã được gửi thành công!');
-        this.orderForm.reset();
-        this.quantityControl.setValue(1);
-        if (this.isAdmin) {
-          this.router.navigate(['/admin/dashboard']);
-        } 
-      },
-      error: (err) => {
-        alert('Gửi đơn hàng thất bại, kiểm tra lại kết nối!');
-      }
-    });
+      this.orrderService.createOrder(orderData).subscribe({
+        next: (response) => {
+          alert('Đơn hàng đã được gửi thành công!');
+          this.orderForm.reset();
+          this.quantityControl.setValue(1);
+          if (this.isAdmin) {
+            this.router.navigate(['/admin/dashboard']);
+          }
+        },
+        error: (err) => {
+          alert('Gửi đơn hàng thất bại, kiểm tra lại kết nối!');
+        },
+      });
+    }
   }
-}
 }

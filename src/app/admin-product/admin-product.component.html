@@ -1,5 +1,10 @@
 <div class="btn-add">
-    <button class="btn btn-primary" [routerLink]="'/admin/dashboard/product/create'">Thêm sản phẩm</button>
+  <button
+    class="btn btn-primary"
+    [routerLink]="'/admin/dashboard/product/create'"
+  >
+    Thêm sản phẩm
+  </button>
 </div>
 <div *ngIf="products.length > 0" class="table-container">
   <table class="product-table">
@@ -17,16 +22,32 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of products">
-        <td><img [src]="'https://localhost:44384' + product.ImageUrl" alt="{{ product.Name }}" class="table-image" /></td>
+        <td>
+          <img
+            [src]="'https://localhost:44384' + product.ImageUrl"
+            alt="{{ product.Name }}"
+            class="table-image"
+          />
+        </td>
         <td>{{ product.Name }}</td>
         <td>{{ product.Description }}</td>
         <td>{{ product.Quantity }}</td>
         <td>{{ product.Price }}</td>
-        <td>{{ product.IsOutOfStock ? 'Hết hàng' : 'Còn hàng' }}</td>
-        <td>{{ product.Categories.join(', ') }}</td>
+        <td>{{ product.IsOutOfStock ? "Hết hàng" : "Còn hàng" }}</td>
+        <td>{{ product.Categories.join(", ") }}</td>
         <td>
-          <button class="btn btn-outline-secondary" [routerLink]="['/admin/dashboard/product/orders', product.Id]">Mua</button>
-          <button class="btn btn-outline-success" [routerLink]="['/admin/dashboard/product', product.Id]">Sửa</button>
+          <button
+            class="btn btn-outline-secondary"
+            [routerLink]="['/admin/dashboard/product/orders', product.Id]"
+          >
+            Mua
+          </button>
+          <button
+            class="btn btn-outline-success"
+            [routerLink]="['/admin/dashboard/product', product.Id]"
+          >
+            Sửa
+          </button>
           <button class="btn btn-danger" (click)="onDelete(product.Id)">
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -35,7 +56,7 @@
     </tbody>
   </table>
 </div>
-    
+
 <div *ngIf="products.length === 0" class="noproduct">
   <p>Không có sản phẩm nào được tìm thấy.</p>
 </div>

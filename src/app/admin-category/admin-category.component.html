@@ -8,10 +8,12 @@
       <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
         <div class="row">
           <div class="col-md-8">
-            <input type="text" 
-                   formControlName="Name" 
-                   placeholder="Nhập tên danh mục" 
-                   class="form-control">
+            <input
+              type="text"
+              formControlName="Name"
+              placeholder="Nhập tên danh mục"
+              class="form-control"
+            />
           </div>
           <div class="col-md-4">
             <button class="btn btn-primary w-100" type="submit">
@@ -49,21 +51,31 @@
                 </td>
                 <td class="text-center align-middle">
                   <div class="btn-group" role="group">
-                    <button class="btn btn-outline-success btn-sm" 
-                            (click)="editCategory(category)"
-                            [disabled]="editingCategoryId !== null && editingCategoryId !== category.Id">
+                    <button
+                      class="btn btn-outline-success btn-sm"
+                      (click)="editCategory(category)"
+                      [disabled]="
+                        editingCategoryId !== null &&
+                        editingCategoryId !== category.Id
+                      "
+                    >
                       <i class="fas fa-edit me-1"></i>Sửa
                     </button>
-                    <button class="btn btn-outline-danger btn-sm" 
-                            (click)="deleteCategory(category.Id)">
+                    <button
+                      class="btn btn-outline-danger btn-sm"
+                      (click)="deleteCategory(category.Id)"
+                    >
                       <i class="fas fa-trash me-1"></i>Xóa
                     </button>
                   </div>
                 </td>
               </tr>
-              
+
               <!-- Form sửa danh mục (trượt xuống khi click Sửa) -->
-              <tr *ngIf="editingCategoryId === category.Id" class="table-warning">
+              <tr
+                *ngIf="editingCategoryId === category.Id"
+                class="table-warning"
+              >
                 <td colspan="3" class="p-0">
                   <div class="collapse show">
                     <div class="card border-0 bg-warning bg-opacity-10">
@@ -71,22 +83,35 @@
                         <h6 class="card-title text-warning">
                           <i class="fas fa-edit me-2"></i>Chỉnh sửa danh mục
                         </h6>
-                        <form [formGroup]="editCategoryForm" (ngSubmit)="updateCategory()">
+                        <form
+                          [formGroup]="editCategoryForm"
+                          (ngSubmit)="updateCategory()"
+                        >
                           <div class="row align-items-end">
                             <div class="col-md-8">
-                              <label for="editName" class="form-label">Tên danh mục:</label>
-                              <input type="text" 
-                                     id="editName"
-                                     formControlName="Name" 
-                                     class="form-control" 
-                                     placeholder="Nhập tên danh mục mới">
+                              <label for="editName" class="form-label"
+                                >Tên danh mục:</label
+                              >
+                              <input
+                                type="text"
+                                id="editName"
+                                formControlName="Name"
+                                class="form-control"
+                                placeholder="Nhập tên danh mục mới"
+                              />
                             </div>
                             <div class="col-md-4">
-                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                              <div
+                                class="d-grid gap-2 d-md-flex justify-content-md-end"
+                              >
                                 <button type="submit" class="btn btn-success">
                                   <i class="fas fa-save me-1"></i>Lưu
                                 </button>
-                                <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  (click)="cancelEdit()"
+                                >
                                   <i class="fas fa-times me-1"></i>Hủy
                                 </button>
                               </div>

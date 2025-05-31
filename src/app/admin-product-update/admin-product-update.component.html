@@ -1,38 +1,53 @@
 <div class="card">
-        <div class="card-body">
-            <h2>Update Sản Phẩm</h2>
+  <div class="card-body">
+    <h2>Update Sản Phẩm</h2>
 
-            <form [formGroup]="putproductForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <!-- Name Field -->
-                    <div class="col-md-6">
-                        <label for="Name">Tên sản phẩm</label>
-                        <input type="text" id="name" formControlName="name" placeholder="Nhập tên sản phẩm">
-                    </div>
-
-                    <!-- Description Field -->
-                    <div class="col-md-6">
-                        <label for="Description">Mô tả:</label>
-                        <input type="text" id="Description" formControlName="description" placeholder="Mô tả sản phẩm">
-                    </div>
-                </div>
-
-                <!-- Quantity Field -->
-                <div>
-                    <label for="Quantity">Số lượng</label>
-                    <input type="number" id="Quantity" formControlName="quantity">
-                </div>
-
-                <!-- Note Field -->
-                <div>
-                    <label for="Price">Giá</label>
-                    <input type="number" id="Price" formControlName="price" placeholder="Nhập giá sản phẩm">
-                </div>
-
-                <!-- Submit Button -->
-                <div>
-                    <button class="btn btn-success" type="submit">Lưu thay đổi</button>
-                </div>
-            </form>
+    <form [formGroup]="putproductForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Name Field -->
+        <div class="col-md-6">
+          <label for="Name">Tên sản phẩm</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Nhập tên sản phẩm"
+          />
         </div>
-    </div>
+
+        <!-- Description Field -->
+        <div class="col-md-6">
+          <label for="Description">Mô tả:</label>
+          <input
+            type="text"
+            id="Description"
+            formControlName="description"
+            placeholder="Mô tả sản phẩm"
+          />
+        </div>
+      </div>
+
+      <!-- Quantity Field -->
+      <div>
+        <label for="Quantity">Số lượng</label>
+        <input type="number" id="Quantity" formControlName="quantity" />
+      </div>
+
+      <!-- Note Field -->
+      <div>
+        <label for="Price">Giá</label>
+        <input
+          type="number"
+          id="Price"
+          formControlName="price"
+          placeholder="Nhập giá sản phẩm"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button class="btn btn-success" type="submit">Lưu thay đổi</button>
+      </div>
+    </form>
+  </div>
+</div>

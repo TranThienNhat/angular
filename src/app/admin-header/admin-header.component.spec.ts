@@ -8,9 +8,8 @@ describe('AdminHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminHeaderComponent]
-    })
-    .compileComponents();
+      imports: [AdminHeaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminHeaderComponent);
     component = fixture.componentInstance;

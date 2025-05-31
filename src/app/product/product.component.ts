@@ -10,17 +10,20 @@ interface Category {
   selector: 'app-product',
   imports: [NgIf, NgFor, RouterLink],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrl: './product.component.css',
 })
 export class ProductComponent implements OnInit {
   products: any[] = [];
 
-  constructor(private productService: ProductServiceService, private route: ActivatedRoute) {}
+  constructor(
+    private productService: ProductServiceService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const Id = Number(params.get('Id'));
-      this.productService.getProductByCategory(Id).subscribe(data => {
+      this.productService.getProductByCategory(Id).subscribe((data) => {
         this.products = data;
       });
     });

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
 import { NgFor, NgIf } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './admin-category.component.html',
-  styleUrls: ['./admin-category.component.css']
+  styleUrls: ['./admin-category.component.css'],
 })
 export class AdminCategoryComponent implements OnInit {
   categories: any[] = [];
@@ -17,18 +22,18 @@ export class AdminCategoryComponent implements OnInit {
 
   categoryForm = new FormGroup({
     Name: new FormControl('', [Validators.required]),
-    Description: new FormControl('')
+    Description: new FormControl(''),
   });
 
   editCategoryForm = new FormGroup({
     Id: new FormControl('', [Validators.required]),
-    Name: new FormControl('', [Validators.required])
+    Name: new FormControl('', [Validators.required]),
   });
 
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +47,7 @@ export class AdminCategoryComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching categories', error);
-      }
+      },
     );
   }
 
@@ -60,7 +65,7 @@ export class AdminCategoryComponent implements OnInit {
       },
       (error) => {
         console.error('Error adding category', error);
-      }
+      },
     );
   }
 
@@ -68,7 +73,7 @@ export class AdminCategoryComponent implements OnInit {
     this.editingCategoryId = category.Id;
     this.editCategoryForm.patchValue({
       Id: category.Id,
-      Name: category.Name
+      Name: category.Name,
     });
   }
 
@@ -80,7 +85,7 @@ export class AdminCategoryComponent implements OnInit {
 
     const updateData = {
       id: this.editCategoryForm.get('Id')?.value,
-      name: this.editCategoryForm.get('Name')?.value
+      name: this.editCategoryForm.get('Name')?.value,
     };
 
     const categoryId = Number(this.editCategoryForm.get('Id')?.value);
@@ -94,7 +99,7 @@ export class AdminCategoryComponent implements OnInit {
       error: (error) => {
         console.error('Error updating category:', error);
         alert('Có lỗi xảy ra khi cập nhật danh mục!');
-      }
+      },
     });
   }
 
@@ -116,7 +121,7 @@ export class AdminCategoryComponent implements OnInit {
         },
         (error) => {
           console.error('Error deleting category', error);
-        }
+        },
       );
     }
   }

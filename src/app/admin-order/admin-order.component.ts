@@ -10,7 +10,7 @@ import { interval, Subscription } from 'rxjs';
   selector: 'app-admin-order',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './admin-order.component.html',
-  styleUrl: './admin-order.component.css'
+  styleUrl: './admin-order.component.css',
 })
 export class AdminOrderComponent implements OnInit {
   orders: any[] = [];
@@ -26,16 +26,16 @@ export class AdminOrderComponent implements OnInit {
   private refreshSubscription?: Subscription;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private router: Router,
-    private orderService: OrderService
+    private orderService: OrderService,
   ) {}
 
   ngOnInit(): void {
     this.loadOrders();
   }
 
- loadOrders(): void {
+  loadOrders(): void {
     this.orderService.getOrder().subscribe({
       next: (data) => {
         this.orders = data;
@@ -44,20 +44,25 @@ export class AdminOrderComponent implements OnInit {
       error: (error) => {
         console.error('Lỗi khi tải đơn hàng:', error);
         alert('Có lỗi xảy ra khi tải danh sách đơn hàng!');
-      }
+      },
     });
   }
 
-
   // Phân loại orders theo trạng thái
   categorizeOrders(): void {
-  this.waitingOrders = this.orders.filter(o => o.OrderStatus === 'DangXuLy');
-  this.processingOrders = this.orders.filter(o => o.OrderStatus === 'DaXacMinh');
-  this.completedOrders = this.orders.filter(o => o.OrderStatus === 'DaGiao'|| o.OrderStatus === 'DaHuy');
-}
+    this.waitingOrders = this.orders.filter(
+      (o) => o.OrderStatus === 'DangXuLy',
+    );
+    this.processingOrders = this.orders.filter(
+      (o) => o.OrderStatus === 'DaXacMinh',
+    );
+    this.completedOrders = this.orders.filter(
+      (o) => o.OrderStatus === 'DaGiao' || o.OrderStatus === 'DaHuy',
+    );
+  }
 
   getCurrentOrders(): any[] {
-    switch(this.activeTab) {
+    switch (this.activeTab) {
       case 'waiting':
         return this.waitingOrders;
       case 'processing':
@@ -86,7 +91,7 @@ export class AdminOrderComponent implements OnInit {
         error: (error) => {
           console.error('Error confirming order:', error);
           this.error = 'Không thể xác nhận đơn hàng';
-        }
+        },
       });
     }
   }
@@ -103,7 +108,7 @@ export class AdminOrderComponent implements OnInit {
         error: (error) => {
           console.error('Error completing order:', error);
           this.error = 'Không thể hoàn thành đơn hàng';
-        }
+        },
       });
     }
   }
@@ -119,32 +124,39 @@ export class AdminOrderComponent implements OnInit {
         },
         error: (error) => {
           this.error = 'Không thể hủy đơn hàng';
-        }
+        },
       });
     }
   }
 
-
   private showMessage(message: string, type: 'success' | 'error') {
-  alert(message);
+    alert(message);
 
-  if (type === 'success') {
-    this.error = '';
-  } else {
-    this.error = message;
+    if (type === 'success') {
+      this.error = '';
+    } else {
+      this.error = message;
+    }
   }
-}
-
 
   // Helper method để hiển thị tên trạng thái
   getStatusText(status: string): string {
-    switch(status?.toLowerCase()) {
-      case 'waiting': case 'pending': return 'Chờ xác nhận';
-      case 'processing': case 'confirmed': return 'Đang xử lý';
-      case 'complete': case 'completed': return 'Hoàn thành';
-      case 'cancelled': return 'Đã hủy';
-      case 'delivered': return 'Đã giao hàng';
-      default: return status || 'Không xác định';
+    switch (status?.toLowerCase()) {
+      case 'waiting':
+      case 'pending':
+        return 'Chờ xác nhận';
+      case 'processing':
+      case 'confirmed':
+        return 'Đang xử lý';
+      case 'complete':
+      case 'completed':
+        return 'Hoàn thành';
+      case 'cancelled':
+        return 'Đã hủy';
+      case 'delivered':
+        return 'Đã giao hàng';
+      default:
+        return status || 'Không xác định';
     }
   }
 
@@ -161,7 +173,7 @@ export class AdminOrderComponent implements OnInit {
       return items.reduce((total: number, item: any) => {
         const price = item.Price;
         const quantity = item.Quantity;
-        return total + (price * quantity);
+        return total + price * quantity;
       }, 0);
     }
 

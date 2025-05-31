@@ -1,78 +1,120 @@
 <div class="container mt-4">
-    <!-- Product Information Section -->
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <!-- Product Image -->
-                <div class="col-md-4">
-                    <img [src]="'https://localhost:44384' + product.ImageUrl" alt="{{ product.Name }}" class="product-image">
-                </div>
-
-                <!-- Product Details -->
-                <div class="col-md-8">
-                    <h1>{{ product.Name }}</h1>
-                    <div>{{ product.Price | currency:'VND':'symbol':'1.0-0' }}</div>
-                    <p>{{ product.Description }}</p>
-
-                    <label>Số lượng:</label>
-                    <div>
-                        <button type="button" (click)="decreaseQuantity()">-</button>
-                        <input class="number" type="number" [formControl]="quantityControl" min="1">
-                        <button type="button" (click)="increaseQuantity()">+</button>
-                    </div>
-
-                    <!-- Total Price -->
-                    <div>
-                        <span>Tổng tiền:</span>
-                        <span>{{ getTotalPrice() | currency:'VND':'symbol':'1.0-0' }}</span>
-                    </div>
-                </div>
-            </div>
+  <!-- Product Information Section -->
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <!-- Product Image -->
+        <div class="col-md-4">
+          <img
+            [src]="'https://localhost:44384' + product.ImageUrl"
+            alt="{{ product.Name }}"
+            class="product-image"
+          />
         </div>
-    </div>
 
-    <!-- Order Form Section -->
-    <div class="card">
-        <div class="card-body">
-            <h2>Thông tin đặt hàng</h2>
+        <!-- Product Details -->
+        <div class="col-md-8">
+          <h1>{{ product.Name }}</h1>
+          <div>{{ product.Price | currency: "VND" : "symbol" : "1.0-0" }}</div>
+          <p>{{ product.Description }}</p>
 
-            <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
-                <div class="row">
-                    <!-- Name Field -->
-                    <div class="col-md-6">
-                        <label for="name">Họ tên</label>
-                        <input type="text" id="name" formControlName="name" placeholder="Nhập họ tên">
-                    </div>
+          <label>Số lượng:</label>
+          <div>
+            <button type="button" (click)="decreaseQuantity()">-</button>
+            <input
+              class="number"
+              type="number"
+              [formControl]="quantityControl"
+              min="1"
+            />
+            <button type="button" (click)="increaseQuantity()">+</button>
+          </div>
 
-                    <!-- Phone Number Field -->
-                    <div class="col-md-6">
-                        <label for="phone">Số điện thoại</label>
-                        <input type="tel" id="phone" formControlName="phone" placeholder="Nhập số điện thoại">
-                    </div>
-                </div>
-
-                <!-- Address Field -->
-                <div>
-                    <label for="address">Địa chỉ</label>
-                    <input type="text" id="address" formControlName="address" placeholder="Nhập địa chỉ giao hàng">
-                </div>
-
-                <div class="col-md-6">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" formControlName="email" placeholder="Nhập email">
-                </div>
-
-                <!-- Note Field -->
-                <div>
-                    <label for="note">Ghi chú</label>
-                    <textarea id="note" formControlName="note" rows="3" placeholder="Ghi chú thêm (nếu có)"></textarea>
-                </div>
-
-                <!-- Submit Button -->
-                <div>
-                    <button class="btn btn-success" type="submit" [disabled]="orderForm.invalid">Đặt hàng</button>
-                </div>
-            </form>
+          <!-- Total Price -->
+          <div>
+            <span>Tổng tiền:</span>
+            <span>{{
+              getTotalPrice() | currency: "VND" : "symbol" : "1.0-0"
+            }}</span>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Order Form Section -->
+  <div class="card">
+    <div class="card-body">
+      <h2>Thông tin đặt hàng</h2>
+
+      <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+        <div class="row">
+          <!-- Name Field -->
+          <div class="col-md-6">
+            <label for="name">Họ tên</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Nhập họ tên"
+            />
+          </div>
+
+          <!-- Phone Number Field -->
+          <div class="col-md-6">
+            <label for="phone">Số điện thoại</label>
+            <input
+              type="tel"
+              id="phone"
+              formControlName="phone"
+              placeholder="Nhập số điện thoại"
+            />
+          </div>
+        </div>
+
+        <!-- Address Field -->
+        <div>
+          <label for="address">Địa chỉ</label>
+          <input
+            type="text"
+            id="address"
+            formControlName="address"
+            placeholder="Nhập địa chỉ giao hàng"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Nhập email"
+          />
+        </div>
+
+        <!-- Note Field -->
+        <div>
+          <label for="note">Ghi chú</label>
+          <textarea
+            id="note"
+            formControlName="note"
+            rows="3"
+            placeholder="Ghi chú thêm (nếu có)"
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="orderForm.invalid"
+          >
+            Đặt hàng
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

@@ -1,39 +1,39 @@
 .navbar {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    padding: 5px 0;
-    max-height: 92px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 5px 0;
+  max-height: 92px;
 }
 .navbar-brand {
-    font-family: Brush Script MT;
+  font-family: Brush Script MT;
 }
-.navbar-brand img{
-    width: 90px; 
-    height: auto;
+.navbar-brand img {
+  width: 90px;
+  height: auto;
 }
 .nav-link {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .nav-link-hover {
-    position: relative;
-    transition: color 0.3s;
+  position: relative;
+  transition: color 0.3s;
 }
 
 .nav-link-hover:hover {
-    color: #0d6efd;
+  color: #0d6efd;
 }
 
 .nav-link-hover::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #0d6efd;
-    transition: width 0.3s;
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #0d6efd;
+  transition: width 0.3s;
 }
 
 .nav-link-hover:hover::after {
-    width: 100%;
+  width: 100%;
 }

@@ -8,14 +8,23 @@ import { FooterComponent } from './footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, AdminHeaderComponent, NgIf, FooterComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    AdminHeaderComponent,
+    NgIf,
+    FooterComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'angular';
 
-  constructor(private login: LoginService, private router: Router) {}
+  constructor(
+    private login: LoginService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     if (this.login.isAdmin() && this.router.url === '/admin/dashboard') {
@@ -26,5 +35,4 @@ export class AppComponent implements OnInit {
   get isAdmin(): boolean {
     return this.login.isAdmin();
   }
-};
-
+}

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
   private apiUrl = 'http://localhost:63885/api/admin/login';
@@ -15,11 +15,14 @@ export class LoginService {
   }
 
   saveUserData(data: { Username: string; Role: string; Token: string }) {
-      sessionStorage.setItem('user', JSON.stringify({
-        username: data.Username, 
-        role: data.Role, 
-        token: data.Token
-      }));
+    sessionStorage.setItem(
+      'user',
+      JSON.stringify({
+        username: data.Username,
+        role: data.Role,
+        token: data.Token,
+      }),
+    );
   }
 
   getToken(): string | null {
@@ -28,21 +31,24 @@ export class LoginService {
   }
 
   isAdmin(): boolean {
-      if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
-          return false;
-      }
+    if (
+      typeof window === 'undefined' ||
+      typeof sessionStorage === 'undefined'
+    ) {
+      return false;
+    }
 
-      const user = sessionStorage.getItem('user');
-      if (!user) {
-          return false;
-      }
+    const user = sessionStorage.getItem('user');
+    if (!user) {
+      return false;
+    }
 
-      try {
-          const parsedUser = JSON.parse(user);
-          return parsedUser.role === 'ADMIN';
-      } catch (error) {
-          console.error('Lỗi phân tích JSON:', error);
-          return false;
-      }
+    try {
+      const parsedUser = JSON.parse(user);
+      return parsedUser.role === 'ADMIN';
+    } catch (error) {
+      console.error('Lỗi phân tích JSON:', error);
+      return false;
+    }
   }
 }

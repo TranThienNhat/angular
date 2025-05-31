@@ -1,56 +1,79 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" [routerLink]="['']">
-            <img src="./assets/images/logo.jpg" alt="logo">
-             Simple House
-        </a>
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" [routerLink]="['']">
+      <img src="./assets/images/logo.jpg" alt="logo" />
+      Simple House
+    </a>
 
-        <!-- Toggle button cho mobile -->
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Toggle button cho mobile -->
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <!-- Menu chính -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center nav-link-hover" [routerLink]="['']">
-                        <i class="bisc bi-house-fill me-1"></i>
-                        <span class="label-item">Giới thiệu</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center nav-link-hover" [routerLink]="['/category', 1]">
-                        <i class="bi bi-table me-1"></i>
-                        <span class="label-item">Bàn</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center nav-link-hover" [routerLink]="['/category', 2]">
-                        <i class="fa-solid fa-couch"></i>
-                        <span class="label-item">Ghế</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center nav-link-hover" [routerLink]="['/category', 3]">
-                        <i class="fa-solid fa-building"></i>
-                        <span class="label-item">Tủ</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center nav-link-hover" [routerLink]="['/category', 4]">
-                        <i class="fa-solid fa-lightbulb"></i>
-                        <span class="label-item">Trang trí</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center nav-link-hover" [routerLink]="['/admin/login']">
-                        <i class="bi bi-person-circle"></i>
-                        <span class="label-item">Đăng nhập</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <!-- Menu chính -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            [routerLink]="['']"
+          >
+            <i class="bisc bi-house-fill me-1"></i>
+            <span class="label-item">Giới thiệu</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            [routerLink]="['/category', 1]"
+          >
+            <i class="bi bi-table me-1"></i>
+            <span class="label-item">Bàn</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            [routerLink]="['/category', 2]"
+          >
+            <i class="fa-solid fa-couch"></i>
+            <span class="label-item">Ghế</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            [routerLink]="['/category', 3]"
+          >
+            <i class="fa-solid fa-building"></i>
+            <span class="label-item">Tủ</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            [routerLink]="['/category', 4]"
+          >
+            <i class="fa-solid fa-lightbulb"></i>
+            <span class="label-item">Trang trí</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            [routerLink]="['/admin/login']"
+          >
+            <i class="bi bi-person-circle"></i>
+            <span class="label-item">Đăng nhập</span>
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

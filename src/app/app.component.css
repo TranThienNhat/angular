@@ -1,6 +1,6 @@
-router-outlet{
-    flex-grow: 1;
+router-outlet {
+  flex-grow: 1;
 }
-app-footer{
-    margin-top: auto;
+app-footer {
+  margin-top: auto;
 }

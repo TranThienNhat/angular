@@ -1,7 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductServiceService } from '../service/product.service';
-import { FormBuilder, FormControl, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormArray,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CategoryService } from '../service/category.service';
 import { NgFor } from '@angular/common';
 
@@ -9,10 +16,9 @@ import { NgFor } from '@angular/common';
   selector: 'app-admin-product-add',
   imports: [ReactiveFormsModule, NgFor],
   templateUrl: './admin-product-add.component.html',
-  styleUrl: './admin-product-add.component.css'
+  styleUrl: './admin-product-add.component.css',
 })
 export class AdminProductAddComponent implements OnInit {
-  
   postForm: FormGroup;
   routerUrl = inject(Router);
   categories: any[] = [];
@@ -29,12 +35,12 @@ export class AdminProductAddComponent implements OnInit {
       quantity: [0, [Validators.required, Validators.min(0)]],
       price: [0, [Validators.required, Validators.min(0)]],
       categoryIds: this.fb.array([]), // FormArray cho checkbox
-      image: ['']
+      image: [''],
     });
   }
 
   ngOnInit(): void {
-    // Gọi API lấy danh mục từ backend  
+    // Gọi API lấy danh mục từ backend
     this.categoryService.getCategory().subscribe({
       next: (data: any[]) => {
         // Lưu danh sách danh mục nhận được
@@ -44,7 +50,7 @@ export class AdminProductAddComponent implements OnInit {
       },
       error: (error) => {
         console.error('Lỗi khi lấy danh mục:', error);
-      }
+      },
     });
   }
 
@@ -72,7 +78,9 @@ export class AdminProductAddComponent implements OnInit {
     if (this.postForm.valid) {
       // Lấy danh sách ID của các category được chọn
       const selectedCategoryIds = this.postForm.value.categoryIds
-        .map((checked: boolean, index: number) => checked ? this.categories[index].Id : null)
+        .map((checked: boolean, index: number) =>
+          checked ? this.categories[index].Id : null,
+        )
         .filter((value: any) => value !== null);
 
       // Validate required fields
@@ -98,12 +106,12 @@ export class AdminProductAddComponent implements OnInit {
       formData.append('Quantity', quantity.toString()); // Sử dụng parseInt để chuyển đổi về int
       formData.append('Price', price.toString()); // Sử dụng parseFloat để chuyển đổi về long
       formData.append('CategoryIds', selectedCategoryIds.join(','));
-      
+
       // Thêm file nếu có
       if (this.selectedFile) {
         formData.append('Image', this.selectedFile, this.selectedFile.name);
       }
-      
+
       this.productService.postProduct(formData).subscribe({
         next: (response) => {
           alert(response.message);
@@ -112,10 +120,10 @@ export class AdminProductAddComponent implements OnInit {
         error: (error) => {
           console.error('Error creating product:', error);
           alert('Có lỗi xảy ra khi tạo sản phẩm!');
-        }
+        },
       });
     } else {
       alert('Vui lòng điền đầy đủ thông tin!');
     }
-}
+  }
 }

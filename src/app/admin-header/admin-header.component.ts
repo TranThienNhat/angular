@@ -4,14 +4,14 @@ import { Router, RouterLink } from '@angular/router';
   selector: 'app-admin-header',
   imports: [RouterLink],
   templateUrl: './admin-header.component.html',
-  styleUrl: './admin-header.component.css'
+  styleUrl: './admin-header.component.css',
 })
 export class AdminHeaderComponent {
-  constructor(private router: Router) {};
+  constructor(private router: Router) {}
 
-    onLogout() {
-      sessionStorage.clear();
-      localStorage.removeItem('userData');
-      this.router.navigate(['']);
+  onLogout() {
+    sessionStorage.clear();
+    localStorage.removeItem('userData');
+    this.router.navigate(['']);
   }
 }
