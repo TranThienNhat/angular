@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductServiceService } from '../service/product.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderService } from '../service/order.service';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-product-item',
@@ -19,8 +20,10 @@ export class ProductItemComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductServiceService,
     private orrderService: OrderService,
+    private loginService: LoginService,
     private fb: FormBuilder
   ) {
     this.orderForm = this.fb.group({
@@ -39,6 +42,10 @@ export class ProductItemComponent implements OnInit {
         this.product = data;
       });
     }
+  }
+
+  get isAdmin(): boolean {
+    return this.loginService.isAdmin();
   }
 
   increaseQuantity(): void {
@@ -67,7 +74,7 @@ export class ProductItemComponent implements OnInit {
     const orderData = {
       Name: this.orderForm.get('name')?.value,
       PhoneNumber: this.orderForm.get('phone')?.value, 
-      Email: this.orderForm.get('email')?.value, // Thêm email
+      Email: this.orderForm.get('email')?.value, 
       Address: this.orderForm.get('address')?.value,
       Note: this.orderForm.get('note')?.value,
       Items: [{
@@ -81,6 +88,9 @@ export class ProductItemComponent implements OnInit {
         alert('Đơn hàng đã được gửi thành công!');
         this.orderForm.reset();
         this.quantityControl.setValue(1);
+        if (this.isAdmin) {
+          this.router.navigate(['/admin/dashboard']);
+        } 
       },
       error: (err) => {
         alert('Gửi đơn hàng thất bại, kiểm tra lại kết nối!');

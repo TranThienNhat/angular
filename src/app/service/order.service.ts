@@ -29,4 +29,8 @@ export class OrderService {
   putOrderStatus(putData: any, Id: Number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${Id}`, putData, {headers: this.getHeaders(), withCredentials: true})
   }
+
+  putOrderInfo(putData: any, Id:Number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${Id}/info`, putData, {headers: this.getHeaders(), withCredentials: true})
+  }
 }
