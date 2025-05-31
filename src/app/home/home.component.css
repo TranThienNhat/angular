@@ -3,12 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  font-family: "Inter", sans-serif;
-  line-height: 1.7;
-  color: #2c3e50;
-  min-height: 100vh;
-}
 .container {
   max-width: 85%;
   margin: 0 auto;

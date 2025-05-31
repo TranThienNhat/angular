@@ -2,13 +2,12 @@
 * {
   box-sizing: border-box;
 }
-
-body {
+.container-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #fdc094 0%, #5e72eb 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   min-height: 100vh;
   margin: 0;
-  padding: 20px;
+  overflow-x: hidden;
 }
 
 /* Container chính */
@@ -16,9 +15,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+  width: 100%;
   padding: 20px;
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
+.container.mt-5 {
+  margin-top: 0 !important;
+}
 .row {
   width: 100%;
   max-width: 500px;

@@ -164,6 +164,7 @@
             </button>
           </ng-container>
 
+<<<<<<< Updated upstream
           <!-- Đang xử lý -->
           <ng-container *ngIf="activeTab === 'processing'">
             <button
@@ -184,6 +185,39 @@
             </button>
           </ng-container>
         </div>
+=======
+
+          <!-- Action Buttons -->
+            <!-- Chờ xác nhận -->
+            <ng-container *ngIf="activeTab === 'waiting'">
+              <button class="btn btn-success btn-sm"
+                      (click)="confirmOrder(order.Id)"
+                      [disabled]="loading">
+                <i class="bi bi-check-circle"></i> Xác nhận đơn hàng
+              </button>
+              <button class="btn btn-outline-danger btn-sm"
+                      (click)="cancelOrder(order.Id)"
+                      [disabled]="loading">
+                <i class="bi bi-x-circle"></i> Hủy đơn hàng
+              </button>
+            </ng-container>
+
+            <!-- Đang xử lý -->
+            <ng-container *ngIf="activeTab === 'processing'">
+              <button class="btn btn-primary btn-sm"
+                      (click)="completeOrder(order.Id)"
+                      [disabled]="loading">
+                <i class="bi bi-check2-all"></i>
+                Hoàn thành
+              </button>
+              <button class="btn btn-outline-danger btn-sm"
+                      (click)="cancelOrder(order.Id)"
+                      [disabled]="loading">
+                <i class="bi bi-x-circle"></i>
+                Hủy đơn hàng
+              </button>
+            </ng-container>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>
