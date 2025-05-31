@@ -94,17 +94,9 @@
             </span>
           </div>
 
-          <!-- Customer Info -->
-          <div class="mb-2">
-            <h6 class="text-primary mb-1">
-              <i class="bi bi-person-circle"></i> Thông tin khách hàng
-            </h6>
-            <p class="mb-1"><strong>Tên:</strong> {{ order.Name }}</p>
-            <p class="mb-1"><strong>SĐT:</strong> {{ order.PhoneNumber }}</p>
-            <p class="mb-1"><strong>Địa chỉ:</strong> {{ order.Address }}</p>
-          </div>
-          <div class="card-body">
+          
             <!-- Customer Info -->
+             <div class="card-body">
             <h6 class="text-primary">
               <i class="bi bi-person-fill"></i> Thông tin khách hàng
             </h6>
@@ -164,7 +156,6 @@
             </button>
           </ng-container>
 
-<<<<<<< Updated upstream
           <!-- Đang xử lý -->
           <ng-container *ngIf="activeTab === 'processing'">
             <button
@@ -185,39 +176,6 @@
             </button>
           </ng-container>
         </div>
-=======
-
-          <!-- Action Buttons -->
-            <!-- Chờ xác nhận -->
-            <ng-container *ngIf="activeTab === 'waiting'">
-              <button class="btn btn-success btn-sm"
-                      (click)="confirmOrder(order.Id)"
-                      [disabled]="loading">
-                <i class="bi bi-check-circle"></i> Xác nhận đơn hàng
-              </button>
-              <button class="btn btn-outline-danger btn-sm"
-                      (click)="cancelOrder(order.Id)"
-                      [disabled]="loading">
-                <i class="bi bi-x-circle"></i> Hủy đơn hàng
-              </button>
-            </ng-container>
-
-            <!-- Đang xử lý -->
-            <ng-container *ngIf="activeTab === 'processing'">
-              <button class="btn btn-primary btn-sm"
-                      (click)="completeOrder(order.Id)"
-                      [disabled]="loading">
-                <i class="bi bi-check2-all"></i>
-                Hoàn thành
-              </button>
-              <button class="btn btn-outline-danger btn-sm"
-                      (click)="cancelOrder(order.Id)"
-                      [disabled]="loading">
-                <i class="bi bi-x-circle"></i>
-                Hủy đơn hàng
-              </button>
-            </ng-container>
->>>>>>> Stashed changes
       </div>
     </div>
   </div>
