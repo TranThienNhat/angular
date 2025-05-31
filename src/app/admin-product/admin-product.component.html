@@ -25,8 +25,8 @@
         <td>{{ product.IsOutOfStock ? 'Hết hàng' : 'Còn hàng' }}</td>
         <td>{{ product.Categories.join(', ') }}</td>
         <td>
-          <button class="btn btn-info" [routerLink]="['/admin/dashboard/product/orders', product.Id]">Mua</button>
-          <button class="btn btn-success" [routerLink]="['/admin/dashboard/product', product.Id]">Sửa</button>
+          <button class="btn btn-outline-secondary" [routerLink]="['/admin/dashboard/product/orders', product.Id]">Mua</button>
+          <button class="btn btn-outline-success" [routerLink]="['/admin/dashboard/product', product.Id]">Sửa</button>
           <button class="btn btn-danger" (click)="onDelete(product.Id)">
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -36,6 +36,6 @@
   </table>
 </div>
     
-<div *ngIf="products.length === 0">
+<div *ngIf="products.length === 0" class="noproduct">
   <p>Không có sản phẩm nào được tìm thấy.</p>
 </div>

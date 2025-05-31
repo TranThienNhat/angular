@@ -15,7 +15,26 @@
     transform: translateY(0);
   }
 }
-
+.table {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.table-responsive {
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+}
+.table-dark {
+  background: #273F4F;
+}
+.table-dark th {
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 1.2rem 1rem;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
 /* Hover effect cho table rows */
 .table-hover tbody tr:hover {
   background-color: var(--bs-gray-100) !important;
@@ -44,13 +63,24 @@
 
 /* Card styling */
 .card {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .card-header {
-  background-color: var(--bs-light);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  background: #273F4F;
+  border: none;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.card-header h5{
+  color: white;
 }
 
 /* Badge styling */

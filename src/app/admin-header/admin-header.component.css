@@ -3,7 +3,9 @@
     padding: 5px 0;
     max-height: 92px;
 }
-
+.navbar-brand {
+    font-family: Brush Script MT;
+}
 .navbar-brand img{
     width: 90px; 
     height: auto;
