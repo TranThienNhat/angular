@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductServiceService } from '../service/product.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+
 interface Category {
   id: number;
   name: string;
 }
+
 @Component({
   selector: 'app-product',
-  imports: [NgIf, NgFor, RouterLink],
+  imports: [NgIf, NgFor, RouterLink, CurrencyPipe],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
