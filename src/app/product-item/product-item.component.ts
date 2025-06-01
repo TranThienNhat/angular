@@ -66,22 +66,25 @@ export class ProductItemComponent implements OnInit {
       this.quantityControl.setValidators([
         Validators.required,
         Validators.min(1),
-        Validators.max(this.product.Quantity) // Changed from StockQuantity to Quantity
+        Validators.max(this.product.Quantity), // Changed from StockQuantity to Quantity
       ]);
       this.quantityControl.updateValueAndValidity();
-      
+
       // Nếu giá trị hiện tại vượt quá stock, reset về 1
       const currentValue = this.quantityControl.value || 1;
       if (currentValue > this.product.Quantity) {
         this.quantityControl.setValue(this.product.Quantity);
       }
-      
+
       // Subscribe to value changes để validate real-time
-      this.quantityControl.valueChanges.subscribe(value => {
+      this.quantityControl.valueChanges.subscribe((value) => {
         if (value && (value < 1 || value > this.product.Quantity)) {
           // Nếu giá trị không hợp lệ, không cập nhật
           setTimeout(() => {
-            const clampedValue = Math.max(1, Math.min(value, this.product.Quantity));
+            const clampedValue = Math.max(
+              1,
+              Math.min(value, this.product.Quantity),
+            );
             if (value !== clampedValue) {
               this.quantityControl.setValue(clampedValue, { emitEvent: false });
               if (value > this.product.Quantity) {
@@ -100,7 +103,8 @@ export class ProductItemComponent implements OnInit {
 
   increaseQuantity(): void {
     const currentValue = this.quantityControl.value || 0;
-    if (currentValue < this.product.Quantity) { // Changed from StockQuantity to Quantity
+    if (currentValue < this.product.Quantity) {
+      // Changed from StockQuantity to Quantity
       this.quantityControl.setValue(currentValue + 1);
     }
   }
@@ -120,11 +124,12 @@ export class ProductItemComponent implements OnInit {
   // Xử lý khi người dùng nhập trực tiếp vào input
   onQuantityInputChange(event: any): void {
     const inputValue = parseInt(event.target.value, 10);
-    
+
     if (isNaN(inputValue) || inputValue < 1) {
       // Nếu không phải số hoặc nhỏ hơn 1, set về 1
       this.quantityControl.setValue(1);
-    } else if (inputValue > this.product.Quantity) { // Changed from StockQuantity to Quantity
+    } else if (inputValue > this.product.Quantity) {
+      // Changed from StockQuantity to Quantity
       // Nếu vượt quá stock, set về max stock
       this.quantityControl.setValue(this.product.Quantity);
       // Hiển thị thông báo
@@ -138,10 +143,11 @@ export class ProductItemComponent implements OnInit {
   // Validation khi người dùng rời khỏi input (blur)
   validateQuantityInput(): void {
     const currentValue = this.quantityControl.value || 1;
-    
+
     if (currentValue < 1) {
       this.quantityControl.setValue(1);
-    } else if (currentValue > this.product.Quantity) { // Changed from StockQuantity to Quantity
+    } else if (currentValue > this.product.Quantity) {
+      // Changed from StockQuantity to Quantity
       this.quantityControl.setValue(this.product.Quantity);
       alert(`Số lượng tối đa có thể đặt là ${this.product.Quantity}`);
     }
@@ -150,20 +156,24 @@ export class ProductItemComponent implements OnInit {
   // Ngăn chặn nhập ký tự không hợp lệ
   onQuantityKeyDown(event: KeyboardEvent): void {
     // Cho phép: backspace, delete, tab, escape, enter
-    if ([8, 9, 27, 13, 46].indexOf(event.keyCode) !== -1 ||
+    if (
+      [8, 9, 27, 13, 46].indexOf(event.keyCode) !== -1 ||
       // Cho phép Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
       (event.keyCode === 65 && event.ctrlKey === true) ||
       (event.keyCode === 67 && event.ctrlKey === true) ||
       (event.keyCode === 86 && event.ctrlKey === true) ||
       (event.keyCode === 88 && event.ctrlKey === true) ||
       // Cho phép home, end, left, right
-      (event.keyCode >= 35 && event.keyCode <= 39)) {
+      (event.keyCode >= 35 && event.keyCode <= 39)
+    ) {
       return;
     }
-    
+
     // Chỉ cho phép số (0-9)
-    if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) && 
-        (event.keyCode < 96 || event.keyCode > 105)) {
+    if (
+      (event.shiftKey || event.keyCode < 48 || event.keyCode > 57) &&
+      (event.keyCode < 96 || event.keyCode > 105)
+    ) {
       event.preventDefault();
     }
   }
@@ -179,11 +189,13 @@ export class ProductItemComponent implements OnInit {
   // Kiểm tra xem có thể đặt hàng không
   canPlaceOrder(): boolean {
     const quantity = this.quantityControl.value || 0;
-    return !this.product.IsOutOfStock && 
-           this.orderForm.valid && 
-           this.quantityControl.valid &&
-           quantity <= this.product.Quantity && // Changed from StockQuantity to Quantity
-           quantity > 0;
+    return (
+      !this.product.IsOutOfStock &&
+      this.orderForm.valid &&
+      this.quantityControl.valid &&
+      quantity <= this.product.Quantity && // Changed from StockQuantity to Quantity
+      quantity > 0
+    );
   }
 
   submitOrder(): void {
@@ -202,7 +214,8 @@ export class ProductItemComponent implements OnInit {
         ],
       };
 
-      this.orderService.createOrder(orderData).subscribe({ // Fixed typo: orrderService -> orderService
+      this.orderService.createOrder(orderData).subscribe({
+        // Fixed typo: orrderService -> orderService
         next: (response) => {
           alert('Đơn hàng đã được gửi thành công!');
           this.orderForm.reset();

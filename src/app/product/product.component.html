@@ -8,7 +8,7 @@
     <p>{{ product.Categories.join(", ") }}</p>
     <h3>{{ product.Name }}</h3>
     <div class="product-info">
-      <p><strong>Giá:</strong> {{ product.Price | number: '1.0-0' }} VND</p>
+      <p><strong>Giá:</strong> {{ product.Price | number: "1.0-0" }} VND</p>
       <p><strong>Số lượng:</strong> {{ product.Quantity }}</p>
     </div>
     <button
@@ -18,7 +18,7 @@
       [routerLink]="['/products', product.Id]"
       [disabled]="product.IsOutOfStock"
     >
-      {{ product.IsOutOfStock ? 'Hết hàng' : 'Mua' }}
+      {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
     </button>
   </div>
 </div>

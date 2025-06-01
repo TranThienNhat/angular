@@ -9,7 +9,10 @@ import { Router, RouterLink } from '@angular/router';
 export class AdminHeaderComponent {
   @ViewChild('navbarCollapse', { static: false }) navbarCollapse!: ElementRef;
 
-  constructor(private router: Router, private renderer: Renderer2) {}
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+  ) {}
 
   closeNavbar(): void {
     if (this.navbarCollapse.nativeElement.classList.contains('show')) {

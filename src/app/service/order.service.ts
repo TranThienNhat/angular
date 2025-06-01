@@ -28,6 +28,13 @@ export class OrderService {
     });
   }
 
+  getOrderById(Id: Number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${Id}`, {
+      headers: this.getHeaders(),
+      withCredentials: true,
+    });
+  }
+
   createOrder(orderData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create`, orderData);
   }

@@ -45,11 +45,11 @@
     border: none !important;
     padding: 4px 8px;
   }
-  
+
   .navbar-toggler:focus {
     box-shadow: none;
   }
-  
+
   /* Style cho collapsed navbar - không dùng absolute để đẩy content xuống */
   .navbar-collapse {
     background-color: white;
@@ -62,12 +62,12 @@
     position: static !important;
     width: 100%;
   }
-  
+
   /* Nav items spacing trên mobile */
   .nav-item {
     margin: 8px 0 !important;
   }
-  
+
   .nav-link {
     padding: 12px 16px !important;
     border-radius: 8px;
@@ -76,25 +76,25 @@
     align-items: center;
     font-weight: 500;
   }
-  
+
   .nav-link:hover {
     background-color: #f8f9fa;
     transform: translateX(8px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   /* Icon spacing trên mobile */
   .nav-link i {
     width: 24px;
     text-align: center;
     font-size: 1.1rem;
   }
-  
+
   /* Brand logo nhỏ hơn trên mobile */
   .navbar-brand {
     font-size: 1.25rem !important;
   }
-  
+
   .navbar-brand img {
     height: 35px;
   }
