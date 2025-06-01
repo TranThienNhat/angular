@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-admin-header',
@@ -7,7 +7,18 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './admin-header.component.css',
 })
 export class AdminHeaderComponent {
-  constructor(private router: Router) {}
+  @ViewChild('navbarCollapse', { static: false }) navbarCollapse!: ElementRef;
+
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+  ) {}
+
+  closeNavbar(): void {
+    if (this.navbarCollapse.nativeElement.classList.contains('show')) {
+      this.renderer.removeClass(this.navbarCollapse.nativeElement, 'show');
+    }
+  }
 
   onLogout() {
     sessionStorage.clear();

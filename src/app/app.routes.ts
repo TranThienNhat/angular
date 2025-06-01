@@ -1,19 +1,12 @@
 import { Routes } from '@angular/router';
-import { ProductComponent } from './product/product.component';
-import { ProductItemComponent } from './product-item/product-item.component';
-import { HomeComponent } from './home/home.component';
-import { LoginFormComponent } from './login-form/login-form.component';
 import { authGuard } from './auth.guard';
-import { AdminHeaderComponent } from './admin-header/admin-header.component';
-import { AdminProductUpdateComponent } from './admin-product-update/admin-product-update.component';
-import { AdminProductComponent } from './admin-product/admin-product.component';
-import { AdminCategoryComponent } from './admin-category/admin-category.component';
-import { AdminProductAddComponent } from './admin-product-add/admin-product-add.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-
-  // Lazy loading cho các component
+  {
+    path: '',
+    loadComponent: () =>
+      import('./home/home.component').then((m) => m.HomeComponent),
+  },
   {
     path: 'category/:Id',
     loadComponent: () =>

@@ -8,14 +8,21 @@
     <p>{{ product.Categories.join(", ") }}</p>
     <h3>{{ product.Name }}</h3>
     <div class="product-info">
+      <p><strong>Giá:</strong> {{ product.Price | number: "1.0-0" }} VND</p>
       <p><strong>Số lượng:</strong> {{ product.Quantity }}</p>
-      <p><strong>Giá:</strong> {{ product.Price }}</p>
     </div>
-    <button class="btn btn-secondary" [routerLink]="['/products', product.Id]">
-      Mua
+    <button
+      class="btn"
+      [class.btn-secondary]="!product.IsOutOfStock"
+      [class.btn-outline-secondary]="product.IsOutOfStock"
+      [routerLink]="['/products', product.Id]"
+      [disabled]="product.IsOutOfStock"
+    >
+      {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
     </button>
   </div>
 </div>
+
 <div *ngIf="products.length === 0" class="card">
   <p>Không có sản phẩm nào được tìm thấy.</p>
 </div>

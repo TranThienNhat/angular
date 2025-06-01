@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
   <div class="container">
     <!-- Logo -->
-    <a class="navbar-brand fw-bold" [routerLink]="['']">
+    <a class="navbar-brand fw-bold" [routerLink]="['']" (click)="closeNavbar()">
       <img src="./assets/images/logo.jpg" alt="logo" />
       Simple House
     </a>
@@ -12,17 +12,21 @@
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Menu chính -->
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" #navbarNav id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['']"
+            (click)="closeNavbar()"
           >
             <i class="bisc bi-house-fill me-1"></i>
             <span class="label-item">Giới thiệu</span>
@@ -32,6 +36,7 @@
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['/category', 1]"
+            (click)="closeNavbar()"
           >
             <i class="bi bi-table me-1"></i>
             <span class="label-item">Bàn</span>
@@ -41,6 +46,7 @@
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['/category', 2]"
+            (click)="closeNavbar()"
           >
             <i class="fa-solid fa-couch"></i>
             <span class="label-item">Ghế</span>
@@ -50,6 +56,7 @@
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['/category', 3]"
+            (click)="closeNavbar()"
           >
             <i class="fa-solid fa-building"></i>
             <span class="label-item">Tủ</span>
@@ -59,6 +66,7 @@
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['/category', 4]"
+            (click)="closeNavbar()"
           >
             <i class="fa-solid fa-lightbulb"></i>
             <span class="label-item">Trang trí</span>
@@ -68,6 +76,7 @@
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['/admin/login']"
+            (click)="closeNavbar()"
           >
             <i class="bi bi-person-circle"></i>
             <span class="label-item">Đăng nhập</span>

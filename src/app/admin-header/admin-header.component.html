@@ -12,17 +12,21 @@
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarContent"
+      aria-controls="navbarContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarContent">
+    <div class="collapse navbar-collapse" #navbarCollapse id="navbarContent">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item mx-1">
           <a
-            class="nav-link d-flex align-items-center nav-link-hover"
+            class="nav-link d-flex align-items-center"
             [routerLink]="['/admin/dashboard']"
+            (click)="closeNavbar()"
           >
             <i class="bi bi-box-seam me-1"></i>
             <span>Product</span>
@@ -30,8 +34,9 @@
         </li>
         <li class="nav-item mx-1">
           <a
-            class="nav-link d-flex align-items-center nav-link-hover"
+            class="nav-link d-flex align-items-center"
             [routerLink]="['/admin/dashboard/category']"
+            (click)="closeNavbar()"
           >
             <i class="bi bi-grid me-1"></i>
             <span>Category</span>
@@ -39,8 +44,9 @@
         </li>
         <li class="nav-item mx-1">
           <a
-            class="nav-link d-flex align-items-center nav-link-hover"
+            class="nav-link d-flex align-items-center"
             [routerLink]="['/admin/dashboard/orders']"
+            (click)="closeNavbar()"
           >
             <i class="bi bi-cart-check me-1"></i>
             <span>Order</span>
@@ -48,8 +54,9 @@
         </li>
         <li class="nav-item mx-1">
           <a
-            class="nav-link d-flex align-items-center nav-link-hover"
+            class="nav-link d-flex align-items-center"
             (click)="onLogout()"
+            role="button"
           >
             <i class="bi bi-box-arrow-right me-1"></i>
             <span>Logout</span>

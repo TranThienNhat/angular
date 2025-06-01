@@ -1,39 +1,106 @@
+/* navbar.component.css */
+
+/* Đảm bảo navbar không đè lên content - sử dụng position relative */
 .navbar {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  padding: 5px 0;
-  max-height: 92px;
-}
-.navbar-brand {
-  font-family: Brush Script MT;
-}
-.navbar-brand img {
-  width: 90px;
-  height: auto;
-}
-.nav-link {
-  cursor: pointer;
-}
-
-.nav-link-hover {
-  position: relative;
-  transition: color 0.3s;
-}
-
-.nav-link-hover:hover {
-  color: #0d6efd;
-}
-
-.nav-link-hover::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #0d6efd;
-  transition: width 0.3s;
-}
-
-.nav-link-hover:hover::after {
+  position: relative !important;
+  z-index: 1030;
   width: 100%;
+}
+
+/* Đảm bảo navbar collapse đẩy content xuống trên mobile */
+.navbar-collapse {
+  position: static !important;
+}
+
+/* Logo styling */
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700 !important;
+}
+
+/* Hover effects cho nav links */
+.nav-link {
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding: 10px 15px !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd !important;
+  transform: translateY(-1px);
+}
+
+/* Mobile specific styles */
+@media (max-width: 991.98px) {
+  /* Navbar toggle button */
+  .navbar-toggler {
+    border: none !important;
+    padding: 4px 8px;
+  }
+
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+
+  /* Style cho collapsed navbar - không dùng absolute để đẩy content xuống */
+  .navbar-collapse {
+    background-color: white;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    margin-top: 8px;
+    padding: 20px;
+    border-top: 1px solid #dee2e6;
+    /* Loại bỏ position absolute để content được đẩy xuống */
+    position: static !important;
+    width: 100%;
+  }
+
+  /* Nav items spacing trên mobile */
+  .nav-item {
+    margin: 8px 0 !important;
+  }
+
+  .nav-link {
+    padding: 12px 16px !important;
+    border-radius: 8px;
+    width: 100%;
+    display: flex !important;
+    align-items: center;
+    font-weight: 500;
+  }
+
+  .nav-link:hover {
+    background-color: #f8f9fa;
+    transform: translateX(8px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Icon spacing trên mobile */
+  .nav-link i {
+    width: 24px;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  /* Brand logo nhỏ hơn trên mobile */
+  .navbar-brand {
+    font-size: 1.25rem !important;
+  }
+
+  .navbar-brand img {
+    height: 35px;
+  }
+}
+
+/* Animation cho Bootstrap collapse */
+.collapsing {
+  transition: height 0.35s ease !important;
 }
