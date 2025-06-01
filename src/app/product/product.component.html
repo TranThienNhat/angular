@@ -8,10 +8,10 @@
     <p>{{ product.Categories.join(", ") }}</p>
     <h3>{{ product.Name }}</h3>
     <div class="product-info">
-      <p><strong>Giá:</strong> {{ product.Price | currency: 'VND' : 'symbol' : '1.0-0' }}</p>
+      <p><strong>Giá:</strong> {{ product.Price | number: '1.0-0' }} VND</p>
       <p><strong>Số lượng:</strong> {{ product.Quantity }}</p>
     </div>
-    <button 
+    <button
       class="btn"
       [class.btn-secondary]="!product.IsOutOfStock"
       [class.btn-outline-secondary]="product.IsOutOfStock"

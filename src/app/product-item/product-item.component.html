@@ -4,19 +4,24 @@
     <div class="card-body">
       <div class="row">
         <!-- Product Image -->
-        <div class="col-md-4">
-          <img
-            [src]="'https://localhost:44384' + product.ImageUrl"
-            alt="{{ product.Name }}"
-            class="product-image"
-          />
+        <div class="col-md-6 col-lg-5">
+          <div class="text-center">
+            <img
+              [src]="'https://localhost:44384' + product.ImageUrl"
+              alt="{{ product.Name }}"
+              class="product-image img-fluid rounded shadow-sm"
+              style="max-height: 400px; width: 100%; object-fit: cover;"
+            />
+          </div>
         </div>
 
         <!-- Product Details -->
-        <div class="col-md-8">
-          <h1>{{ product.Name }}</h1>
-          <div>{{ product.Price | currency: "VND" : "symbol" : "1.0-0" }}</div>
-          <p>{{ product.Description }}</p>
+        <div class="col-md-6 col-lg-7">
+          <h1 class="mb-3">{{ product.Name }}</h1>
+          <div class="mb-3">
+            <span class="h3 text-primary fw-bold">{{ product.Price | number:'1.0-0' }} VND</span>
+          </div>
+          <p class="text-muted mb-4">{{ product.Description }}</p>
 
           <!-- Categories Display -->
           <div class="mb-3" *ngIf="product.Categories && product.Categories.length > 0">
@@ -40,43 +45,47 @@
           </div>
 
           <div *ngIf="!product.IsOutOfStock">
-            <label>Số lượng:</label>
-            <div class="d-flex align-items-center mb-3">
-              <button 
-                type="button" 
-                class="btn btn-outline-secondary btn-sm"
-                (click)="decreaseQuantity()"
-                [disabled]="(quantityControl.value || 0) <= 1"
-              >
-                -
-              </button>
-              <input
-                class="form-control mx-2 text-center"
-                style="width: 80px;"
-                type="number"
-                [formControl]="quantityControl"
-                [min]="1"
-                [max]="product.Quantity"
-                (input)="onQuantityInputChange($event)"
-                (blur)="validateQuantityInput()"
-                (keydown)="onQuantityKeyDown($event)"
-              />
-              <button 
-                type="button" 
-                class="btn btn-outline-secondary btn-sm"
-                (click)="increaseQuantity()"
-                [disabled]="(quantityControl.value || 0) >= product.Quantity"
-              >
-                +
-              </button>
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Số lượng:</label>
+              <div class="d-flex align-items-center">
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary"
+                  (click)="decreaseQuantity()"
+                  [disabled]="(quantityControl.value || 0) <= 1"
+                >
+                  -
+                </button>
+                <input
+                  class="form-control mx-3 text-center"
+                  style="width: 100px;"
+                  type="number"
+                  [formControl]="quantityControl"
+                  [min]="1"
+                  [max]="product.Quantity"
+                  (input)="onQuantityInputChange($event)"
+                  (blur)="validateQuantityInput()"
+                  (keydown)="onQuantityKeyDown($event)"
+                />
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary"
+                  (click)="increaseQuantity()"
+                  [disabled]="(quantityControl.value || 0) >= product.Quantity"
+                >
+                  +
+                </button>
+              </div>
             </div>
 
             <!-- Total Price -->
-            <div class="mb-3">
-              <span class="fw-bold">Tổng tiền: </span>
-              <span class="text-success fw-bold fs-5">{{
-                getTotalPrice() | currency: "VND" : "symbol" : "1.0-0"
-              }}</span>
+            <div class="mb-4 p-3 bg-light rounded">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="h5 mb-0">Tổng tiền:</span>
+                <span class="h4 text-success fw-bold mb-0">{{
+                  getTotalPrice() | number:'1.0-0'
+                }} VND</span>
+              </div>
             </div>
           </div>
 
