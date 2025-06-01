@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-admin-order-update',
   imports: [],
   templateUrl: './admin-order-update.component.html',
-  styleUrl: './admin-order-update.component.css'
+  styleUrl: './admin-order-update.component.css',
 })
-export class AdminOrderUpdateComponent {
-
-}
+export class AdminOrderUpdateComponent {}
