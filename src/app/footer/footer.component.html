@@ -1,42 +1,145 @@
-<footer class="footer-container">
-  <div class="footer-column">
-    <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
-    <img src="./assets/images/logo.jpg" alt="img-logo" />
-    <h4>FOLLOW US</h4>
-    <div class="social-icons">
-      <a href="#" class="bt-icon"
-        ><i class="fa-brands fa-instagram"></i>Instagram</a
-      >
-      <a href="#" class="bt-icon"
-        ><i class="fa-brands fa-youtube"></i>Youtube</a
-      >
-      <a href="#" class="bt-icon"
-        ><i class="fa-brands fa-facebook"></i>Facebook</a
-      >
+<!-- Footer Component Template -->
+<footer class="bg-dark text-light py-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Cột 1: Kết nối với chúng tôi -->
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-section text-center text-md-start">
+          <h4 class="text-primary fw-bold mb-4">
+            <i class="fas fa-home me-2"></i>KẾT NỐI VỚI CHÚNG TÔI
+          </h4>
+
+          <!-- Logo -->
+          <div class="logo-wrapper mb-4">
+            <img
+              src="./assets/images/logo.jpg"
+              alt="Logo"
+              class="img-fluid rounded-circle border border-primary border-3"
+              style="width: 80px; height: 80px; object-fit: cover"
+            />
+          </div>
+
+          <!-- Follow Us -->
+          <h5 class="text-warning mb-3">FOLLOW US</h5>
+          <div
+            class="social-links d-flex justify-content-center justify-content-md-start gap-3 mb-4"
+          >
+            <a href="#" class="btn btn-outline-light btn-sm rounded-pill">
+              <i class="fab fa-instagram me-2"></i>Instagram
+            </a>
+            <a href="#" class="btn btn-outline-light btn-sm rounded-pill">
+              <i class="fab fa-youtube me-2"></i>Youtube
+            </a>
+            <a href="#" class="btn btn-outline-light btn-sm rounded-pill">
+              <i class="fab fa-facebook me-2"></i>Facebook
+            </a>
+          </div>
+
+          <!-- Store Button -->
+          <a href="" class="btn btn-warning fw-bold px-4 py-2 rounded-pill">
+            <i class="fas fa-store me-2"></i>HỆ THỐNG CỬA HÀNG
+          </a>
+        </div>
+      </div>
+
+      <!-- Cột 2: Nội thất nhà -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-section">
+          <h4 class="text-primary fw-bold mb-4">
+            <i class="fas fa-couch me-2"></i>NỘI THẤT NHÀ
+          </h4>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <a href="/" class="text-light text-decoration-none hover-link">
+                <i class="fas fa-chevron-right me-2 text-primary"></i>Giới thiệu
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="#" class="text-light text-decoration-none hover-link">
+                <i class="fas fa-chevron-right me-2 text-primary"></i>Tổng công
+                ty
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="#" class="text-light text-decoration-none hover-link">
+                <i class="fas fa-chevron-right me-2 text-primary"></i>Tuyển dụng
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="#" class="text-light text-decoration-none hover-link">
+                <i class="fas fa-chevron-right me-2 text-primary"></i>Thẻ hội
+                viên
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="#" class="text-light text-decoration-none hover-link">
+                <i class="fas fa-chevron-right me-2 text-primary"></i>Đổi trả
+                hàng
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cột 3: Thông tin liên hệ -->
+      <div class="col-lg-5 col-md-12">
+        <div class="footer-section">
+          <h4 class="text-primary fw-bold mb-4">
+            <i class="fas fa-phone me-2"></i>THÔNG TIN LIÊN HỆ
+          </h4>
+
+          <!-- Newsletter -->
+          <div class="newsletter-section mb-4">
+            <p class="mb-3">
+              <i class="fas fa-envelope me-2 text-warning"></i>
+              <strong>Nhận thông tin mới nhất từ chúng tôi</strong>
+            </p>
+            <div class="input-group mb-3">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Nhập email của bạn"
+              />
+              <button class="btn btn-primary px-4" type="button">
+                <i class="fas fa-paper-plane me-2"></i>ĐĂNG KÝ
+              </button>
+            </div>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <div class="mb-3">
+              <p class="mb-1">
+                <i class="fas fa-envelope me-2 text-warning"></i>
+                <strong>Email liên hệ:</strong>
+              </p>
+              <a class="text-primary text-decoration-none">
+                {{ "simplehouse123@gmail.com.vn" }}
+              </a>
+            </div>
+
+            <div class="mb-3">
+              <p class="mb-1">
+                <i class="fas fa-phone-alt me-2 text-success"></i>
+                <strong>Hotline:</strong>
+              </p>
+              <a class="text-success text-decoration-none fs-5 fw-bold">
+                066771508
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <a class="bt-store" href="">Hệ THỐNG CỬA HÀNG</a>
-  </div>
-  <div class="footer-column">
-    <h3>NỘI THẤT NHÀ</h3>
-    <ul>
-      <li><a href="/">Giới thiệu</a></li>
-      <li><a href="#">Tổng công ty</a></li>
-      <li><a href="#">Tuyển dụng</a></li>
-      <li><a href="#">Thẻ hội viên</a></li>
-      <li><a href="#">Đổi trả hàng</a></li>
-    </ul>
-  </div>
-  <div class="footer-column">
-    <h3>THÔNG TIN LIÊN HỆ</h3>
-    <p>Nhận thông tin mới nhất từ chúng tôi</p>
-    <input type="email" placeholder="Nhập email của bạn" />
-    <button class="subscribe-btn">ĐĂNG KÝ</button>
-    <p>
-      Email liên hệ:
-      <a href="mailto:noithatxuankhanh@gmail.com"
-        >simplehouse123&#64;gmail.com.vn</a
-      >
-    </p>
-    <p>Hotline: <a href="tel:0906904114">066771508</a></p>
+
+    <!-- Copyright - ĐÃ SỬA -->
+    <hr class="my-4 border-secondary" />
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="mb-0 text-light">
+          © {{ currentYear }} Nội Thất Nhà. All rights reserved.
+        </p>
+      </div>
+    </div>
   </div>
 </footer>

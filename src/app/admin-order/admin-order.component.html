@@ -28,7 +28,7 @@
               (click)="setActiveTab('processing')"
             >
               <i class="bi bi-gear"></i> Đang xử lý
-              <span class="badge-count" *ngIf="processingOrders.length > 0">
+              <span class="badge-count1" *ngIf="processingOrders.length > 0">
                 {{ processingOrders.length }}</span
               >
             </button>
@@ -39,20 +39,12 @@
               (click)="setActiveTab('complete')"
             >
               <i class="bi bi-check-circle"></i> Lịch sử
-              <span class="badge-count" *ngIf="completedOrders.length > 0">
+              <span class="badge-count2" *ngIf="completedOrders.length > 0">
                 {{ completedOrders.length }}</span
               >
             </button>
           </div>
         </div>
-      </div>
-
-      <!-- Loading State -->
-      <div *ngIf="loading" class="text-center py-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Đang tải...</span>
-        </div>
-        <p class="mt-2">Đang tải danh sách đơn hàng...</p>
       </div>
 
       <!-- Empty State -->
@@ -66,120 +58,115 @@
       </div>
 
       <!-- Orders Display -->
-      <div
-        *ngFor="let order of getCurrentOrders(); let i = index"
-        class="order-item mb-4 p-4 border rounded shadow-sm"
-      >
-        <!-- Order Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div>
-            <h5 class="mb-1">
-              <i class="bi bi-receipt"></i>
-              Đơn hàng #{{ order.Id }}
-            </h5>
-            <small class="text-muted">
-              Ngày đặt: {{ order.OrderDate | date : "dd/MM/yyyy HH:mm" }}
-            </small>
-          </div>
-          <div>
-            <span
-              class="badge fs-6"
-              [class.bg-warning]="order.OrderStatus === 'DangXuLy'"
-              [class.bg-info]="order.OrderStatus === 'DaXacMinh'"
-              [class.bg-success]="order.OrderStatus === 'DaGiao'"
-              [class.bg-danger]="order.OrderStatus === 'DaHuy'"
-            >
-              <i class="bi bi-tag-fill"></i>
-              {{ getStatusText(order.OrderStatus) }}
-            </span>
-          </div>
+      <div class="orders-container">
+        <div
+          *ngFor="let order of getSortedOrders(); let i = index"
+          class="order-item"
+          [attr.data-status]="order.OrderStatus"
+        >
+          <!-- Order Header -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h5 class="mb-1">
+                <i class="bi bi-receipt"></i>
+                Đơn hàng #{{ order.Id }}
+                <span
+                  class="badge fs-6"
+                  [class.bg-warning]="order.OrderStatus === 'DangXuLy'"
+                  [class.bg-info]="order.OrderStatus === 'DaXacMinh'"
+                  [class.bg-success]="order.OrderStatus === 'DaGiao'"
+                  [class.bg-danger]="order.OrderStatus === 'DaHuy'"
+                >
+                  <i class="bi bi-tag-fill"></i>
+                  {{ getStatusText(order.OrderStatus) }}
+                </span>
+              </h5>
+              <small class="text-muted">
+                Ngày đặt: {{ order.OrderDate | date : "dd/MM/yyyy HH:mm" }}
+              </small>
 
-          <!-- Customer Info -->
-          <div class="card-body">
-            <h6 class="text-primary">
-              <i class="bi bi-person-fill"></i> Thông tin khách hàng
-            </h6>
-            <p><strong>Tên:</strong> {{ order.Name }}</p>
-            <p><strong>SDT:</strong> {{ order.PhoneNumber }}</p>
-            <p><strong>Địa chỉ:</strong> {{ order.Address }}</p>
+              <!-- Customer Info -->
+              <div class="card-body">
+                <h6 class="text-primary">
+                  <i class="bi bi-person-fill"></i> Thông tin khách hàng
+                </h6>
+                <p><strong>Tên:</strong> {{ order.Name }}</p>
+                <p><strong>SĐT:</strong> {{ order.PhoneNumber }}</p>
+                <p><strong>Địa chỉ:</strong> {{ order.Address }}</p>
+                <p><strong>Email:</strong> {{ order.Email }}</p>
 
-            <!-- Order Detail -->
-            <h6 class="text-info mt-3">
-              <i class="bi bi-info-circle-fill"></i> Chi tiết đơn hàng
-            </h6>
-            <p>
-              <strong>Ngày đặt:</strong>
-              {{ order.OrderDate | date : "HH:mm:ss dd/MM/yyyy" }}
-            </p>
-            <p>
-              <strong>Tổng tiền:</strong>
-              <span class="text-success">{{
-                order.TotalPrice | currency : "VND" : "symbol"
-              }}</span>
-            </p>
+                <!-- Order Detail -->
+                <h6 class="text-info mt-3">
+                  <i class="bi bi-info-circle-fill"></i> Chi tiết đơn hàng
+                </h6>
+                <p>
+                  <strong>Tổng tiền:</strong>
+                  <span class="text-success">{{
+                    formatCurrency(order.TotalPrice)
+                  }}</span>
+                </p>
+              </div>
 
-            <!-- Order Items -->
-            <h6 class="mt-3"><i class="bi bi-box-seam"></i> Sản phẩm</h6>
-            <div
-              *ngFor="let item of order.OrderItems"
-              class="bg-light border rounded p-2 mb-2 d-flex justify-content-between"
-            >
-              <div>{{ item.ProductName }} x{{ item.Quantity }}</div>
-              <div class="text-success">
-                {{
-                  item.PriceAtPurchase * item.Quantity
-                    | currency : "VND" : "symbol"
-                }}
+              <!-- Order Items -->
+              <h6 class="mt-3"><i class="bi bi-box-seam"></i> Sản phẩm</h6>
+              <div
+                *ngFor="let item of order.OrderItems"
+                class="bg-light border rounded p-2 mb-2 d-flex justify-content-between"
+              >
+                <div>{{ item.ProductName }} x{{ item.Quantity }}</div>
+                <div class="text-success">
+                  {{ formatCurrency(item.PriceAtPurchase * item.Quantity) }}
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Action Buttons -->
-        <div class="d-flex gap-2 justify-content-end mt-3">
-          <!-- Chờ xác nhận -->
-          <ng-container *ngIf="activeTab === 'waiting'">
-            <button
-              class="btn btn-secondary"
-              [routerLink]="['/admin/dashboard/orders', order.Id]"
-            >
-              <i class="fa-solid fa-pen-to-square"></i> Sửa thông tin khách hàng
-            </button>
-            <button
-              class="btn btn-success btn-sm"
-              (click)="confirmOrder(order.Id)"
-              [disabled]="loading"
-            >
-              <i class="bi bi-check-circle"></i> Xác nhận đơn hàng
-            </button>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              (click)="cancelOrder(order.Id)"
-              [disabled]="loading"
-            >
-              <i class="bi bi-x-circle"></i> Hủy đơn hàng
-            </button>
-          </ng-container>
+          <!-- Action Buttons -->
+          <div class="d-flex gap-2 justify-content-end">
+            <!-- Chờ xác nhận -->
+            <ng-container *ngIf="activeTab === 'waiting'">
+              <button
+                class="btn btn-secondary"
+                [routerLink]="['/admin/dashboard/orders', order.Id]"
+              >
+                <i class="fa-solid fa-pen-to-square"></i> Sửa thông tin
+              </button>
+              <button
+                class="btn btn-success btn-sm"
+                (click)="confirmOrder(order.Id)"
+                [disabled]="loading"
+              >
+                <i class="bi bi-check-circle"></i> Xác minh
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="cancelOrder(order.Id)"
+                [disabled]="loading"
+              >
+                <i class="bi bi-x-circle"></i> Hủy
+              </button>
+            </ng-container>
 
-          <!-- Đang xử lý -->
-          <ng-container *ngIf="activeTab === 'processing'">
-            <button
-              class="btn btn-primary btn-sm"
-              (click)="completeOrder(order.Id)"
-              [disabled]="loading"
-            >
-              <i class="bi bi-check2-all"></i>
-              Hoàn thành
-            </button>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              (click)="cancelOrder(order.Id)"
-              [disabled]="loading"
-            >
-              <i class="bi bi-x-circle"></i>
-              Hủy đơn hàng
-            </button>
-          </ng-container>
+            <!-- Đang xử lý -->
+            <ng-container *ngIf="activeTab === 'processing'">
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="completeOrder(order.Id)"
+                [disabled]="loading"
+              >
+                <i class="bi bi-check2-all"></i>
+                Hoàn thành
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="cancelOrder(order.Id)"
+                [disabled]="loading"
+              >
+                <i class="bi bi-x-circle"></i>
+                Hủy đơn hàng
+              </button>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>

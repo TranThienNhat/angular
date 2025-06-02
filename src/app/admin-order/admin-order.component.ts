@@ -141,20 +141,15 @@ export class AdminOrderComponent implements OnInit {
 
   // Helper method để hiển thị tên trạng thái
   getStatusText(status: string): string {
-    switch (status?.toLowerCase()) {
-      case 'waiting':
-      case 'pending':
-        return 'Chờ xác nhận';
-      case 'processing':
-      case 'confirmed':
+    switch (status) {
+      case 'DangXuLy':
         return 'Đang xử lý';
-      case 'complete':
-      case 'completed':
-        return 'Hoàn thành';
-      case 'cancelled':
+      case 'DaXacMinh':
+        return 'Chờ xác minh';
+      case 'DaGiao':
+        return 'Đã giao';
+      case 'DaHuy':
         return 'Đã hủy';
-      case 'delivered':
-        return 'Đã giao hàng';
       default:
         return status || 'Không xác định';
     }
@@ -181,5 +176,30 @@ export class AdminOrderComponent implements OnInit {
     const price = order.Price;
     const quantity = order.Quantity;
     return price * quantity;
+  }
+  /**
+   * Sắp xếp đơn hàng theo thời gian mới nhất lên trên
+   */
+  getSortedOrders() {
+    return this.getCurrentOrders().sort((a, b) => {
+      const dateA = new Date(a.OrderDate);
+      const dateB = new Date(b.OrderDate);
+      return dateB.getTime() - dateA.getTime(); // Sắp xếp giảm dần (mới nhất lên trên)
+    });
+  }
+
+  /**
+   * Format tiền tệ theo định dạng VNĐ
+   */
+  formatCurrency(amount: number): string {
+    if (!amount && amount !== 0) return '0 VNĐ';
+
+    return (
+      new Intl.NumberFormat('vi-VN', {
+        style: 'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(amount) + ' VNĐ'
+    );
   }
 }
