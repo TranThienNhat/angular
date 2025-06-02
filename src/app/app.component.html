@@ -2,5 +2,5 @@
   <div *ngIf="isAdmin"><app-admin-header /></div>
   <div *ngIf="!isAdmin"><app-header /></div>
   <router-outlet />
-  <app-footer />
+  <div *ngIf="!isAdmin"><app-footer /></div>
 </main>
