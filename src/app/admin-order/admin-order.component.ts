@@ -2,13 +2,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { OrderService } from '../service/order.service';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-order',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './admin-order.component.html',
   styleUrl: './admin-order.component.css',
 })

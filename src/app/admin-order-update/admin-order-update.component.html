@@ -1,1 +1,69 @@
-<p>admin-order-update works!</p>
+<div class="card">
+  <div class="card-body">
+    <h2>Sửa thông tin khách hàng</h2>
+
+    <form [formGroup]="putorderForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Name Field -->
+        <div class="col-md-6">
+          <label for="name">Tên Khách hàng</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="Nhập tên khách hàng"
+          />
+        </div>
+
+        <!-- Phone Number Field -->
+        <div class="col-md-6">
+          <label for="phonenumber">Số điện thoại</label>
+          <input
+            type="tel"
+            id="phonenumber"
+            formControlName="phonenumber"
+            placeholder="Số điện thoại"
+          />
+        </div>
+      </div>
+
+      <!-- Address Field -->
+      <div>
+        <label for="address">Địa chỉ</label>
+        <input type="text" id="address" formControlName="address" />
+      </div>
+
+      <!-- Email Field -->
+      <div>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Nhập email"
+        />
+      </div>
+
+      <div>
+        <label for="Note">Note</label>
+        <input
+          type="text"
+          id="note"
+          formControlName="note"
+          placeholder="Ghi chú"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <button
+          class="btn btn-success"
+          type="submit"
+          [disabled]="!putorderForm.valid"
+        >
+          Lưu thay đổi
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

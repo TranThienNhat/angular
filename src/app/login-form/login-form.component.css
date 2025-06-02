@@ -4,7 +4,7 @@
 }
 .container-body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #43978d, #f9e07f);
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
@@ -19,7 +19,7 @@
   width: 100%;
   padding: 20px;
   position: relative;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #43978d, #f9e07f);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .container.mt-5 {

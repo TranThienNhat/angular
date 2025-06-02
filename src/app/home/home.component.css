@@ -6,11 +6,11 @@
 .container {
   max-width: 85%;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 4px 20px;
   background: white;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  margin-top: 20px;
+  margin-top: 2px;
   margin-bottom: 20px;
   overflow: hidden;
 }

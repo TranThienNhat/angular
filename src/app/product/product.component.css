@@ -87,12 +87,6 @@
   line-height: 1.5;
   color: #4a5568;
 }
-.product-info {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px; /* Điều chỉnh khoảng cách giữa các phần tử */
-}
-
 .product-card p strong {
   color: #2d3748;
   font-weight: 600;

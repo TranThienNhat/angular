@@ -22,7 +22,7 @@ export class AdminProductUpdateComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private productService: ProductServiceService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.putproductForm = this.fb.group({
       name: ['', Validators.required], // Đặt tên nhất quán
@@ -60,11 +60,11 @@ export class AdminProductUpdateComponent implements OnInit {
       this.productService.putProductById(putData, Id).subscribe({
         next: (response) => {
           alert(response.message);
-          this.routerUrl.navigate(['/admin/dashboard']);
+          this.routerUrl.navigate(['/admin/dashboard/']);
         },
         error: (error) => {
-          console.error('Error updating product:', error);
-          alert('Có lỗi xảy ra khi cập nhật sản phẩm!');
+          console.error('Error updating:', error);
+          alert('Có lỗi xảy ra khi cập nhật thông tin!');
         },
       });
     }

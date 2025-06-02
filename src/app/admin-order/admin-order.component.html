@@ -78,7 +78,7 @@
               Đơn hàng #{{ order.Id }}
             </h5>
             <small class="text-muted">
-              Ngày đặt: {{ order.OrderDate | date: "dd/MM/yyyy HH:mm" }}
+              Ngày đặt: {{ order.OrderDate | date : "dd/MM/yyyy HH:mm" }}
             </small>
           </div>
           <div>
@@ -109,12 +109,12 @@
             </h6>
             <p>
               <strong>Ngày đặt:</strong>
-              {{ order.OrderDate | date: "HH:mm:ss dd/MM/yyyy" }}
+              {{ order.OrderDate | date : "HH:mm:ss dd/MM/yyyy" }}
             </p>
             <p>
               <strong>Tổng tiền:</strong>
               <span class="text-success">{{
-                order.TotalPrice | currency: "VND" : "symbol"
+                order.TotalPrice | currency : "VND" : "symbol"
               }}</span>
             </p>
 
@@ -128,7 +128,7 @@
               <div class="text-success">
                 {{
                   item.PriceAtPurchase * item.Quantity
-                    | currency: "VND" : "symbol"
+                    | currency : "VND" : "symbol"
                 }}
               </div>
             </div>
@@ -139,6 +139,12 @@
         <div class="d-flex gap-2 justify-content-end mt-3">
           <!-- Chờ xác nhận -->
           <ng-container *ngIf="activeTab === 'waiting'">
+            <button
+              class="btn btn-secondary"
+              [routerLink]="['/admin/dashboard/orders', order.Id]"
+            >
+              <i class="fa-solid fa-pen-to-square"></i> Sửa thông tin khách hàng
+            </button>
             <button
               class="btn btn-success btn-sm"
               (click)="confirmOrder(order.Id)"
