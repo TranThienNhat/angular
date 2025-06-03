@@ -7,11 +7,12 @@ import {
 import { ProductServiceService } from '../service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-admin-product-update',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './admin-product-update.component.html',
   styleUrls: ['./admin-product-update.component.css'],
 })
@@ -27,8 +28,8 @@ export class AdminProductUpdateComponent implements OnInit {
     this.putproductForm = this.fb.group({
       name: ['', Validators.required], // Đặt tên nhất quán
       description: ['', Validators.required],
-      quantity: ['', [Validators.required, Validators.min(0)]],
-      price: ['', [Validators.required, Validators.min(0)]],
+      quantity: [0, [Validators.required, Validators.min(0)]],
+      price: [0, [Validators.required, Validators.min(0)]],
     });
   }
 

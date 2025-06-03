@@ -30,7 +30,15 @@
       <!-- Quantity Field -->
       <div>
         <label for="Quantity">Số lượng</label>
-        <input type="number" id="Quantity" formControlName="quantity" />
+        <input type="number" id="Quantity" formControlName="quantity" min="0" />
+        <div
+          *ngIf="
+            putproductForm.get('quantity')?.hasError('min') &&
+            putproductForm.get('quantity')?.touched
+          "
+        >
+          <span class="text-danger">Số lượng không được nhỏ hơn 0</span>
+        </div>
       </div>
 
       <!-- Note Field -->
@@ -41,7 +49,16 @@
           id="Price"
           formControlName="price"
           placeholder="Nhập giá sản phẩm"
+          min="0"
         />
+        <div
+          *ngIf="
+            putproductForm.get('price')?.hasError('min') &&
+            putproductForm.get('price')?.touched
+          "
+        >
+          <span class="text-danger">Giá sản phẩm không được nhỏ hơn 0</span>
+        </div>
       </div>
 
       <!-- Submit Button -->
