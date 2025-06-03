@@ -39,6 +39,9 @@
 .logo-wrapper img:hover {
   transform: scale(1.1);
 }
+.fas fa-chevron-right me-2 {
+  color: rpg(#47d420);
+}
 
 @media (max-width: 768px) {
   .social-links {
@@ -51,4 +54,5 @@
     max-width: 200px;
     text-align: center;
   }
+  
 }

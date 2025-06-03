@@ -28,7 +28,7 @@ export class AdminOrderUpdateComponent implements OnInit {
       phonenumber: ['', Validators.required],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      note: ['', Validators.required],
+      note: [''],
     });
   }
 

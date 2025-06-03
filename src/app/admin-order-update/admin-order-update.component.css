@@ -10,6 +10,10 @@
   padding: 2.5rem;
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
 }
+.card-body h2 {
+  display: flex;
+  justify-content: center;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -17,8 +21,9 @@ form {
 }
 .row {
   display: flex;
-  gap: 1.5rem;
   margin-bottom: 0.5rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 input {
   width: 100%;
