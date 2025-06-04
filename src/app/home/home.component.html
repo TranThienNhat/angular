@@ -104,6 +104,82 @@
   </div>
 </section>
 <!------------------SẢN PHẨM-------------------->
-<section>
-  <div></div>
+    <section class="py-5">
+    <div class="container">
+        <h2 class="text-center section-title fw-bold">Sản Phẩm Nổi Bật</h2>
+        
+        <!-- Products Infinite Scroll Container -->
+        <div class="infinite-scroll-wrapper" *ngIf="products.length > 0">
+            <div class="product-container row g-4">
+                <!-- Original products -->
+                <div class="col-lg-3 col-md-6" *ngFor="let product of products">
+                    <div class="product-card card h-100">
+                        <div class="product-image-wrapper">
+                            <img
+                                [src]="'https://localhost:44384' + product.ImageUrl"
+                                alt="{{ product.Name }}"
+                                class="product-image card-img-top"
+                            />
+                        </div>
+                        
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title product-name text-center mb-3">{{ product.Name }}</h5>
+                            
+                            <button
+                                class="btn product-btn mt-auto"
+                                [class.btn-primary]="!product.IsOutOfStock"
+                                [class.btn-outline-secondary]="product.IsOutOfStock"
+                                [routerLink]="['/products', product.Id]"
+                                [disabled]="product.IsOutOfStock"
+                            >
+                                <i class="fas fa-shopping-cart me-2" *ngIf="!product.IsOutOfStock"></i>
+                                <i class="fas fa-times-circle me-2" *ngIf="product.IsOutOfStock"></i>
+                                {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Duplicated products for seamless loop -->
+                <div class="col-lg-3 col-md-6" *ngFor="let product of products">
+                    <div class="product-card card h-100">
+                        <div class="product-image-wrapper">
+                            <img
+                                [src]="'https://localhost:44384' + product.ImageUrl"
+                                alt="{{ product.Name }}"
+                                class="product-image card-img-top"
+                            />
+                        </div>
+                        
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title product-name text-center mb-3">{{ product.Name }}</h5>
+                            
+                            <button
+                                class="btn product-btn mt-auto"
+                                [class.btn-primary]="!product.IsOutOfStock"
+                                [class.btn-outline-secondary]="product.IsOutOfStock"
+                                [routerLink]="['/products', product.Id]"
+                                [disabled]="product.IsOutOfStock"
+                            >
+                                <i class="fas fa-shopping-cart me-2" *ngIf="!product.IsOutOfStock"></i>
+                                <i class="fas fa-times-circle me-2" *ngIf="product.IsOutOfStock"></i>
+                                {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- No Products Message -->
+        <div class="text-center py-5" *ngIf="products.length === 0">
+            <div class="card p-4 mx-auto" style="max-width: 400px;">
+                <div class="card-body">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h5 class="card-title">Không có sản phẩm nào</h5>
+                    <p class="card-text text-muted">Không có sản phẩm nào được tìm thấy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
