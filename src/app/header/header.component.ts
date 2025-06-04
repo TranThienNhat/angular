@@ -46,13 +46,13 @@ export class HeaderComponent implements OnInit {
 
   getCategoryIcon(categoryName: string): string {
     const name = categoryName.toLowerCase();
-    if (name.includes('bàn') || name.includes('ban')) {
+    if (name.includes('bàn')) {
       return 'bi bi-table';
-    } else if (name.includes('ghế') || name.includes('ghe')) {
+    } else if (name.includes('ghế')) {
       return 'fa-solid fa-couch';
-    } else if (name.includes('tủ') || name.includes('tu')) {
+    } else if (name.includes('tủ')) {
       return 'fa-solid fa-building';
-    } else if (name.includes('trang trí') || name.includes('trang tri')) {
+    } else if (name.includes('trang trí')) {
       return 'fa-solid fa-lightbulb';
     } else {
       return 'bi bi-grid-3x3-gap';
