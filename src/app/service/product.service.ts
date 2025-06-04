@@ -30,6 +30,12 @@ export class ProductServiceService {
     });
   }
 
+  getProduct(Id: number): Observable<any> {
+    return this.http.get<any>(this.apiUrl , {
+      withCredentials: true,
+    });
+  }
+
   getProductByCategory(Id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}?categoryId=${Id}`, {
       withCredentials: true,
