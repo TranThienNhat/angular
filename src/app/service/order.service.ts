@@ -7,11 +7,8 @@ import { LoginService } from './login.service';
   providedIn: 'root',
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:63885/api/orders';
-  constructor(
-    private http: HttpClient,
-    private loginService: LoginService,
-  ) {}
+  private apiUrl = 'https://localhost:44384/api/orders';
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   private getHeaders(): HttpHeaders {
     const token = this.loginService.getToken();
