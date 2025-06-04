@@ -9,6 +9,13 @@ export const routes: Routes = [
       import('./home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'introduce',
+    loadComponent: () =>
+      import('./introduce/introduce.component').then(
+        (m) => m.IntroduceComponent
+      ),
+  },
+  {
     path: 'category/:Id',
     loadComponent: () =>
       import('./product/product.component').then((m) => m.ProductComponent),
@@ -17,21 +24,21 @@ export const routes: Routes = [
     path: 'products/:Id',
     loadComponent: () =>
       import('./product-item/product-item.component').then(
-        (m) => m.ProductItemComponent,
+        (m) => m.ProductItemComponent
       ),
   },
   {
     path: 'admin/login',
     loadComponent: () =>
       import('./login-form/login-form.component').then(
-        (m) => m.LoginFormComponent,
+        (m) => m.LoginFormComponent
       ),
   },
   {
     path: 'admin/dashboard',
     loadComponent: () =>
       import('./admin-product/admin-product.component').then(
-        (m) => m.AdminProductComponent,
+        (m) => m.AdminProductComponent
       ),
     canActivate: [authGuard],
   },
@@ -39,7 +46,7 @@ export const routes: Routes = [
     path: 'admin/dashboard/product/create',
     loadComponent: () =>
       import('./admin-product-add/admin-product-add.component').then(
-        (m) => m.AdminProductAddComponent,
+        (m) => m.AdminProductAddComponent
       ),
     canActivate: [authGuard],
   },
@@ -47,7 +54,7 @@ export const routes: Routes = [
     path: 'admin/dashboard/product/:Id',
     loadComponent: () =>
       import('./admin-product-update/admin-product-update.component').then(
-        (m) => m.AdminProductUpdateComponent,
+        (m) => m.AdminProductUpdateComponent
       ),
     canActivate: [authGuard],
   },
@@ -55,7 +62,7 @@ export const routes: Routes = [
     path: 'admin/dashboard/category',
     loadComponent: () =>
       import('./admin-category/admin-category.component').then(
-        (m) => m.AdminCategoryComponent,
+        (m) => m.AdminCategoryComponent
       ),
     canActivate: [authGuard],
   },
@@ -63,7 +70,7 @@ export const routes: Routes = [
     path: 'admin/dashboard/orders',
     loadComponent: () =>
       import('./admin-order/admin-order.component').then(
-        (m) => m.AdminOrderComponent,
+        (m) => m.AdminOrderComponent
       ),
     canActivate: [authGuard],
   },
@@ -71,7 +78,7 @@ export const routes: Routes = [
     path: 'admin/dashboard/orders/:Id',
     loadComponent: () =>
       import('./admin-order-update/admin-order-update.component').then(
-        (m) => m.AdminOrderUpdateComponent,
+        (m) => m.AdminOrderUpdateComponent
       ),
     canActivate: [authGuard],
   },
@@ -80,7 +87,7 @@ export const routes: Routes = [
     path: 'admin/dashboard/product/orders/:Id',
     loadComponent: () =>
       import('./product-item/product-item.component').then(
-        (m) => m.ProductItemComponent,
+        (m) => m.ProductItemComponent
       ),
     canActivate: [authGuard],
   },

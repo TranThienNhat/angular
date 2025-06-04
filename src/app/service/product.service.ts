@@ -7,12 +7,9 @@ import { LoginService } from './login.service';
   providedIn: 'root',
 })
 export class ProductServiceService {
-  private apiUrl = 'http://localhost:63885/api/products';
+  private apiUrl = 'https://localhost:44384/api/products';
 
-  constructor(
-    private http: HttpClient,
-    private loginService: LoginService,
-  ) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   private getHeaders(): HttpHeaders {
     const token = this.loginService.getToken();

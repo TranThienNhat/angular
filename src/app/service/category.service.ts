@@ -7,12 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiUrl = 'http://localhost:63885/api/category';
+  private apiUrl = 'https://localhost:44384/api/category';
 
-  constructor(
-    private http: HttpClient,
-    private loginService: LoginService,
-  ) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   private getHeaders(): HttpHeaders {
     const token = this.loginService.getToken();
