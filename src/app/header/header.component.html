@@ -32,44 +32,15 @@
             <span class="label-item">Giới thiệu</span>
           </a>
         </li>
-        <li class="nav-item">
+        <!-- Menu danh mục động từ API -->
+        <li class="nav-item" *ngFor="let category of categories">
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
-            [routerLink]="['/category', 1]"
+            [routerLink]="['/category', category.Id]"
             (click)="closeNavbar()"
           >
-            <i class="bi bi-table me-1"></i>
-            <span class="label-item">Bàn</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link d-flex align-items-center nav-link-hover"
-            [routerLink]="['/category', 2]"
-            (click)="closeNavbar()"
-          >
-            <i class="fa-solid fa-couch"></i>
-            <span class="label-item">Ghế</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link d-flex align-items-center nav-link-hover"
-            [routerLink]="['/category', 3]"
-            (click)="closeNavbar()"
-          >
-            <i class="fa-solid fa-building"></i>
-            <span class="label-item">Tủ</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link d-flex align-items-center nav-link-hover"
-            [routerLink]="['/category', 4]"
-            (click)="closeNavbar()"
-          >
-            <i class="fa-solid fa-lightbulb"></i>
-            <span class="label-item">Trang trí</span>
+            <i [class]="getCategoryIcon(category.Name) + ' me-1'"></i>
+            <span class="label-item">{{ category.Name }}</span>
           </a>
         </li>
         <li class="nav-item">
@@ -79,7 +50,7 @@
             (click)="closeNavbar()"
           >
             <i class="bi bi-person-circle"></i>
-            <span class="label-item">Đăng nhập</span>
+            <span class="label-item"></span>
           </a>
         </li>
       </ul>

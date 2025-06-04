@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
 import { NgFor, NgIf } from '@angular/common';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import {FormControl,FormGroup,ReactiveFormsModule,Validators,} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
