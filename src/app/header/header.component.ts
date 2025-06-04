@@ -1,13 +1,7 @@
-import { Component, ElementRef, Renderer2, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CategoryService } from '../service/category.service';
 import { NgFor } from '@angular/common';
-import { Subscription } from 'rxjs';
-
-interface Category {
-  Id: number;
-  Name: string;
-}
 
 @Component({
   selector: 'app-header',
@@ -19,8 +13,7 @@ interface Category {
 export class HeaderComponent implements OnInit {
   @ViewChild('navbarNav', { static: false }) navbarNav!: ElementRef;
   
-  categories: Category[] = [];
-  private categorySubscription?: Subscription;
+  categories: any[] = []; // List để lưu categories
 
   constructor(
     private renderer: Renderer2,
@@ -28,21 +21,21 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadCategories();
+    this.loadCategories(); // Gọi API khi component khởi tạo
   }
 
+  // Gọi API và lưu vào list
   loadCategories(): void {
-    this.categorySubscription = this.categoryService.getCategory().subscribe({
-      next: (data: Category[]) => {
-        this.categories = data || [];
-        console.log('Categories loaded in header:', this.categories);
+    this.categoryService.getCategory().subscribe({
+      next: (data) => {
+        this.categories = data; // Lưu data vào list
+        console.log('Categories:', this.categories);
       },
+      error: (error) => {
+        console.error('Error:', error);
+        this.categories = []; // Reset list nếu lỗi
+      }
     });
-  }
-
-  // Method để refresh categories từ component khác có thể gọi
-  refreshCategories(): void {
-    this.loadCategories();
   }
 
   closeNavbar(): void {
@@ -51,7 +44,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  // Helper method để lấy icon cho từng danh mục
   getCategoryIcon(categoryName: string): string {
     const name = categoryName.toLowerCase();
     if (name.includes('bàn') || name.includes('ban')) {
@@ -63,7 +55,7 @@ export class HeaderComponent implements OnInit {
     } else if (name.includes('trang trí') || name.includes('trang tri')) {
       return 'fa-solid fa-lightbulb';
     } else {
-      return 'bi bi-grid-3x3-gap'; // Icon mặc định
+      return 'bi bi-grid-3x3-gap';
     }
   }
 }

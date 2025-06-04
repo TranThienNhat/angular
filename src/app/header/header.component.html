@@ -28,11 +28,12 @@
             [routerLink]="['/introduce']"
             (click)="closeNavbar()"
           >
-            <i class="bisc bi-house-fill me-1"></i>
+            <i class="bi bi-house-fill me-1"></i>
             <span class="label-item">Giới thiệu</span>
           </a>
         </li>
-        <!-- Menu danh mục động từ API -->
+
+        <!-- Lặp hiển thị categories từ API -->
         <li class="nav-item" *ngFor="let category of categories">
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
@@ -43,13 +44,14 @@
             <span class="label-item">{{ category.Name }}</span>
           </a>
         </li>
+
         <li class="nav-item">
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
             [routerLink]="['/admin/login']"
             (click)="closeNavbar()"
           >
-            <i class="bi bi-person-circle"></i>
+            <i class="bi bi-person-circle me-1"></i>
             <span class="label-item"></span>
           </a>
         </li>
