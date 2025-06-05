@@ -28,11 +28,9 @@ export class HeaderComponent implements OnInit {
   loadCategories(): void {
     this.categoryService.getCategory().subscribe({
       next: (data) => {
-        this.categories = data; // Lưu data vào list
-        console.log('Categories:', this.categories);
+        this.categories = data;
       },
       error: (error) => {
-        console.error('Error:', error);
         this.categories = []; // Reset list nếu lỗi
       }
     });
@@ -41,21 +39,6 @@ export class HeaderComponent implements OnInit {
   closeNavbar(): void {
     if (this.navbarNav?.nativeElement.classList.contains('show')) {
       this.renderer.removeClass(this.navbarNav.nativeElement, 'show');
-    }
-  }
-
-  getCategoryIcon(categoryName: string): string {
-    const name = categoryName.toLowerCase();
-    if (name.includes('bàn')) {
-      return 'bi bi-table';
-    } else if (name.includes('ghế')) {
-      return 'fa-solid fa-couch';
-    } else if (name.includes('tủ')) {
-      return 'fa-solid fa-building';
-    } else if (name.includes('trang trí')) {
-      return 'fa-solid fa-lightbulb';
-    } else {
-      return 'bi bi-grid-3x3-gap';
     }
   }
 }
