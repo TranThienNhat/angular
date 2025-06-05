@@ -64,6 +64,8 @@
   margin-bottom: 12px;
   transition: transform 0.3s ease;
   background: #f1f3f4;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-card:hover .product-image {

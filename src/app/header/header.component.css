@@ -56,6 +56,7 @@
   position: relative;
   text-decoration: none;
   display: flex;
+  line-height: normal;
 }
 
 .nav-link-hover {
@@ -90,7 +91,7 @@
 /* Icon của menu chính */
 .nav-link i {
   margin-right: 2px;
-  font-size: 16px;
+  font-size: 18px;
   transition: transform 0.3s ease;
   width: 18px;
   text-align: center;

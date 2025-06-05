@@ -224,6 +224,9 @@ h1 {
   display: flex;
   line-height: 1.5;
   color: #6c757d;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
 }
 
 .order-item .card-body p strong {

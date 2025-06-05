@@ -151,3 +151,9 @@
   font-weight: 500;
   margin: 0;
 }
+.product-description {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

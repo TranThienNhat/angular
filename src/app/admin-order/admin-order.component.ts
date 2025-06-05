@@ -27,7 +27,7 @@ export class AdminOrderComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private orderService: OrderService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
@@ -50,13 +50,13 @@ export class AdminOrderComponent implements OnInit {
   // Phân loại orders theo trạng thái
   categorizeOrders(): void {
     this.waitingOrders = this.orders.filter(
-      (o) => o.OrderStatus === 'DangXuLy',
+      (o) => o.OrderStatus === 'DangXuLy'
     );
     this.processingOrders = this.orders.filter(
-      (o) => o.OrderStatus === 'DaXacMinh',
+      (o) => o.OrderStatus === 'DaXacMinh'
     );
     this.completedOrders = this.orders.filter(
-      (o) => o.OrderStatus === 'DaGiao' || o.OrderStatus === 'DaHuy',
+      (o) => o.OrderStatus === 'DaGiao' || o.OrderStatus === 'DaHuy'
     );
   }
 
@@ -111,7 +111,22 @@ export class AdminOrderComponent implements OnInit {
       });
     }
   }
-
+  // Gửi hóa đơn qua email
+  sendInvoiceEmail(orderId: number): void {
+    if (confirm('bạn có muốn gửi hóa đơn đến email khách hàng ?')) {
+      this.loading = true;
+      this.orderService.putInvoiceEmail(orderId).subscribe({
+        next: () => {
+          this.showMessage('đã gửi hóa đơn qua email thành công', 'success');
+          this.loadOrders();
+        },
+        error: (error) => {
+          console.error('Error completing send:', error);
+          this.error = 'Không thể gửi email';
+        },
+      });
+    }
+  }
   // Hủy đơn hàng
   cancelOrder(orderId: number): void {
     if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
@@ -129,14 +144,17 @@ export class AdminOrderComponent implements OnInit {
   }
 
   viewInvoicePdf(orderId: number) {
-    this.orderService.getInvoicePdf(orderId).subscribe(blob => {
-      const url = window.URL.createObjectURL(blob);
-      window.open(url);
-      // Nếu muốn, có thể revoke URL sau 1 thời gian để giải phóng bộ nhớ
-      setTimeout(() => window.URL.revokeObjectURL(url), 10000);
-    }, error => {
-      console.error('Lấy hóa đơn PDF thất bại', error);
-    });
+    this.orderService.getInvoicePdf(orderId).subscribe(
+      (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+        // Nếu muốn, có thể revoke URL sau 1 thời gian để giải phóng bộ nhớ
+        setTimeout(() => window.URL.revokeObjectURL(url), 10000);
+      },
+      (error) => {
+        console.error('Lấy hóa đơn PDF thất bại', error);
+      }
+    );
   }
 
   private showMessage(message: string, type: 'success' | 'error') {

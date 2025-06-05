@@ -166,24 +166,37 @@
                 Hủy đơn hàng
               </button>
             </ng-container>
-
-            <ng-container *ngIf="activeTab === 'complete'">
+            <!--Phần lịch sử  -->
+            <!--Phần lịch sử - chỉ hiển thị nút khi đơn hàng hoàn thành -->
+            <ng-container
+              *ngIf="activeTab === 'complete' && order.OrderStatus === 'DaGiao'"
+            >
               <button
                 class="btn btn-primary btn-sm"
                 (click)="viewInvoicePdf(order.Id)"
                 [disabled]="loading"
               >
-                <i class="bi bi-check2-all"></i>
+                <i class="bi bi-file-earmark-pdf"></i>
                 Xem hóa đơn
               </button>
               <button
-                class="btn btn-outline-danger btn-sm"
-                (click)="cancelOrder(order.Id)"
+                class="btn btn-outline-success btn-sm"
+                (click)="sendInvoiceEmail(order.Id)"
                 [disabled]="loading"
               >
-                <i class="bi bi-x-circle"></i>
-                Email
+                <i class="bi bi-envelope"></i>
+                Gửi Email
               </button>
+            </ng-container>
+
+            <!-- Hiển thị thông báo cho đơn hàng đã hủy -->
+            <ng-container
+              *ngIf="activeTab === 'complete' && order.OrderStatus === 'DaHuy'"
+            >
+              <span class="text-muted fst-italic">
+                <i class="bi bi-x-circle text-danger"></i>
+                Đơn hàng đã bị hủy
+              </span>
             </ng-container>
           </div>
         </div>
