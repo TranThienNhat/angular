@@ -214,6 +214,8 @@ export class ProductItemComponent implements OnInit {
         ],
       };
 
+      console.log(orderData)
+
       this.orderService.createOrder(orderData).subscribe({
         // Fixed typo: orrderService -> orderService
         next: (response) => {

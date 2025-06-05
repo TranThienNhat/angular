@@ -32,6 +32,14 @@ export class OrderService {
     });
   }
 
+  getInvoicePdf(Id: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/${Id}/invoicepdf`, {
+    headers: this.getHeaders(),
+    withCredentials: true,
+    responseType: 'blob'
+  });
+}
+
   createOrder(orderData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create`, orderData);
   }
@@ -48,5 +56,9 @@ export class OrderService {
       headers: this.getHeaders(),
       withCredentials: true,
     });
+  }
+
+  putInvoiceEmail(Id:Number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${Id}/sendinvoice`, {}, {headers: this.getHeaders(), withCredentials: true})
   }
 }
