@@ -128,6 +128,17 @@ export class AdminOrderComponent implements OnInit {
     }
   }
 
+  viewInvoicePdf(orderId: number) {
+    this.orderService.getInvoicePdf(orderId).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+      // Nếu muốn, có thể revoke URL sau 1 thời gian để giải phóng bộ nhớ
+      setTimeout(() => window.URL.revokeObjectURL(url), 10000);
+    }, error => {
+      console.error('Lấy hóa đơn PDF thất bại', error);
+    });
+  }
+
   private showMessage(message: string, type: 'success' | 'error') {
     alert(message);
 

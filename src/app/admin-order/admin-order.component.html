@@ -166,6 +166,25 @@
                 Hủy đơn hàng
               </button>
             </ng-container>
+
+            <ng-container *ngIf="activeTab === 'complete'">
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="viewInvoicePdf(order.Id)"
+                [disabled]="loading"
+              >
+                <i class="bi bi-check2-all"></i>
+                Xem hóa đơn
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="cancelOrder(order.Id)"
+                [disabled]="loading"
+              >
+                <i class="bi bi-x-circle"></i>
+                Email
+              </button>
+            </ng-container>
           </div>
         </div>
       </div>
