@@ -57,7 +57,40 @@
 .image-slider:hover .slide img {
   transform: scale(1.05);
 }
+/* xử lý media cho Tablet */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .hero-section {
+    min-height: 90vh;
+    padding: 1.5rem 0;
+  }
 
+  .image-slider {
+    max-width: 600px;
+    height: 380px;
+    margin-bottom: 1.5rem;
+    border-radius: 15px;
+  }
+
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-section .lead {
+    font-size: 1.2rem;
+    max-width: 500px;
+  }
+
+  .slider-indicators {
+    bottom: 15px;
+    gap: 0.6rem;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
 @keyframes slide {
   0%,
   20% {
@@ -379,7 +412,6 @@ html {
 .product-card:hover .product-image {
   transform: scale(1.05);
   border-color: #764ba2;
-
 }
 
 /* Product card body */
