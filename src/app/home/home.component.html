@@ -89,85 +89,58 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-6" [routerLink]="['/category', 4]">
-        <div class="category-card decor-card">
-          <div class="card-body">
-            <div class="category-icon">🎨</div>
-            <h5 class="card-title fw-bold">Trang Trí</h5>
-            <p class="card-text">
-              Xem thêm <i class="fas fa-chevron-right ms-2"></i>
-            </p>
-          </div>
+  <div class="col-lg-3 col-md-6" [routerLink]="['/category', 4]">
+    <div class="category-card decor-card">
+      <div class="card-body">
+        <div class="category-icon">🎨</div>
+        <h5 class="card-title fw-bold">Trang Trí</h5>
+        <p class="card-text">
+         Xem thêm <i class="fas fa-chevron-right ms-2"></i>
+        </p>
         </div>
+      </div>
       </div>
     </div>
   </div>
 </section>
 <!------------------SẢN PHẨM-------------------->
-    <section class="py-5">
+<section class="py-5">
     <div class="container">
         <h2 class="text-center section-title fw-bold">Sản Phẩm Nổi Bật</h2>
         
         <!-- Products Infinite Scroll Container -->
         <div class="infinite-scroll-wrapper" *ngIf="products.length > 0">
             <div class="product-container row g-4">
-                <!-- Original products -->
-                <div class="col-lg-3 col-md-6" *ngFor="let product of products">
-                    <div class="product-card card h-100">
-                        <div class="product-image-wrapper">
-                            <img
-                                [src]="'https://localhost:44384' + product.ImageUrl"
-                                alt="{{ product.Name }}"
-                                class="product-image card-img-top"
-                            />
-                        </div>
-                        
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title product-name text-center mb-3">{{ product.Name }}</h5>
+                <!-- Tạo nhiều bản sao để tránh khoảng trống -->
+                <ng-container *ngFor="let copy of getProductCopies()">
+                    <div class="col-lg-3 col-md-6 product-item" *ngFor="let product of products">
+                        <div class="product-card card h-100">
+                            <div class="product-image-wrapper">
+                                <img
+                                    [src]="'https://localhost:44384' + product.ImageUrl"
+                                    alt="{{ product.Name }}"
+                                    class="product-image card-img-top"
+                                />
+                            </div>
                             
-                            <button
-                                class="btn product-btn mt-auto"
-                                [class.btn-primary]="!product.IsOutOfStock"
-                                [class.btn-outline-secondary]="product.IsOutOfStock"
-                                [routerLink]="['/products', product.Id]"
-                                [disabled]="product.IsOutOfStock"
-                            >
-                                <i class="fas fa-shopping-cart me-2" *ngIf="!product.IsOutOfStock"></i>
-                                <i class="fas fa-times-circle me-2" *ngIf="product.IsOutOfStock"></i>
-                                {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
-                            </button>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title product-name text-center mb-3">{{ product.Name }}</h5>
+                                
+                                <button
+                                    class="btn product-btn mt-auto"
+                                    [class.btn-primary]="!product.IsOutOfStock"
+                                    [class.btn-outline-secondary]="product.IsOutOfStock"
+                                    [routerLink]="['/products', product.Id]"
+                                    [disabled]="product.IsOutOfStock"
+                                >
+                                    <i class="fas fa-shopping-cart me-2" *ngIf="!product.IsOutOfStock"></i>
+                                    <i class="fas fa-times-circle me-2" *ngIf="product.IsOutOfStock"></i>
+                                    {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Duplicated products for seamless loop -->
-                <div class="col-lg-3 col-md-6" *ngFor="let product of products">
-                    <div class="product-card card h-100">
-                        <div class="product-image-wrapper">
-                            <img
-                                [src]="'https://localhost:44384' + product.ImageUrl"
-                                alt="{{ product.Name }}"
-                                class="product-image card-img-top"
-                            />
-                        </div>
-                        
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title product-name text-center mb-3">{{ product.Name }}</h5>
-                            
-                            <button
-                                class="btn product-btn mt-auto"
-                                [class.btn-primary]="!product.IsOutOfStock"
-                                [class.btn-outline-secondary]="product.IsOutOfStock"
-                                [routerLink]="['/products', product.Id]"
-                                [disabled]="product.IsOutOfStock"
-                            >
-                                <i class="fas fa-shopping-cart me-2" *ngIf="!product.IsOutOfStock"></i>
-                                <i class="fas fa-times-circle me-2" *ngIf="product.IsOutOfStock"></i>
-                                {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
         </div>
         

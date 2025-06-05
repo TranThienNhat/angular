@@ -25,4 +25,16 @@ export class HomeComponent implements OnInit {
       });
     });
   }
+  /**Tính toán để số lượng bản sao để tránh khoảng trống */
+getProductCopies(): number[] {
+  if (this.products.length == 0){
+    return [];
+  }
+/**Tính toán số bản sao cần thiết */
+  const minProductstoshow = 15;
+  const copiesNeeded = Math.max(3, Math.ceil(minProductstoshow / this.products.length));
+  //Trả về mảng các số để cho NgFor có thể lặp
+  return Array(copiesNeeded).fill(0).map((_, index) => index);
+}
+
 }
