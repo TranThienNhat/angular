@@ -91,4 +91,12 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'admin/dashboard/report',
+    loadComponent: () =>
+      import('./admin-report/admin-report.component').then(
+        (m) => m.AdminReportComponent
+      ),
+    canActivate: [authGuard],
+  },
 ];

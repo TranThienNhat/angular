@@ -1,0 +1,138 @@
+<!-- admin-report.component.html -->
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="card-title mb-0 text-center">
+            <i class="fas fa-file-invoice"></i> Báo cáo Hóa đơn
+          </h4>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="invoiceForm" novalidate>
+            <!-- Phone Number Input -->
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">
+                <i class="fas fa-phone"></i> Số điện thoại
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="tel"
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                class="form-control"
+                [class.is-invalid]="
+                  phoneNumber?.invalid && phoneNumber?.touched
+                "
+                [class.is-valid]="phoneNumber?.valid && phoneNumber?.touched"
+                placeholder="Nhập số điện thoại (10-11 số)"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="phoneNumber?.invalid && phoneNumber?.touched"
+              >
+                <small>Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)</small>
+              </div>
+            </div>
+
+            <!-- Order Date Input -->
+            <div class="mb-3">
+              <label for="orderDate" class="form-label">
+                <i class="fas fa-calendar-alt"></i> Ngày đặt hàng
+                <span class="text-danger">*</span>
+              </label>
+              <input
+                type="datetime-local"
+                id="orderDate"
+                formControlName="orderDate"
+                class="form-control"
+                [class.is-invalid]="orderDate?.invalid && orderDate?.touched"
+                [class.is-valid]="orderDate?.valid && orderDate?.touched"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="orderDate?.invalid && orderDate?.touched"
+              >
+                <small>Vui lòng chọn ngày đặt hàng</small>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button
+                type="button"
+                (click)="onView()"
+                [disabled]="isFormInvalid || isLoading"
+                class="btn btn-outline-primary me-md-2"
+              >
+                <span
+                  *ngIf="isLoading && actionType === 'view'"
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <i
+                  class="fas fa-eye"
+                  *ngIf="!(isLoading && actionType === 'view')"
+                ></i>
+                {{
+                  isLoading && actionType === "view" ? "Đang xử lý..." : "Xem"
+                }}
+              </button>
+
+              <button
+                type="button"
+                (click)="onEmail()"
+                [disabled]="isFormInvalid || isLoading"
+                class="btn btn-primary"
+              >
+                <span
+                  *ngIf="isLoading && actionType === 'email'"
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <i
+                  class="fas fa-envelope"
+                  *ngIf="!(isLoading && actionType === 'email')"
+                ></i>
+                {{
+                  isLoading && actionType === "email"
+                    ? "Đang gửi..."
+                    : "Gửi Email"
+                }}
+              </button>
+            </div>
+          </form>
+
+          <!-- Response Message -->
+          <div
+            *ngIf="responseMessage"
+            class="alert mt-3"
+            [class.alert-success]="responseType === 'success'"
+            [class.alert-danger]="responseType === 'error'"
+            role="alert"
+          >
+            <i
+              class="fas fa-check-circle"
+              *ngIf="responseType === 'success'"
+            ></i>
+            <i
+              class="fas fa-exclamation-triangle"
+              *ngIf="responseType === 'error'"
+            ></i>
+            {{ responseMessage }}
+          </div>
+        </div>
+
+        <div class="card-footer text-muted text-center">
+          <small>
+            <i class="fas fa-info-circle"></i>
+            Vui lòng điền đầy đủ thông tin để tiếp tục
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
