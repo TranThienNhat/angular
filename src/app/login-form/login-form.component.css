@@ -75,7 +75,7 @@ h3.text-center::after {
   transform: translateX(-50%);
   width: 50px;
   height: 3px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #6096FD, #764ba2);
   border-radius: 2px;
 }
 
