@@ -117,10 +117,12 @@ export class AdminOrderComponent implements OnInit {
       this.loading = true;
       this.orderService.putInvoiceEmail(orderId).subscribe({
         next: () => {
+          this.loading = false;
           this.showMessage('đã gửi hóa đơn qua email thành công', 'success');
           this.loadOrders();
         },
         error: (error) => {
+          this.loading = false;
           console.error('Error completing send:', error);
           this.error = 'Không thể gửi email';
         },
