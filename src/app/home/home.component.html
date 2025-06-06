@@ -52,48 +52,31 @@
 <section class="py-5 bg-light">
   <div class="container">
     <h2 class="text-center section-title fw-bold">Danh Mục Sản Phẩm</h2>
-    <div class="row g-4">
-      <div class="col-lg-3 col-md-6" [routerLink]="['/category', 1]">
-        <div class="category-card table-card">
-          <div class="card-body">
-            <div class="category-icon">🛒</div>
-            <h5 class="card-title fw-bold">Bàn</h5>
-            <p class="card-text">
-              Xem thêm <i class="fas fa-chevron-right ms-2"></i>
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-lg-3 col-md-6" [routerLink]="['/category', 2]">
-        <div class="category-card chair-card">
-          <div class="card-body">
-            <div class="category-icon">🛋️</div>
-            <h5 class="card-title fw-bold">Ghế</h5>
-            <p class="card-text">
-              Xem thêm <i class="fas fa-chevron-right ms-2"></i>
-            </p>
-          </div>
-        </div>
+    <!-- Loading state -->
+    <div class="text-center py-4" *ngIf="categories.length === 0">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
+      <p class="mt-2">Đang tải danh mục...</p>
+    </div>
 
-      <div class="col-lg-3 col-md-6" [routerLink]="['/category', 3]">
-        <div class="category-card cabin-card">
+    <!-- Categories Grid -->
+    <div class="row g-4" *ngIf="categories.length > 0">
+      <div
+        class="col-lg-3 col-md-6"
+        *ngFor="let category of sortedCategories"
+        [routerLink]="['/category', category.Id]"
+      >
+        <div
+          class="category-card"
+          [ngClass]="getCategoryCssClass(category.Name)"
+        >
           <div class="card-body">
-            <div class="category-icon">🗄️</div>
-            <h5 class="card-title fw-bold">Tủ</h5>
-            <p class="card-text">
-              Xem thêm <i class="fas fa-chevron-right ms-2"></i>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6" [routerLink]="['/category', 4]">
-        <div class="category-card decor-card">
-          <div class="card-body">
-            <div class="category-icon">🪞</div>
-            <h5 class="card-title fw-bold">Trang Trí</h5>
+            <div class="category-icon">
+              {{ getCategoryIcon(category.Name) }}
+            </div>
+            <h5 class="card-title fw-bold">{{ category.Name }}</h5>
             <p class="card-text">
               Xem thêm <i class="fas fa-chevron-right ms-2"></i>
             </p>
@@ -101,9 +84,23 @@
         </div>
       </div>
     </div>
+
+    <!-- Fallback nếu không có categories -->
+    <div class="text-center py-5" *ngIf="categories.length === 0">
+      <div class="card p-4 mx-auto" style="max-width: 400px">
+        <div class="card-body">
+          <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+          <h5 class="card-title">Không có danh mục nào</h5>
+          <p class="card-text text-muted">
+            Hiện tại chưa có danh mục sản phẩm nào.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-<!------------------SẢN PHẨM-------------------->
+
+<!-- Sản Phẩm Section -->
 <section class="py-5">
   <div class="container">
     <h2 class="text-center section-title fw-bold">Sản Phẩm Nổi Bật</h2>

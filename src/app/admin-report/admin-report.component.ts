@@ -83,7 +83,6 @@ export class AdminReportComponent implements OnInit {
           window.open(url);
           // Clean up memory after 10 seconds
           setTimeout(() => window.URL.revokeObjectURL(url), 10000);
-
           this.responseMessage = 'Hóa đơn đã được mở thành công!';
           this.responseType = 'success';
         } else {
@@ -104,11 +103,9 @@ export class AdminReportComponent implements OnInit {
           this.responseMessage = error.error.Message;
           this.responseType = 'error';
         } else {
-          this.responseMessage =
-            'Có lỗi xảy ra khi xem hóa đơn. Vui lòng thử lại!';
+          this.responseMessage = 'Không có đơn hàng nào được tìm thấy!';
           this.responseType = 'error';
         }
-        console.error('Error viewing invoice:', error);
       },
     });
   }
@@ -138,7 +135,6 @@ export class AdminReportComponent implements OnInit {
             : 'Dữ liệu đã được xử lý thành công!';
         }
         this.responseType = 'success';
-        console.log('Response:', response);
       },
       error: (error) => {
         this.isLoading = false;
@@ -150,7 +146,6 @@ export class AdminReportComponent implements OnInit {
           this.responseMessage = 'Có lỗi xảy ra. Vui lòng thử lại!';
         }
         this.responseType = 'error';
-        console.error('Error:', error);
       },
     });
   }
