@@ -19,15 +19,16 @@ export class OrderService {
     });
   }
 
-  getOrder(): Observable<any> {
-    return this.http.get<any>(this.apiUrl, {
+  getAllOrders(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/admin`, {
       headers: this.getHeaders(),
       withCredentials: true,
     });
   }
 
-  getOrderById(Id: Number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${Id}`, {
+  // Get my orders (User only)
+  getMyOrders(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/my`, {
       headers: this.getHeaders(),
       withCredentials: true,
     });
