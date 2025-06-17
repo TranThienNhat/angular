@@ -44,7 +44,7 @@ export class ProductItemComponent implements OnInit {
   ngOnInit(): void {
     // Trích xuất productId và cartItemId từ URL
     const productId = Number(this.route.snapshot.paramMap.get('Id'));
-    const cartItemIdParam = this.route.snapshot.paramMap.get('cartItemId');
+    const cartItemIdParam = this.route.snapshot.paramMap.get('CartItemId');
 
     // Nếu có cartItemId trong URL và không phải chuỗi rỗng
     if (cartItemIdParam && cartItemIdParam.trim() !== '') {
@@ -199,40 +199,79 @@ export class ProductItemComponent implements OnInit {
 
   submitOrder(): void {
     if (this.canPlaceOrder()) {
-      // Tạo object order data cơ bản
-      const orderData: any = {
-        ProductId: this.product.Id,
-        Quantity: this.quantityControl.value || 1,
-        Note: this.orderForm.get('note')?.value || '',
-        CartItemId: this.cartItemId || null, // Giả sử bạn có phương thức này để lấy UserId
-      };
-
-      // Chỉ thêm CartItemId nếu nó có giá trị hợp l
-
-      this.orderService.createOrder(orderData).subscribe({
-        next: (response) => {
-          alert('Đơn hàng đã được gửi thành công!');
-          this.orderForm.reset();
-          this.quantityControl.setValue(1);
-          if (this.isAdmin) {
-            this.router.navigate(['/admin/dashboard']);
-          } else {
-            this.router.navigate(['/']);
-          }
-        },
-        error: (err) => {
-          console.error('Order creation failed:', err);
-          if (err.status === 400 && err.error?.message?.includes('stock')) {
-            alert('Số lượng yêu cầu vượt quá số lượng có sẵn!');
-            // Refresh product data để cập nhật stock
-            this.ngOnInit();
-          } else {
-            alert('Gửi đơn hàng thất bại, vui lòng thử lại!');
-          }
-        },
-      });
+      // Kiểm tra xem có phải đặt hàng từ giỏ hàng không
+      if (this.cartItemId) {
+        // Tạo đơn hàng từ giỏ hàng
+        this.createOrderFromCart();
+      } else {
+        // Tạo đơn hàng thường
+        this.createNormalOrder();
+      }
     } else {
       alert('Vui lòng kiểm tra lại thông tin đặt hàng!');
+    }
+  }
+
+  // Tạo đơn hàng thường
+  private createNormalOrder(): void {
+    const orderData = {
+      ProductId: this.product.Id,
+      Quantity: this.quantityControl.value || 1,
+      Note: this.orderForm.get('note')?.value || '',
+    };
+
+    console.log('Creating normal order with data:', orderData);
+
+    this.orderService.createOrder(orderData).subscribe({
+      next: (response) => {
+        this.handleOrderSuccess('Đơn hàng đã được gửi thành công!');
+      },
+      error: (err) => {
+        this.handleOrderError(err);
+      },
+    });
+  }
+
+  // Tạo đơn hàng từ giỏ hàng
+  private createOrderFromCart(): void {
+    const orderData = {
+      CartItemId: this.cartItemId,
+      Note: this.orderForm.get('note')?.value || '',
+    };
+
+    console.log('Creating order from cart with data:', orderData);
+
+    this.orderService.createOrderFromCart(orderData).subscribe({
+      next: (response) => {
+        this.handleOrderSuccess('Đơn hàng từ giỏ hàng đã được gửi thành công!');
+      },
+      error: (err) => {
+        this.handleOrderError(err);
+      },
+    });
+  }
+
+  // Xử lý khi tạo đơn hàng thành công
+  private handleOrderSuccess(message: string): void {
+    alert(message);
+    this.orderForm.reset();
+    this.quantityControl.setValue(1);
+    if (this.isAdmin) {
+      this.router.navigate(['/admin/dashboard']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  // Xử lý lỗi khi tạo đơn hàng
+  private handleOrderError(err: any): void {
+    console.error('Order creation failed:', err);
+    if (err.status === 400 && err.error?.message?.includes('stock')) {
+      alert('Số lượng yêu cầu vượt quá số lượng có sẵn!');
+      // Refresh product data để cập nhật stock
+      this.ngOnInit();
+    } else {
+      alert('Gửi đơn hàng thất bại, vui lòng thử lại!');
     }
   }
 }

@@ -49,6 +49,13 @@ export class OrderService {
     });
   }
 
+  createOrderFromCart(orderData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/create-cart`, orderData, {
+      headers: this.getHeaders(),
+      withCredentials: true,
+    });
+  }
+
   // Updated method for getting report with correct endpoint
   postInvice(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/report`, data, {
