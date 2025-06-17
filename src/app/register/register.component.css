@@ -1,0 +1,150 @@
+/* Custom styles cho register component */
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #007bff, #0056b3) !important;
+  border-bottom: none;
+  padding: 2rem 1rem;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.15);
+  background-color: white;
+}
+
+.form-control.is-valid {
+  border-color: #28a745;
+  background-color: white;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-color: white;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.btn-outline-secondary {
+  border-radius: 0 8px 8px 0;
+  border-left: none;
+}
+
+.alert {
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  color: #721c24;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.form-label i {
+  color: #007bff;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  display: block;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .card-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .card-body {
+    padding: 1.5rem !important;
+  }
+}
+
+/* Animation cho form validation */
+.form-control.ng-invalid.ng-touched {
+  animation: shake 0.6s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Hover effect cho input groups */
+.input-group:hover .form-control {
+  border-color: #007bff;
+}
+
+.input-group:hover .btn-outline-secondary {
+  border-color: #007bff;
+  color: #007bff;
+}

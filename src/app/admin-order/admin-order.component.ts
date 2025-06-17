@@ -35,7 +35,7 @@ export class AdminOrderComponent implements OnInit {
   }
 
   loadOrders(): void {
-    this.orderService.getOrder().subscribe({
+    this.orderService.getAllOrders().subscribe({
       next: (data) => {
         this.orders = data;
         this.categorizeOrders();

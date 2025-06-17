@@ -55,4 +55,26 @@ export class LoginService {
       return false;
     }
   }
+
+  isUser(): boolean {
+    if (
+      typeof window === 'undefined' ||
+      typeof sessionStorage === 'undefined'
+    ) {
+      return false;
+    }
+
+    const user = sessionStorage.getItem('user');
+    if (!user) {
+      return false;
+    }
+
+    try {
+      const parsedUser = JSON.parse(user);
+      return parsedUser.role === 'USER';
+    } catch (error) {
+      console.error('Lỗi phân tích JSON:', error);
+      return false;
+    }
+  }
 }

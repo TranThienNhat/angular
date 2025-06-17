@@ -5,6 +5,7 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { LoginService } from './service/login.service';
 import { NgIf } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderUserComponent } from './header-user/header-user.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
     AdminHeaderComponent,
     NgIf,
     FooterComponent,
+    HeaderUserComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -21,10 +23,7 @@ import { FooterComponent } from './footer/footer.component';
 export class AppComponent implements OnInit {
   title = 'angular';
 
-  constructor(
-    private login: LoginService,
-    private router: Router,
-  ) {}
+  constructor(private login: LoginService, private router: Router) {}
 
   ngOnInit(): void {
     if (this.login.isAdmin() && this.router.url === '/admin/dashboard') {
@@ -34,5 +33,9 @@ export class AppComponent implements OnInit {
 
   get isAdmin(): boolean {
     return this.login.isAdmin();
+  }
+
+  get isUser(): boolean {
+    return this.login.isUser();
   }
 }

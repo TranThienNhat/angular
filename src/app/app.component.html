@@ -1,6 +1,7 @@
 <main class="main">
   <div *ngIf="isAdmin"><app-admin-header /></div>
-  <div *ngIf="!isAdmin"><app-header /></div>
+  <div *ngIf="isUser"><app-header-user /></div>
+  <div *ngIf="!isAdmin && !isUser"><app-header /></div>
   <router-outlet />
   <div *ngIf="!isAdmin"><app-footer /></div>
 </main>

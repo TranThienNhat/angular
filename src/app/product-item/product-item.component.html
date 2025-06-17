@@ -20,7 +20,7 @@
           <h1 class="mb-3">{{ product.Name }}</h1>
           <div class="mb-3">
             <span class="h3 text-primary fw-bold"
-              >{{ product.Price | number: "1.0-0" }} VND</span
+              >{{ product.Price | number : "1.0-0" }} VND</span
             >
           </div>
           <p class="text-muted mb-4">{{ product.Description }}</p>
@@ -97,7 +97,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <span class="h5 mb-0">Tổng tiền:</span>
                 <span class="h4 text-success fw-bold mb-0"
-                  >{{ getTotalPrice() | number: "1.0-0" }} VND</span
+                  >{{ getTotalPrice() | number : "1.0-0" }} VND</span
                 >
               </div>
             </div>
@@ -120,112 +120,6 @@
       <h2>Thông tin đặt hàng</h2>
 
       <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
-        <div class="row">
-          <!-- Name Field -->
-          <div class="col-md-6 mb-3">
-            <label for="name" class="form-label"
-              >Họ tên <span class="text-danger">*</span></label
-            >
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              formControlName="name"
-              placeholder="Nhập họ tên"
-              [class.is-invalid]="
-                orderForm.get('name')?.invalid && orderForm.get('name')?.touched
-              "
-            />
-            <div
-              class="invalid-feedback"
-              *ngIf="
-                orderForm.get('name')?.invalid && orderForm.get('name')?.touched
-              "
-            >
-              Vui lòng nhập họ tên
-            </div>
-          </div>
-
-          <!-- Phone Number Field -->
-          <div class="col-md-6 mb-3">
-            <label for="phone" class="form-label"
-              >Số điện thoại <span class="text-danger">*</span></label
-            >
-            <input
-              type="tel"
-              id="phone"
-              class="form-control"
-              formControlName="phone"
-              placeholder="Nhập số điện thoại"
-              [class.is-invalid]="
-                orderForm.get('phone')?.invalid &&
-                orderForm.get('phone')?.touched
-              "
-            />
-            <div
-              class="invalid-feedback"
-              *ngIf="
-                orderForm.get('phone')?.invalid &&
-                orderForm.get('phone')?.touched
-              "
-            >
-              Vui lòng nhập số điện thoại hợp lệ (10 chữ số)
-            </div>
-          </div>
-        </div>
-
-        <!-- Email Field -->
-        <div class="mb-3">
-          <label for="email" class="form-label"
-            >Email <span class="text-danger">*</span></label
-          >
-          <input
-            type="email"
-            id="email"
-            class="form-control"
-            formControlName="email"
-            placeholder="Nhập email"
-            [class.is-invalid]="
-              orderForm.get('email')?.invalid && orderForm.get('email')?.touched
-            "
-          />
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              orderForm.get('email')?.invalid && orderForm.get('email')?.touched
-            "
-          >
-            Vui lòng nhập email hợp lệ
-          </div>
-        </div>
-
-        <!-- Address Field -->
-        <div class="mb-3">
-          <label for="address" class="form-label"
-            >Địa chỉ <span class="text-danger">*</span></label
-          >
-          <input
-            type="text"
-            id="address"
-            class="form-control"
-            formControlName="address"
-            placeholder="Nhập địa chỉ giao hàng"
-            [class.is-invalid]="
-              orderForm.get('address')?.invalid &&
-              orderForm.get('address')?.touched
-            "
-          />
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              orderForm.get('address')?.invalid &&
-              orderForm.get('address')?.touched
-            "
-          >
-            Vui lòng nhập địa chỉ giao hàng
-          </div>
-        </div>
-
         <!-- Note Field -->
         <div class="mb-3">
           <label for="note" class="form-label">Ghi chú</label>
@@ -243,7 +137,7 @@
           <button
             class="btn btn-success btn-lg"
             type="submit"
-            [disabled]="orderForm.invalid || quantityControl.invalid"
+            [disabled]="quantityControl.invalid"
           >
             <i class="fas fa-shopping-cart me-2"></i>
             Đặt hàng

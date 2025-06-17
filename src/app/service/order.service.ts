@@ -43,7 +43,10 @@ export class OrderService {
   }
 
   createOrder(orderData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create`, orderData);
+    return this.http.post<any>(`${this.apiUrl}/create`, orderData, {
+      headers: this.getHeaders(),
+      withCredentials: true,
+    });
   }
 
   // Updated method for getting report with correct endpoint
@@ -80,6 +83,14 @@ export class OrderService {
   putInvoiceEmail(Id: Number): Observable<any> {
     return this.http.put<any>(
       `${this.apiUrl}/${Id}/sendinvoice`,
+      {},
+      { headers: this.getHeaders(), withCredentials: true }
+    );
+  }
+
+  orderUserCancel(Id: Number): Observable<any> {
+    return this.http.put<any>(
+      `${this.apiUrl}/${Id}/cancel`,
       {},
       { headers: this.getHeaders(), withCredentials: true }
     );

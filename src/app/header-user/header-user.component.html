@@ -52,24 +52,36 @@
           </a>
         </li>
 
+        <!-- Giỏ hàng -->
         <li class="nav-item">
           <a
-            class="nav-link d-flex align-items-center nav-link-hover"
-            [routerLink]="['/user/login']"
+            class="nav-link d-flex align-items-center nav-link-hover position-relative"
+            [routerLink]="['user/cart']"
             (click)="closeNavbar()"
           >
-            <i class="bi bi-person-circle me-1"></i>
-            <span class="label-item"></span>
+            <i class="bi bi-cart3 me-1"></i>
           </a>
         </li>
+
+        <!-- Đơn hàng -->
         <li class="nav-item">
           <a
             class="nav-link d-flex align-items-center nav-link-hover"
-            [routerLink]="['/user/register']"
+            [routerLink]="['user/orders']"
             (click)="closeNavbar()"
           >
-            <i class="bi bi-person-plus me-1"></i>
-            <span class="label-item"></span>
+            <i class="bi bi-bag-check me-1"></i>
+          </a>
+        </li>
+
+        <!-- Đăng xuất -->
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center nav-link-hover"
+            href="#"
+            (click)="onLogout(); closeNavbar()"
+          >
+            <i class="bi bi-box-arrow-right me-1"></i>
           </a>
         </li>
       </ul>

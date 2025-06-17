@@ -5,24 +5,98 @@
       alt="{{ product.Name }}"
       class="product-image"
     />
-    <p>{{ product.Categories.join(", ") }}</p>
-    <h3>{{ product.Name }}</h3>
+    <p class="product-category">{{ product.Categories.join(", ") }}</p>
+    <h3 class="product-name">{{ product.Name }}</h3>
+
     <div class="product-info">
-      <p><strong>Giá:</strong> {{ product.Price | number: "1.0-0" }} VND</p>
-      <p><strong>Số lượng:</strong> {{ product.Quantity }}</p>
+      <p><strong>Giá:</strong> {{ product.Price | number : "1.0-0" }} VND</p>
+      <p><strong>Còn lại:</strong> {{ product.Quantity }}</p>
     </div>
-    <button
-      class="btn"
-      [class.btn-secondary]="!product.IsOutOfStock"
-      [class.btn-outline-secondary]="product.IsOutOfStock"
-      [routerLink]="['/products', product.Id]"
-      [disabled]="product.IsOutOfStock"
-    >
-      {{ product.IsOutOfStock ? "Hết hàng" : "Mua" }}
-    </button>
+
+    <!-- Cart Section -->
+    <div class="cart-section" *ngIf="!product.IsOutOfStock">
+      <!-- Quantity Selector -->
+      <div class="quantity-selector mb-2">
+        <label class="form-label small">Số lượng:</label>
+        <div class="input-group input-group-sm" style="max-width: 120px">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="decreaseQuantity(product.Id)"
+            [disabled]="getSelectedQuantity(product.Id) <= 1"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+
+          <input
+            type="number"
+            class="form-control text-center"
+            [(ngModel)]="selectedQuantities[product.Id]"
+            (change)="validateQuantity(product.Id, product.Quantity)"
+            min="1"
+            [max]="product.Quantity"
+          />
+
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="increaseQuantity(product.Id, product.Quantity)"
+            [disabled]="getSelectedQuantity(product.Id) >= product.Quantity"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons d-flex gap-2">
+        <!-- Add to Cart Button -->
+        <button
+          class="btn btn-primary btn-sm flex-fill"
+          (click)="addToCart(product.Id, getSelectedQuantity(product.Id))"
+          [disabled]="isAddingToCart[product.Id]"
+        >
+          <i class="fas fa-shopping-cart me-1"></i>
+          <span *ngIf="!isAddingToCart[product.Id]">Thêm vào giỏ</span>
+          <span *ngIf="isAddingToCart[product.Id]">
+            <i class="fas fa-spinner fa-spin me-1"></i>
+            Đang thêm...
+          </span>
+        </button>
+
+        <!-- Buy Now Button -->
+        <button
+          class="btn btn-success btn-sm"
+          [routerLink]="['/products', product.Id]"
+        >
+          <i class="fas fa-shopping-bag me-1"></i>
+          Mua ngay
+        </button>
+      </div>
+
+      <!-- Success Message -->
+      <div
+        *ngIf="cartMessages[product.Id]"
+        class="alert alert-success alert-sm mt-2 mb-0 py-1 px-2 small"
+      >
+        <i class="fas fa-check-circle me-1"></i>
+        {{ cartMessages[product.Id] }}
+      </div>
+    </div>
+
+    <!-- Out of Stock -->
+    <div class="out-of-stock-section" *ngIf="product.IsOutOfStock">
+      <button class="btn btn-outline-secondary btn-sm w-100" disabled>
+        <i class="fas fa-times-circle me-1"></i>
+        Hết hàng
+      </button>
+    </div>
   </div>
 </div>
 
 <div *ngIf="products.length === 0" class="card">
-  <p>Không có sản phẩm nào được tìm thấy.</p>
+  <div class="card-body text-center">
+    <i class="fas fa-search text-muted mb-2" style="font-size: 2rem"></i>
+    <p class="mb-0">Không có sản phẩm nào được tìm thấy.</p>
+  </div>
 </div>

@@ -19,17 +19,11 @@ import { NgIf } from '@angular/common';
 export class LoginFormComponent {
   errorMessage: string = '';
 
-  constructor(
-    private loginService: LoginService,
-    private router: Router,
-  ) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-    ]),
+    username: new FormControl(''),
+    password: new FormControl(''),
   });
 
   onSubmit() {
@@ -39,14 +33,21 @@ export class LoginFormComponent {
       const { username, password } = this.loginForm.value;
       this.loginService.login(username!, password!).subscribe(
         (response) => {
+          // Lưu thông tin user
           this.loginService.saveUserData(response);
-          this.router.navigateByUrl('/admin/dashboard', { replaceUrl: true });
+
+          // Sử dụng hàm isAdmin() để kiểm tra quyền và điều hướng
+          if (this.loginService.isAdmin()) {
+            this.router.navigateByUrl('/admin/dashboard', { replaceUrl: true });
+          } else {
+            this.router.navigateByUrl('', { replaceUrl: true });
+          }
         },
         () => {
           this.errorMessage =
             'Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại.';
           this.loginForm.reset();
-        },
+        }
       );
     } else {
       this.errorMessage = 'Vui lòng nhập đúng thông tin!';

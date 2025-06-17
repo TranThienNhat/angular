@@ -21,6 +21,11 @@ export const routes: Routes = [
       import('./product/product.component').then((m) => m.ProductComponent),
   },
   {
+    path: 'user/cart',
+    loadComponent: () =>
+      import('./cart/cart.component').then((m) => m.CartComponent),
+  },
+  {
     path: 'products/:Id',
     loadComponent: () =>
       import('./product-item/product-item.component').then(
@@ -28,11 +33,30 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'admin/login',
+    path: 'user/orders',
+    loadComponent: () =>
+      import('./order-user/order-user.component').then(
+        (m) => m.OrderUserComponent
+      ),
+  },
+  {
+    path: 'products/:Id/:CartItemId',
+    loadComponent: () =>
+      import('./product-item/product-item.component').then(
+        (m) => m.ProductItemComponent
+      ),
+  },
+  {
+    path: 'user/login',
     loadComponent: () =>
       import('./login-form/login-form.component').then(
         (m) => m.LoginFormComponent
       ),
+  },
+  {
+    path: 'user/register',
+    loadComponent: () =>
+      import('./register/register.component').then((m) => m.RegisterComponent),
   },
   {
     path: 'admin/dashboard',
@@ -74,14 +98,14 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
-  {
-    path: 'admin/dashboard/orders/:Id',
-    loadComponent: () =>
-      import('./admin-order-update/admin-order-update.component').then(
-        (m) => m.AdminOrderUpdateComponent
-      ),
-    canActivate: [authGuard],
-  },
+  // {
+  //   path: 'admin/dashboard/orders/:Id',
+  //   loadComponent: () =>
+  //     import('./admin-order-update/admin-order-update.component').then(
+  //       (m) => m.AdminOrderUpdateComponent
+  //     ),
+  //   canActivate: [authGuard],
+  // },
 
   {
     path: 'admin/dashboard/product/orders/:Id',

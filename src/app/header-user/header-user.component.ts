@@ -1,29 +1,23 @@
-import {
-  Component,
-  ElementRef,
-  Renderer2,
-  ViewChild,
-  OnInit,
-} from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CategoryService } from '../service/category.service';
-import { NgFor } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
+  selector: 'app-header-user',
   imports: [RouterLink, NgFor],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  templateUrl: './header-user.component.html',
+  styleUrl: './header-user.component.css',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderUserComponent {
   @ViewChild('navbarNav', { static: false }) navbarNav!: ElementRef;
 
   categories: any[] = []; // List để lưu categories
 
   constructor(
     private renderer: Renderer2,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +40,11 @@ export class HeaderComponent implements OnInit {
     if (this.navbarNav?.nativeElement.classList.contains('show')) {
       this.renderer.removeClass(this.navbarNav.nativeElement, 'show');
     }
+  }
+
+  onLogout() {
+    sessionStorage.clear();
+    localStorage.removeItem('userData');
+    this.router.navigate(['']);
   }
 }

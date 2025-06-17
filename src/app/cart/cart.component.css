@@ -1,0 +1,93 @@
+/* Custom styles to complement Bootstrap */
+
+/* Quantity input styling */
+.input-group .form-control:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.input-group .btn:focus {
+  box-shadow: none;
+}
+
+/* Hover effects for buttons */
+.btn-outline-danger:hover i {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+
+.btn-outline-secondary:hover i {
+  transition: transform 0.2s;
+}
+
+/* Card hover effect */
+.card {
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* Image styling */
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .d-flex.align-items-center {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  .d-flex.align-items-center > div:first-child {
+    align-self: center;
+  }
+
+  .d-flex.align-items-center .input-group {
+    width: 100% !important;
+    max-width: 200px;
+  }
+
+  .d-flex.align-items-center > div:nth-child(4),
+  .d-flex.align-items-center > div:nth-child(5) {
+    align-self: flex-end;
+  }
+
+  .d-flex.gap-3.justify-content-end {
+    flex-direction: column;
+  }
+
+  .d-flex.gap-3.justify-content-end .btn {
+    width: 100%;
+  }
+
+  .d-flex.justify-content-between.align-items-center {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+}
+
+/* Ensure proper spacing for mobile cart items */
+@media (max-width: 576px) {
+  .p-3.d-flex.align-items-center {
+    padding: 1rem !important;
+  }
+
+  .me-3 {
+    margin-right: 0 !important;
+    margin-bottom: 0.75rem;
+  }
+
+  .flex-grow-1 {
+    width: 100%;
+    text-align: center;
+  }
+}

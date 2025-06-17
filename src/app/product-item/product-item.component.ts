@@ -21,6 +21,7 @@ import { LoginService } from '../service/login.service';
 })
 export class ProductItemComponent implements OnInit {
   product: any = {};
+  cartItemId: number | null = null;
   quantityControl = new FormControl(1, [
     Validators.required,
     Validators.min(1),
@@ -31,23 +32,30 @@ export class ProductItemComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductServiceService,
-    private orderService: OrderService, // Fixed typo: orrderService -> orderService
+    private orderService: OrderService,
     private loginService: LoginService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.orderForm = this.fb.group({
-      name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      email: ['', [Validators.required, Validators.email]],
-      address: ['', Validators.required],
       note: [''],
     });
   }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('Id'));
-    if (id) {
-      this.productService.getProductById(id).subscribe((data) => {
+    // Trích xuất productId và cartItemId từ URL
+    const productId = Number(this.route.snapshot.paramMap.get('Id'));
+    const cartItemIdParam = this.route.snapshot.paramMap.get('cartItemId');
+
+    // Nếu có cartItemId trong URL và không phải chuỗi rỗng
+    if (cartItemIdParam && cartItemIdParam.trim() !== '') {
+      const parsedCartItemId = Number(cartItemIdParam);
+      this.cartItemId = isNaN(parsedCartItemId) ? null : parsedCartItemId;
+    } else {
+      this.cartItemId = null;
+    }
+
+    if (productId) {
+      this.productService.getProductById(productId).subscribe((data) => {
         this.product = data;
         // Cập nhật validators cho quantity control dựa trên stock
         this.updateQuantityValidators();
@@ -62,11 +70,11 @@ export class ProductItemComponent implements OnInit {
       this.quantityControl.disable();
       this.quantityControl.setValue(0);
     } else {
-      // Cập nhật max validator dựa trên Quantity (không phải StockQuantity)
+      // Cập nhật max validator dựa trên Quantity
       this.quantityControl.setValidators([
         Validators.required,
         Validators.min(1),
-        Validators.max(this.product.Quantity), // Changed from StockQuantity to Quantity
+        Validators.max(this.product.Quantity),
       ]);
       this.quantityControl.updateValueAndValidity();
 
@@ -83,7 +91,7 @@ export class ProductItemComponent implements OnInit {
           setTimeout(() => {
             const clampedValue = Math.max(
               1,
-              Math.min(value, this.product.Quantity),
+              Math.min(value, this.product.Quantity)
             );
             if (value !== clampedValue) {
               this.quantityControl.setValue(clampedValue, { emitEvent: false });
@@ -104,7 +112,6 @@ export class ProductItemComponent implements OnInit {
   increaseQuantity(): void {
     const currentValue = this.quantityControl.value || 0;
     if (currentValue < this.product.Quantity) {
-      // Changed from StockQuantity to Quantity
       this.quantityControl.setValue(currentValue + 1);
     }
   }
@@ -116,11 +123,6 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
-  updateTotal(): void {
-    // Method để trigger change detection khi số lượng thay đổi
-    // Angular sẽ tự động cập nhật UI thông qua getTotalPrice()
-  }
-
   // Xử lý khi người dùng nhập trực tiếp vào input
   onQuantityInputChange(event: any): void {
     const inputValue = parseInt(event.target.value, 10);
@@ -129,7 +131,6 @@ export class ProductItemComponent implements OnInit {
       // Nếu không phải số hoặc nhỏ hơn 1, set về 1
       this.quantityControl.setValue(1);
     } else if (inputValue > this.product.Quantity) {
-      // Changed from StockQuantity to Quantity
       // Nếu vượt quá stock, set về max stock
       this.quantityControl.setValue(this.product.Quantity);
       // Hiển thị thông báo
@@ -147,7 +148,6 @@ export class ProductItemComponent implements OnInit {
     if (currentValue < 1) {
       this.quantityControl.setValue(1);
     } else if (currentValue > this.product.Quantity) {
-      // Changed from StockQuantity to Quantity
       this.quantityControl.setValue(this.product.Quantity);
       alert(`Số lượng tối đa có thể đặt là ${this.product.Quantity}`);
     }
@@ -191,33 +191,29 @@ export class ProductItemComponent implements OnInit {
     const quantity = this.quantityControl.value || 0;
     return (
       !this.product.IsOutOfStock &&
-      this.orderForm.valid &&
       this.quantityControl.valid &&
-      quantity <= this.product.Quantity && // Changed from StockQuantity to Quantity
+      quantity <= this.product.Quantity &&
       quantity > 0
     );
   }
 
   submitOrder(): void {
     if (this.canPlaceOrder()) {
-      const orderData = {
-        Name: this.orderForm.get('name')?.value,
-        PhoneNumber: this.orderForm.get('phone')?.value,
-        Email: this.orderForm.get('email')?.value,
-        Address: this.orderForm.get('address')?.value,
-        Note: this.orderForm.get('note')?.value,
-        Items: [
-          {
-            ProductId: this.product.Id,
-            Quantity: this.quantityControl.value || 1,
-          },
-        ],
+      // Tạo object order data cơ bản
+      const orderData: any = {
+        ProductId: this.product.Id,
+        Quantity: this.quantityControl.value || 1,
+        Note: this.orderForm.get('note')?.value || '',
       };
 
-      console.log(orderData)
+      // Chỉ thêm CartItemId nếu nó có giá trị hợp lệ
+      if (this.cartItemId !== null && this.cartItemId > 0) {
+        orderData.CartItemId = this.cartItemId;
+      }
+
+      console.log('Order data:', orderData);
 
       this.orderService.createOrder(orderData).subscribe({
-        // Fixed typo: orrderService -> orderService
         next: (response) => {
           alert('Đơn hàng đã được gửi thành công!');
           this.orderForm.reset();
@@ -225,7 +221,6 @@ export class ProductItemComponent implements OnInit {
           if (this.isAdmin) {
             this.router.navigate(['/admin/dashboard']);
           } else {
-            // Có thể redirect về trang chủ hoặc trang đơn hàng
             this.router.navigate(['/']);
           }
         },
