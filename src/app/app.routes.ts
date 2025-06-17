@@ -98,23 +98,6 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
-  // {
-  //   path: 'admin/dashboard/orders/:Id',
-  //   loadComponent: () =>
-  //     import('./admin-order-update/admin-order-update.component').then(
-  //       (m) => m.AdminOrderUpdateComponent
-  //     ),
-  //   canActivate: [authGuard],
-  // },
-
-  {
-    path: 'admin/dashboard/product/orders/:Id',
-    loadComponent: () =>
-      import('./product-item/product-item.component').then(
-        (m) => m.ProductItemComponent
-      ),
-    canActivate: [authGuard],
-  },
   {
     path: 'admin/dashboard/report',
     loadComponent: () =>

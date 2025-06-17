@@ -1,7 +1,18 @@
-<main class="main">
-  <div *ngIf="isAdmin"><app-admin-header /></div>
-  <div *ngIf="isUser"><app-header-user /></div>
-  <div *ngIf="!isAdmin && !isUser"><app-header /></div>
-  <router-outlet />
-  <div *ngIf="!isAdmin"><app-footer /></div>
-</main>
+<div class="app-container">
+  <!-- Header Section -->
+  <header class="app-header">
+    <app-admin-header *ngIf="isAdmin" />
+    <app-header-user *ngIf="isUser" />
+    <app-header *ngIf="!isAdmin && !isUser" />
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="app-footer" *ngIf="!isAdmin">
+    <app-footer />
+  </footer>
+</div>

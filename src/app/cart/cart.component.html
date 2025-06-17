@@ -27,7 +27,7 @@
       <p class="lead">Giỏ hàng của bạn đang trống</p>
       <p class="text-muted">Hãy thêm một số sản phẩm để tiếp tục mua sắm</p>
     </div>
-    <a routerLink="/products" class="btn btn-primary">
+    <a [routerLink]="['']" class="btn btn-primary">
       <i class="fas fa-shopping-bag me-2"></i>
       Tiếp tục mua sắm
     </a>
@@ -133,25 +133,6 @@
             <span class="fw-bold fs-5 text-primary">{{
               formatPrice(totalAmount)
             }}</span>
-          </div>
-
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary btn-lg" (click)="buyNow()">
-              <i class="fas fa-credit-card me-2"></i>
-              Thanh toán ({{ formatPrice(totalAmount) }})
-            </button>
-            <a routerLink="/products" class="btn btn-outline-secondary">
-              <i class="fas fa-arrow-left me-2"></i>
-              Tiếp tục mua sắm
-            </a>
-          </div>
-
-          <!-- Additional info -->
-          <div class="mt-3 text-center">
-            <small class="text-muted">
-              <i class="fas fa-shield-alt me-1"></i>
-              Thanh toán an toàn & bảo mật
-            </small>
           </div>
         </div>
       </div>

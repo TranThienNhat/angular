@@ -1,62 +1,70 @@
-<div class="btn-add">
-  <button
-    class="btn btn-primary"
-    [routerLink]="'/admin/dashboard/product/create'"
-  >
-    Thêm sản phẩm
-  </button>
-</div>
-<div *ngIf="products.length > 0" class="table-container">
-  <table class="product-table">
-    <thead>
-      <tr>
-        <th>Ảnh</th>
-        <th>Tên</th>
-        <th>Mô tả</th>
-        <th>Số lượng</th>
-        <th>Giá</th>
-        <th>Trạng thái</th>
-        <th>Danh mục</th>
-        <th>Tác vụ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <td>
-          <img
-            [src]="'https://localhost:44384' + product.ImageUrl"
-            alt="{{ product.Name }}"
-            class="table-image"
-          />
-        </td>
-        <td>{{ product.Name }}</td>
-        <td class="product-description">{{ product.Description }}</td>
-        <td>{{ product.Quantity }}</td>
-        <td>{{ product.Price }}</td>
-        <td>{{ product.IsOutOfStock ? "Hết hàng" : "Còn hàng" }}</td>
-        <td>{{ product.Categories.join(", ") }}</td>
-        <td>
-          <button
-            class="btn btn-outline-secondary"
-            [routerLink]="['/admin/dashboard/product/orders', product.Id]"
-          >
-            Mua
-          </button>
-          <button
-            class="btn btn-outline-success"
-            [routerLink]="['/admin/dashboard/product', product.Id]"
-          >
-            Sửa
-          </button>
-          <button class="btn btn-danger" (click)="onDelete(product.Id)">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="admin-product-container">
+  <div class="header-section">
+    <h2 class="page-title">Quản lý sản phẩm</h2>
+    <button
+      class="btn btn-primary add-product-btn"
+      [routerLink]="'/admin/dashboard/product/create'"
+    >
+      <i class="fa-solid fa-plus"></i>
+      Thêm sản phẩm
+    </button>
+  </div>
 
-<div *ngIf="products.length === 0" class="noproduct">
-  <p>Không có sản phẩm nào được tìm thấy.</p>
+  <div *ngIf="products.length > 0" class="table-container">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Ảnh</th>
+          <th>Tên</th>
+          <th>Mô tả</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Trạng thái</th>
+          <th>Danh mục</th>
+          <th>Tác vụ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td class="image-cell">
+            <img
+              [src]="'https://localhost:44384' + product.ImageUrl"
+              alt="{{ product.Name }}"
+              class="table-image"
+            />
+          </td>
+          <td class="name-cell">{{ product.Name }}</td>
+          <td class="description-cell">{{ product.Description }}</td>
+          <td class="quantity-cell">{{ product.Quantity }}</td>
+          <td class="price-cell">{{ product.Price }}</td>
+          <td class="status-cell">
+            <span
+              class="status-badge"
+              [class.out-of-stock]="product.IsOutOfStock"
+            >
+              {{ product.IsOutOfStock ? "Hết hàng" : "Còn hàng" }}
+            </span>
+          </td>
+          <td class="category-cell">{{ product.Categories.join(", ") }}</td>
+          <td class="action-cell">
+            <button
+              class="btn btn-edit"
+              [routerLink]="['/admin/dashboard/product', product.Id]"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
+              Sửa
+            </button>
+            <button class="btn btn-delete" (click)="onDelete(product.Id)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="products.length === 0" class="no-product-container">
+    <i class="fa-solid fa-box-open"></i>
+    <p>Không có sản phẩm nào được tìm thấy.</p>
+  </div>
 </div>

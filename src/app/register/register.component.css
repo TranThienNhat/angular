@@ -1,150 +1,265 @@
-/* Custom styles cho register component */
-.card {
-  border: none;
+/* Main Container */
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+/* Card Styles */
+.register-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Header Section */
+.register-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.register-header i {
+  font-size: 3rem;
+  color: #4a90e2;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.register-header h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.register-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+/* Form Sections */
+.form-section {
+  background: #f8f9fa;
   border-radius: 15px;
-  overflow: hidden;
-}
-
-.card-header {
-  background: linear-gradient(135deg, #007bff, #0056b3) !important;
-  border-bottom: none;
-  padding: 2rem 1rem;
-}
-
-.card-body {
-  background-color: #f8f9fa;
-}
-
-.form-control {
-  border-radius: 8px;
-  border: 2px solid #e9ecef;
-  padding: 0.75rem 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e9ecef;
   transition: all 0.3s ease;
 }
 
-.form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.15);
-  background-color: white;
+.form-section:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
-.form-control.is-valid {
-  border-color: #28a745;
-  background-color: white;
+.section-title {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title i {
+  color: #4a90e2;
+}
+
+/* Form Controls */
+.form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-control:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
 }
 
 .form-control.is-invalid {
   border-color: #dc3545;
-  background-color: white;
+  background-image: none;
+}
+
+.form-control.is-valid {
+  border-color: #28a745;
+  background-image: none;
+}
+
+/* Password Input Group */
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #4a90e2;
+}
+
+/* Validation Messages */
+.validation-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.validation-message i {
+  font-size: 1rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #007bff, #0056b3);
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  color: white;
 }
 
-.btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #0056b3, #004085);
+.btn-primary:hover {
+  background: linear-gradient(135deg, #357abd 0%, #2c6aa0 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #6c757d;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-outline-secondary {
-  border-radius: 0 8px 8px 0;
-  border-left: none;
+  border: 2px solid #6c757d;
+  color: #6c757d;
 }
 
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+}
+
+/* Alerts */
 .alert {
-  border-radius: 8px;
-  border: none;
+  border-radius: 10px;
+  padding: 1rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
 }
 
 .alert-success {
-  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  background: #d4edda;
   color: #155724;
 }
 
 .alert-danger {
-  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  background: #f8d7da;
   color: #721c24;
 }
 
-.form-label {
-  font-weight: 600;
-  color: #495057;
-  margin-bottom: 0.5rem;
+.alert i {
+  font-size: 1.25rem;
 }
 
-.form-label i {
-  color: #007bff;
+.btn-close {
+  margin-left: auto;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
 }
 
-.text-danger {
-  color: #dc3545 !important;
+.btn-close:hover {
+  opacity: 1;
 }
 
-.invalid-feedback {
-  display: block;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+/* Login Link */
+.login-link-container {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
 }
 
-.spinner-border-sm {
-  width: 1rem;
-  height: 1rem;
+.login-link-container p {
+  color: #6c757d;
+  margin: 0;
 }
 
-/* Responsive adjustments */
+.login-link {
+  background: none;
+  border: none;
+  color: #4a90e2;
+  font-weight: 500;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #357abd;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .container {
+  .register-card {
+    padding: 1.5rem;
+  }
+
+  .form-section {
     padding: 1rem;
   }
 
-  .card-header {
-    padding: 1.5rem 1rem;
-  }
-
-  .card-body {
-    padding: 1.5rem !important;
+  .btn {
+    width: 100%;
   }
 }
 
-/* Animation cho form validation */
-.form-control.ng-invalid.ng-touched {
-  animation: shake 0.6s ease-in-out;
-}
-
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-/* Hover effect cho input groups */
-.input-group:hover .form-control {
-  border-color: #007bff;
-}
-
-.input-group:hover .btn-outline-secondary {
-  border-color: #007bff;
-  color: #007bff;
+/* Loading Spinner */
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border-width: 0.2em;
 }
