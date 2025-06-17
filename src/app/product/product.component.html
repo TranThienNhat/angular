@@ -13,11 +13,11 @@
       <p><strong>Còn lại:</strong> {{ product.Quantity }}</p>
     </div>
 
-    <!-- Cart Section -->
-    <div class="cart-section" *ngIf="!product.IsOutOfStock">
+    <!-- Cart Section - Only show when user is logged in -->
+    <div class="cart-section" *ngIf="!product.IsOutOfStock && isUser">
       <!-- Quantity Selector -->
-      <div class="quantity-selector mb-2">
-        <label class="form-label small">Số lượng:</label>
+      <div class="quantity-selector">
+        <label class="form-label">Số lượng:</label>
         <div class="input-group input-group-sm" style="max-width: 120px">
           <button
             class="btn btn-outline-secondary"
@@ -49,7 +49,7 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="action-buttons d-flex gap-2">
+      <div class="action-buttons">
         <!-- Add to Cart Button -->
         <button
           class="btn btn-primary btn-sm flex-fill"

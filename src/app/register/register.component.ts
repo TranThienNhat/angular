@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -29,143 +29,135 @@ interface RegisterData {
     trigger('fadeInDown', [
       transition(':enter', [
         style({ transform: 'translateY(-20px)', opacity: 0 }),
-        animate('0.4s ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
-      ])
-    ])
-  ]
+        animate(
+          '0.4s ease-out',
+          style({ transform: 'translateY(0)', opacity: 1 })
+        ),
+      ]),
+    ]),
+  ],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  isLoading: boolean = false;
-  successMessage: string = '';
-  errorMessage: string = '';
-  showPassword: boolean = false;
+  isSubmitting = false;
+  successMessage = '';
+  errorMessage = '';
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router
   ) {
-    this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]],
-      address: ['', [Validators.required, Validators.minLength(10)]],
-    });
-  }
-
-  // Form getters
-  get username() { return this.registerForm.get('username'); }
-  get password() { return this.registerForm.get('password'); }
-  get email() { return this.registerForm.get('email'); }
-  get name() { return this.registerForm.get('name'); }
-  get phoneNumber() { return this.registerForm.get('phoneNumber'); }
-  get address() { return this.registerForm.get('address'); }
-
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  resetForm(): void {
-    this.registerForm.reset();
-    this.errorMessage = '';
-    this.successMessage = '';
-  }
-
-  onSubmit(): void {
-    if (this.registerForm.invalid) {
-      this.errorMessage = 'Vui lòng kiểm tra lại thông tin đăng ký!';
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
-
-    const registerData: RegisterData = {
-      username: this.username?.value,
-      password: this.password?.value,
-      email: this.email?.value,
-      name: this.name?.value,
-      phoneNumber: this.phoneNumber?.value,
-      address: this.address?.value,
-    };
-
-    this.loginService.register(registerData).subscribe({
-      next: (response) => {
-        this.successMessage = 'Đăng ký thành công! Đang chuyển đến trang đăng nhập...';
-        setTimeout(() => {
-          this.router.navigate(['/user/login']);
-        }, 2000);
+    this.registerForm = this.fb.group(
+      {
+        username: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(2)]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern('^[0-9]{10,11}$')],
+        ],
+        address: ['', [Validators.required, Validators.minLength(10)]],
       },
-      error: (error) => {
-        console.error('Registration error:', error);
-        if (error.status === 400) {
-          this.errorMessage = 'Tên đăng nhập hoặc email đã tồn tại!';
-        } else {
-          this.errorMessage = 'Đăng ký thất bại. Vui lòng thử lại sau!';
-        }
-        this.isLoading = false;
+      {
+        validators: this.passwordMatchValidator,
       }
-    });
+    );
   }
 
-  // Utility methods cho validation messages
-  getFieldError(fieldName: string): string {
-    const field = this.registerForm.get(fieldName);
-    if (field?.errors && field.touched) {
-      const errors = field.errors;
+  ngOnInit(): void {}
 
-      if (errors['required'])
-        return `${this.getFieldDisplayName(fieldName)} là bắt buộc`;
-      if (errors['minlength'])
-        return `${this.getFieldDisplayName(fieldName)} phải có ít nhất ${
-          errors['minlength'].requiredLength
-        } ký tự`;
-      if (errors['maxlength'])
-        return `${this.getFieldDisplayName(fieldName)} không được quá ${
-          errors['maxlength'].requiredLength
-        } ký tự`;
-      if (errors['email']) return 'Email không hợp lệ';
-      if (errors['pattern']) {
-        switch (fieldName) {
-          case 'username':
-            return 'Tên đăng nhập chỉ được chứa chữ cái, số và dấu gạch dưới';
-          case 'name':
-            return 'Họ và tên chỉ được chứa chữ cái và khoảng trắng';
-          case 'phoneNumber':
-            return 'Số điện thoại không hợp lệ (VD: 0901234567)';
-          default:
-            return 'Định dạng không hợp lệ';
-        }
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password');
+    const confirmPassword = form.get('confirmPassword');
+
+    if (
+      password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+    ) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+    } else {
+      confirmPassword?.setErrors(null);
+    }
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.registerForm.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  isFieldValid(fieldName: string): boolean {
+    const field = this.registerForm.get(fieldName);
+    return field ? field.valid && (field.dirty || field.touched) : false;
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const field = this.registerForm.get(fieldName);
+    if (!field) return '';
+
+    if (field.errors) {
+      if (field.errors['required']) {
+        return 'Trường này là bắt buộc';
+      }
+      if (field.errors['email']) {
+        return 'Email không hợp lệ';
+      }
+      if (field.errors['minlength']) {
+        return `Tối thiểu ${field.errors['minlength'].requiredLength} ký tự`;
+      }
+      if (field.errors['pattern']) {
+        return 'Định dạng không hợp lệ';
+      }
+      if (field.errors['passwordMismatch']) {
+        return 'Mật khẩu không khớp';
       }
     }
     return '';
   }
 
-  private getFieldDisplayName(fieldName: string): string {
-    const displayNames: { [key: string]: string } = {
-      username: 'Tên đăng nhập',
-      password: 'Mật khẩu',
-      email: 'Email',
-      name: 'Họ và tên',
-      phoneNumber: 'Số điện thoại',
-      address: 'Địa chỉ',
-    };
-    return displayNames[fieldName] || fieldName;
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
-  // Check if field is invalid and touched
-  isFieldInvalid(fieldName: string): boolean {
-    const field = this.registerForm.get(fieldName);
-    return !!(field?.invalid && field?.touched);
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  // Check if field is valid and touched
-  isFieldValid(fieldName: string): boolean {
-    const field = this.registerForm.get(fieldName);
-    return !!(field?.valid && field?.touched);
+  onSubmit(): void {
+    if (this.registerForm.valid) {
+      this.isSubmitting = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+      const formData: RegisterData = {
+        username: this.registerForm.value.username,
+        password: this.registerForm.value.password,
+        email: this.registerForm.value.email,
+        name: this.registerForm.value.name,
+        phoneNumber: this.registerForm.value.phoneNumber,
+        address: this.registerForm.value.address
+      };
+
+      this.loginService.register(formData).subscribe({
+        next: (response) => {
+          this.successMessage = 'Đăng ký thành công! Đang chuyển hướng...';
+          setTimeout(() => {
+            this.router.navigate(['/user/login']);
+          }, 2000);
+        },
+        error: (error) => {
+          this.errorMessage =
+            error.error?.message || 'Đăng ký thất bại. Vui lòng thử lại.';
+          this.isSubmitting = false;
+        },
+      });
+    } else {
+      this.registerForm.markAllAsTouched();
+    }
   }
 }

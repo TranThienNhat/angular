@@ -1,263 +1,270 @@
 <!-- Main Container -->
-<div class="register-container" @fadeInDown>
+<div class="register-container">
   <div class="register-card">
     <!-- Header Section -->
     <div class="register-header">
-      <i class="bi bi-person-plus-fill"></i>
-      <h2>Đăng ký tài khoản</h2>
-      <p class="text-muted">Vui lòng điền thông tin để tạo tài khoản mới</p>
+      <i class="fas fa-user-plus"></i>
+      <h2>Đăng Ký Tài Khoản</h2>
+      <p>Vui lòng điền đầy đủ thông tin bên dưới</p>
     </div>
 
     <!-- Alert Messages -->
-    <div class="alert-container">
-      <div *ngIf="successMessage" class="alert alert-success" role="alert">
-        <i class="bi bi-check-circle-fill"></i>
-        <span>{{ successMessage }}</span>
-        <button
-          type="button"
-          class="btn-close"
-          (click)="successMessage = ''"
-          aria-label="Close"
-        ></button>
-      </div>
+    <div
+      *ngIf="successMessage"
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+    >
+      <i class="fas fa-check-circle"></i>
+      {{ successMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        (click)="successMessage = ''"
+        aria-label="Close"
+      ></button>
+    </div>
 
-      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-        <span>{{ errorMessage }}</span>
-        <button
-          type="button"
-          class="btn-close"
-          (click)="errorMessage = ''"
-          aria-label="Close"
-        ></button>
-      </div>
+    <div
+      *ngIf="errorMessage"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <i class="fas fa-exclamation-circle"></i>
+      {{ errorMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        (click)="errorMessage = ''"
+        aria-label="Close"
+      ></button>
     </div>
 
     <!-- Registration Form -->
     <form
       [formGroup]="registerForm"
       (ngSubmit)="onSubmit()"
-      class="register-form"
+      class="needs-validation"
       novalidate
     >
-      <!-- Personal Information Section -->
+      <!-- Account Information Section -->
       <div class="form-section">
-        <h3 class="section-title">Thông tin cá nhân</h3>
-
-        <div class="form-row">
-          <!-- Username -->
-          <div class="form-group">
-            <label for="username">
-              <i class="bi bi-person"></i>
-              Tên đăng nhập <span class="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="username"
-              formControlName="username"
-              placeholder="Nhập tên đăng nhập"
-              [disabled]="isLoading"
-              [class.is-invalid]="username?.invalid && username?.touched"
-              [class.is-valid]="username?.valid && username?.touched"
-            />
-            <div
-              class="validation-message"
-              *ngIf="username?.invalid && username?.touched"
-            >
-              <span *ngIf="username?.errors?.['required']"
-                >Tên đăng nhập là bắt buộc</span
-              >
-              <span *ngIf="username?.errors?.['minlength']"
-                >Tên đăng nhập phải có ít nhất 3 ký tự</span
-              >
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div class="form-group">
-            <label for="password">
-              <i class="bi bi-lock"></i>
-              Mật khẩu <span class="required">*</span>
-            </label>
-            <div class="password-input">
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                id="password"
-                formControlName="password"
-                placeholder="Nhập mật khẩu"
-                [disabled]="isLoading"
-                [class.is-invalid]="password?.invalid && password?.touched"
-                [class.is-valid]="password?.valid && password?.touched"
-              />
-              <button
-                type="button"
-                class="toggle-password"
-                (click)="togglePasswordVisibility()"
-                [disabled]="isLoading"
-              >
-                <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-              </button>
-            </div>
-            <div
-              class="validation-message"
-              *ngIf="password?.invalid && password?.touched"
-            >
-              <span *ngIf="password?.errors?.['required']"
-                >Mật khẩu là bắt buộc</span
-              >
-              <span *ngIf="password?.errors?.['minlength']"
-                >Mật khẩu phải có ít nhất 6 ký tự</span
-              >
-            </div>
+        <h3 class="section-title">
+          <i class="fas fa-lock"></i>
+          Thông Tin Tài Khoản
+        </h3>
+        <div class="form-group">
+          <label for="username">
+            <i class="fas fa-user"></i>
+            Tên Đăng Nhập <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': isFieldInvalid('username'),
+              'is-valid': isFieldValid('username')
+            }"
+            placeholder="Nhập tên đăng nhập"
+          />
+          <div *ngIf="isFieldInvalid('username')" class="validation-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("username") }}
           </div>
         </div>
 
-        <!-- Email -->
         <div class="form-group">
           <label for="email">
-            <i class="bi bi-envelope"></i>
+            <i class="fas fa-envelope"></i>
             Email <span class="required">*</span>
           </label>
           <input
             type="email"
             id="email"
             formControlName="email"
-            placeholder="Nhập địa chỉ email"
-            [disabled]="isLoading"
-            [class.is-invalid]="email?.invalid && email?.touched"
-            [class.is-valid]="email?.valid && email?.touched"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': isFieldInvalid('email'),
+              'is-valid': isFieldValid('email')
+            }"
+            placeholder="Nhập email của bạn"
           />
-          <div
-            class="validation-message"
-            *ngIf="email?.invalid && email?.touched"
-          >
-            <span *ngIf="email?.errors?.['required']">Email là bắt buộc</span>
-            <span *ngIf="email?.errors?.['email']">Email không hợp lệ</span>
+          <div *ngIf="isFieldInvalid('email')" class="validation-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("email") }}
           </div>
         </div>
 
-        <!-- Full Name -->
+        <div class="form-group">
+          <label for="password">
+            <i class="fas fa-key"></i>
+            Mật Khẩu <span class="required">*</span>
+          </label>
+          <div class="password-input-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              formControlName="password"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isFieldInvalid('password'),
+                'is-valid': isFieldValid('password')
+              }"
+              placeholder="Nhập mật khẩu"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+            >
+              <i
+                class="fas"
+                [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+              ></i>
+            </button>
+          </div>
+          <div *ngIf="isFieldInvalid('password')" class="validation-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("password") }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">
+            <i class="fas fa-key"></i>
+            Xác Nhận Mật Khẩu <span class="required">*</span>
+          </label>
+          <div class="password-input-group">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isFieldInvalid('confirmPassword'),
+                'is-valid': isFieldValid('confirmPassword')
+              }"
+              placeholder="Nhập lại mật khẩu"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="toggleConfirmPasswordVisibility()"
+            >
+              <i
+                class="fas"
+                [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
+              ></i>
+            </button>
+          </div>
+          <div
+            *ngIf="isFieldInvalid('confirmPassword')"
+            class="validation-message"
+          >
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("confirmPassword") }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Information Section -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="fas fa-user"></i>
+          Thông Tin Cá Nhân
+        </h3>
         <div class="form-group">
           <label for="name">
-            <i class="bi bi-person-badge"></i>
-            Họ và tên <span class="required">*</span>
+            <i class="fas fa-user"></i>
+            Họ và Tên <span class="required">*</span>
           </label>
           <input
             type="text"
             id="name"
             formControlName="name"
-            placeholder="Nhập họ và tên"
-            [disabled]="isLoading"
-            [class.is-invalid]="name?.invalid && name?.touched"
-            [class.is-valid]="name?.valid && name?.touched"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': isFieldInvalid('name'),
+              'is-valid': isFieldValid('name')
+            }"
+            placeholder="Nhập họ và tên của bạn"
           />
-          <div
-            class="validation-message"
-            *ngIf="name?.invalid && name?.touched"
-          >
-            <span *ngIf="name?.errors?.['required']"
-              >Họ và tên là bắt buộc</span
-            >
-            <span *ngIf="name?.errors?.['minlength']"
-              >Họ và tên phải có ít nhất 2 ký tự</span
-            >
+          <div *ngIf="isFieldInvalid('name')" class="validation-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("name") }}
           </div>
         </div>
       </div>
 
       <!-- Contact Information Section -->
       <div class="form-section">
-        <h3 class="section-title">Thông tin liên hệ</h3>
-
-        <!-- Phone Number -->
+        <h3 class="section-title">
+          <i class="fas fa-address-book"></i>
+          Thông Tin Liên Hệ
+        </h3>
         <div class="form-group">
           <label for="phoneNumber">
-            <i class="bi bi-telephone"></i>
-            Số điện thoại <span class="required">*</span>
+            <i class="fas fa-phone"></i>
+            Số Điện Thoại <span class="required">*</span>
           </label>
           <input
             type="tel"
             id="phoneNumber"
             formControlName="phoneNumber"
-            placeholder="Nhập số điện thoại (10-11 chữ số)"
-            [disabled]="isLoading"
-            [class.is-invalid]="phoneNumber?.invalid && phoneNumber?.touched"
-            [class.is-valid]="phoneNumber?.valid && phoneNumber?.touched"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': isFieldInvalid('phoneNumber'),
+              'is-valid': isFieldValid('phoneNumber')
+            }"
+            placeholder="Nhập số điện thoại"
           />
-          <div
-            class="validation-message"
-            *ngIf="phoneNumber?.invalid && phoneNumber?.touched"
-          >
-            <span *ngIf="phoneNumber?.errors?.['required']"
-              >Số điện thoại là bắt buộc</span
-            >
-            <span *ngIf="phoneNumber?.errors?.['pattern']"
-              >Số điện thoại phải có 10-11 chữ số</span
-            >
+          <div *ngIf="isFieldInvalid('phoneNumber')" class="validation-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("phoneNumber") }}
           </div>
         </div>
 
-        <!-- Address -->
         <div class="form-group">
           <label for="address">
-            <i class="bi bi-geo-alt"></i>
-            Địa chỉ <span class="required">*</span>
+            <i class="fas fa-map-marker-alt"></i>
+            Địa Chỉ <span class="required">*</span>
           </label>
           <textarea
             id="address"
             formControlName="address"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': isFieldInvalid('address'),
+              'is-valid': isFieldValid('address')
+            }"
             rows="3"
-            placeholder="Nhập địa chỉ chi tiết"
-            [disabled]="isLoading"
-            [class.is-invalid]="address?.invalid && address?.touched"
-            [class.is-valid]="address?.valid && address?.touched"
+            placeholder="Nhập địa chỉ của bạn"
           ></textarea>
-          <div
-            class="validation-message"
-            *ngIf="address?.invalid && address?.touched"
-          >
-            <span *ngIf="address?.errors?.['required']"
-              >Địa chỉ là bắt buộc</span
-            >
-            <span *ngIf="address?.errors?.['minlength']"
-              >Địa chỉ phải có ít nhất 10 ký tự</span
-            >
+          <div *ngIf="isFieldInvalid('address')" class="validation-message">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ getErrorMessage("address") }}
           </div>
         </div>
       </div>
 
-      <!-- Form Actions -->
-      <div class="form-actions">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="resetForm()"
-          [disabled]="isLoading"
-        >
-          <i class="bi bi-arrow-clockwise"></i>
-          Làm mới
-        </button>
+      <!-- Submit Button -->
+      <div class="form-group submit-group">
         <button
           type="submit"
-          class="btn btn-primary"
-          [disabled]="isLoading || registerForm.invalid"
+          class="btn btn-primary submit-btn"
+          [disabled]="isSubmitting"
         >
-          <span
-            *ngIf="isLoading"
-            class="spinner-border spinner-border-sm"
-          ></span>
-          <i *ngIf="!isLoading" class="bi bi-person-plus"></i>
-          Đăng ký
+          <i class="fas" [ngClass]="isSubmitting ? 'fa-spinner fa-spin' : 'fa-user-plus'"></i>
+          {{ isSubmitting ? "Đang xử lý..." : "Đăng Ký" }}
         </button>
       </div>
 
       <!-- Login Link -->
-      <div class="login-link-container">
+      <div class="login-link">
         <p>
           Đã có tài khoản?
-          <button [routerLink]="['/user/login']" class="login-link">
-            Đăng nhập ngay
-          </button>
+          <a routerLink="/user/login">Đăng nhập ngay</a>
         </p>
       </div>
     </form>

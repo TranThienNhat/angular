@@ -241,6 +241,53 @@
   text-decoration: underline;
 }
 
+/* Form Row */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.form-group label i {
+  color: #4a90e2;
+}
+
+.required {
+  color: #dc3545;
+  margin-left: 0.25rem;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border-width: 0.2em;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .register-card {
@@ -251,15 +298,15 @@
     padding: 1rem;
   }
 
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
   .btn {
     width: 100%;
   }
-}
 
-/* Loading Spinner */
-.spinner-border {
-  width: 1rem;
-  height: 1rem;
-  margin-right: 0.5rem;
-  border-width: 0.2em;
+  .form-actions {
+    flex-direction: column;
+  }
 }

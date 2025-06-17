@@ -204,14 +204,10 @@ export class ProductItemComponent implements OnInit {
         ProductId: this.product.Id,
         Quantity: this.quantityControl.value || 1,
         Note: this.orderForm.get('note')?.value || '',
+        CartItemId: this.cartItemId || null, // Giả sử bạn có phương thức này để lấy UserId
       };
 
-      // Chỉ thêm CartItemId nếu nó có giá trị hợp lệ
-      if (this.cartItemId !== null && this.cartItemId > 0) {
-        orderData.CartItemId = this.cartItemId;
-      }
-
-      console.log('Order data:', orderData);
+      // Chỉ thêm CartItemId nếu nó có giá trị hợp l
 
       this.orderService.createOrder(orderData).subscribe({
         next: (response) => {

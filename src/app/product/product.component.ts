@@ -4,6 +4,7 @@ import { CartService } from '../service/cart.service'; // Adjust path as needed
 import { NgFor, NgIf, DecimalPipe, CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-product',
@@ -22,7 +23,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private productService: ProductServiceService,
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -126,5 +128,9 @@ export class ProductComponent implements OnInit {
 
     // After adding to cart, redirect to checkout or product detail
     // You can implement this logic based on your requirements
+  }
+
+  get isUser(): boolean {
+    return this.loginService.isUser();
   }
 }
