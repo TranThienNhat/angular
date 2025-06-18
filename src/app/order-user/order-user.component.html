@@ -81,7 +81,7 @@
 
       <!-- Orders List -->
       <div class="row" *ngIf="getFilteredOrders().length > 0">
-        <div class="col-12" *ngFor="let order of getFilteredOrders()">
+        <div class="col-6" *ngFor="let order of getFilteredOrders()">
           <div class="card mb-4 shadow-sm">
             <!-- Order Header -->
             <div
@@ -91,19 +91,16 @@
                 <h5 class="mb-1">
                   <i class="fas fa-receipt me-2 text-primary"></i>
                   Đơn hàng #{{ order.Id }}
+                  <span
+                  class="badge bg-{{getOrderStatusInfo(order.OrderStatus).class}} fs-6">
+                  {{ getOrderStatusInfo(order.OrderStatus).label }}
+                  </span>
                 </h5>
                 <small class="text-muted">
-                  <i class="fas fa-calendar me-1"></i>
-                  {{ formatDate(order.OrderDate) }}
-                </small>
+                Ngày đặt: {{ order.OrderDate | date : "dd/MM/yyyy HH:mm" }}
+              </small>
               </div>
-              <span
-                class="badge bg-{{
-                  getOrderStatusInfo(order.OrderStatus).class
-                }} fs-6"
-              >
-                {{ getOrderStatusInfo(order.OrderStatus).label }}
-              </span>
+              
             </div>
 
             <div class="card-body">
@@ -164,8 +161,7 @@
                       class="d-flex justify-content-between align-items-center"
                     >
                       <h5 class="mb-0 text-primary">
-                        <i class="fas fa-calculator me-2"></i>
-                        Tổng tiền:
+                         Tổng tiền:
                       </h5>
                       <h4 class="mb-0 text-danger fw-bold">
                         {{ formatCurrency(order.TotalPrice) }}

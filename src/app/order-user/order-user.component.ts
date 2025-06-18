@@ -173,8 +173,8 @@ export class OrderUserComponent implements OnInit {
 
   formatCurrency(amount: number): string {
     return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
+      style: 'decimal',
       currency: 'VND',
-    }).format(amount);
+    }).format(amount) + ' VNĐ';
   }
 }

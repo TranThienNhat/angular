@@ -91,23 +91,6 @@ export class CartComponent implements OnInit {
     }
   }
 
-  // Checkout method
-  buyNow(): void {
-    if (this.cartItems.length === 0) {
-      alert('Giỏ hàng của bạn đang trống!');
-      return;
-    }
-
-    console.log('Thanh toán tất cả:', this.cartItems);
-    this.router.navigate(['/checkout'], {
-      queryParams: {
-        type: 'all',
-        totalAmount: this.totalAmount,
-        itemCount: this.cartItems.length,
-      },
-    });
-  }
-
   trackByCartItemId(index: number, item: any): number {
     return item.CartItemId || item.cartItemId || item.Id || index;
   }
@@ -125,8 +108,8 @@ export class CartComponent implements OnInit {
 
   formatPrice(price: number): string {
     return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
+      style: 'decimal',
       currency: 'VND',
-    }).format(price);
+    }).format(price) + ' VNĐ';
   }
 }

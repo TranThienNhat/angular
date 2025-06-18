@@ -1,5 +1,3 @@
-/* Custom styles to complement Bootstrap */
-
 /* Quantity input styling */
 .input-group .form-control:focus {
   box-shadow: none;
@@ -10,6 +8,9 @@
   box-shadow: none;
 }
 
+.col-lg-8 {
+  width: 100%;
+}
 /* Hover effects for buttons */
 .btn-outline-danger:hover i {
   transform: scale(1.1);

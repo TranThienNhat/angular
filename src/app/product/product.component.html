@@ -17,7 +17,7 @@
     <div class="cart-section" *ngIf="!product.IsOutOfStock && isUser">
       <!-- Quantity Selector -->
       <div class="quantity-selector">
-        <label class="form-label">Số lượng:</label>
+  <label class="form-label">Số lượng:</label>
         <div class="input-group input-group-sm" style="max-width: 120px">
           <button
             class="btn btn-outline-secondary"
@@ -25,28 +25,24 @@
             (click)="decreaseQuantity(product.Id)"
             [disabled]="getSelectedQuantity(product.Id) <= 1"
           >
-            <i class="fas fa-minus"></i>
-          </button>
-
-          <input
-            type="number"
-            class="form-control text-center"
-            [(ngModel)]="selectedQuantities[product.Id]"
-            (change)="validateQuantity(product.Id, product.Quantity)"
-            min="1"
-            [max]="product.Quantity"
-          />
-
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="increaseQuantity(product.Id, product.Quantity)"
-            [disabled]="getSelectedQuantity(product.Id) >= product.Quantity"
-          >
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
-      </div>
+      <i class="fas fa-minus"></i>
+    </button>
+    
+    <input 
+      type="number" 
+      class="form-control text-center" 
+      [(ngModel)]="selectedQuantities[product.Id]"
+      (change)="validateQuantity(product.Id, product.Quantity)"
+      min="1"
+      [max]="product.Quantity"
+      style="font-weight: bold;"
+    >
+    
+    <button class="btn btn-outline-secondary" type="button" (click)="increaseQuantity(product.Id, product.Quantity)">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+</div>
 
       <!-- Action Buttons -->
       <div class="action-buttons">

@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../service/login.service';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 interface RegisterData {
   username: string;
@@ -25,17 +24,7 @@ interface RegisterData {
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  animations: [
-    trigger('fadeInDown', [
-      transition(':enter', [
-        style({ transform: 'translateY(-20px)', opacity: 0 }),
-        animate(
-          '0.4s ease-out',
-          style({ transform: 'translateY(0)', opacity: 1 })
-        ),
-      ]),
-    ]),
-  ],
+  
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
