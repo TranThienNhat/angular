@@ -1,5 +1,5 @@
 <!-- Include Bootstrap CSS -->
-<div class="row">
+<div class="order-user-list-wrapper d-flex justify-content-center align-items-start flex-wrap">
   <div class="col-12">
     <h2 class="text-center mb-4">Đơn hàng của tôi</h2>
 
@@ -80,33 +80,35 @@
       </div>
 
       <!-- Orders List -->
-      <div class="row" *ngIf="getFilteredOrders().length > 0">
-        <div class="col-6" *ngFor="let order of getFilteredOrders()">
-          <div class="card mb-4 shadow-sm">
+      <div class="row justify-content-center" *ngIf="getFilteredOrders().length > 0">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4 d-flex justify-content-center mb-4" *ngFor="let order of getFilteredOrders()">
+          <div class="card order-user-card shadow rounded-4 border-0 w-100">
             <!-- Order Header -->
             <div
-              class="card-header bg-white d-flex justify-content-between align-items-center"
+              class="card-header bg-white d-flex justify-content-between align-items-center rounded-top-4 border-0"
             >
               <div>
                 <h5 class="mb-1">
                   <i class="fas fa-receipt me-2 text-primary"></i>
                   Đơn hàng #{{ order.Id }}
                   <span
-                  class="badge bg-{{getOrderStatusInfo(order.OrderStatus).class}} fs-6">
-                  {{ getOrderStatusInfo(order.OrderStatus).label }}
+                    class="badge bg-{{
+                      getOrderStatusInfo(order.OrderStatus).class
+                    }} fs-6"
+                  >
+                    {{ getOrderStatusInfo(order.OrderStatus).label }}
                   </span>
                 </h5>
                 <small class="text-muted">
-                Ngày đặt: {{ order.OrderDate | date : "dd/MM/yyyy HH:mm" }}
-              </small>
+                  Ngày đặt: {{ order.OrderDate | date : "dd/MM/yyyy HH:mm" }}
+                </small>
               </div>
-              
             </div>
 
-            <div class="card-body">
+            <div class="card-body px-4 py-3">
               <!-- Customer Info -->
               <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-2">
                   <h6 class="text-primary mb-2">
                     <i class="fas fa-user me-2"></i>
                     Thông tin người nhận
@@ -129,7 +131,7 @@
                     </p>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-2">
                   <h6 class="text-primary mb-2">
                     <i class="fas fa-box me-2"></i>
                     Sản phẩm ({{ order.OrderItems.length }} món)
@@ -137,7 +139,7 @@
                   <div class="ps-3">
                     <div
                       *ngFor="let item of order.OrderItems"
-                      class="d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded"
+                      class="d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded-3 order-item-card"
                     >
                       <div>
                         <span class="fw-medium">{{ item.ProductName }}</span>
@@ -160,9 +162,7 @@
                     <div
                       class="d-flex justify-content-between align-items-center"
                     >
-                      <h5 class="mb-0 text-primary">
-                         Tổng tiền:
-                      </h5>
+                      <h5 class="mb-0 text-primary">Tổng tiền:</h5>
                       <h4 class="mb-0 text-danger fw-bold">
                         {{ formatCurrency(order.TotalPrice) }}
                       </h4>
@@ -174,12 +174,12 @@
 
             <!-- Order Actions -->
             <div
-              class="card-footer bg-white"
+              class="card-footer bg-white rounded-bottom-4 border-0"
               *ngIf="getOrderStatusInfo(order.OrderStatus).canCancel"
             >
-              <div class="d-flex justify-content-end">
+              <div class="d-flex justify-content-center w-100">
                 <button
-                  class="btn btn-danger btn-sm"
+                  class="btn btn-danger btn-lg fw-semibold shadow-sm rounded-3 w-100 py-2 d-flex align-items-center justify-content-center"
                   (click)="cancelOrder(order.Id)"
                 >
                   <i class="fas fa-ban me-1"></i>

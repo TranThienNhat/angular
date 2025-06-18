@@ -131,12 +131,6 @@
             <!-- Chờ xác nhận -->
             <ng-container *ngIf="activeTab === 'waiting'">
               <button
-                class="btn btn-secondary"
-                [routerLink]="['/admin/dashboard/orders', order.Id]"
-              >
-                <i class="fa-solid fa-pen-to-square"></i> Sửa
-              </button>
-              <button
                 class="btn btn-success btn-sm"
                 (click)="confirmOrder(order.Id)"
                 [disabled]="loading"
@@ -148,7 +142,7 @@
                 (click)="cancelOrder(order.Id)"
                 [disabled]="loading"
               >
-                <i class="bi bi-x-circle"></i> Hủy
+                <i class="bi bi-x-circle"></i> Hủy đơn hàng
               </button>
             </ng-container>
 

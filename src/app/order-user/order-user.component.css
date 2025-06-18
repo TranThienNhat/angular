@@ -535,3 +535,63 @@ h2 {
     align-self: flex-end;
   }
 }
+
+.order-user-list-wrapper {
+  min-height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #fafbfc;
+  padding: 40px 0 20px 0;
+}
+.order-user-card {
+  border-radius: 24px !important;
+  box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.12);
+  transition: box-shadow 0.2s;
+  background: #fff;
+  min-width: 270px;
+  max-width: 340px;
+  margin-bottom: 24px;
+  border: none;
+}
+.order-user-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(60, 72, 88, 0.18);
+}
+.card-header.rounded-top-4 {
+  border-top-left-radius: 24px !important;
+  border-top-right-radius: 24px !important;
+}
+.card-footer.rounded-bottom-4 {
+  border-bottom-left-radius: 24px !important;
+  border-bottom-right-radius: 24px !important;
+}
+.order-item-card {
+  border-radius: 12px !important;
+  background: #f5f7fa !important;
+  box-shadow: 0 1px 4px 0 rgba(60, 72, 88, 0.06);
+}
+.btn-danger {
+  background: linear-gradient(90deg, #ff4444 0%, #ff8800 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #d32f2f 0%, #ff6f00 100%);
+  box-shadow: 0 2px 8px 0 rgba(60, 72, 88, 0.10);
+}
+.btn:focus {
+  box-shadow: 0 0 0 0.15rem #4285f4;
+}
+@media (max-width: 767px) {
+  .order-user-card {
+    min-width: 90vw;
+    max-width: 98vw;
+  }
+  .order-user-list-wrapper {
+    padding: 10px 0;
+  }
+}

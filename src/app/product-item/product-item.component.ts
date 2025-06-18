@@ -22,11 +22,16 @@ import { LoginService } from '../service/login.service';
 export class ProductItemComponent implements OnInit {
   product: any = {};
   cartItemId: number | null = null;
+  userProfile: any = null;
+  isEditingProfile = false;
+
   quantityControl = new FormControl(1, [
     Validators.required,
     Validators.min(1),
   ]);
+
   orderForm: FormGroup;
+  profileForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,14 +44,21 @@ export class ProductItemComponent implements OnInit {
     this.orderForm = this.fb.group({
       note: [''],
     });
+
+    this.profileForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)],
+      ],
+      address: ['', [Validators.required, Validators.minLength(10)]],
+    });
   }
 
   ngOnInit(): void {
-    // Trích xuất productId và cartItemId từ URL
     const productId = Number(this.route.snapshot.paramMap.get('Id'));
     const cartItemIdParam = this.route.snapshot.paramMap.get('CartItemId');
 
-    // Nếu có cartItemId trong URL và không phải chuỗi rỗng
     if (cartItemIdParam && cartItemIdParam.trim() !== '') {
       const parsedCartItemId = Number(cartItemIdParam);
       this.cartItemId = isNaN(parsedCartItemId) ? null : parsedCartItemId;
@@ -57,20 +69,87 @@ export class ProductItemComponent implements OnInit {
     if (productId) {
       this.productService.getProductById(productId).subscribe((data) => {
         this.product = data;
-        // Cập nhật validators cho quantity control dựa trên stock
         this.updateQuantityValidators();
+      });
+    }
+
+    this.loadUserProfile();
+  }
+
+  loadUserProfile(): void {
+    this.loginService.getProfile().subscribe({
+      next: (profile) => {
+        this.userProfile = profile;
+        this.profileForm.patchValue({
+          name: profile.Name || profile.name,
+          phoneNumber: profile.PhoneNumber || profile.phoneNumber,
+          address: profile.Address || profile.address,
+        });
+      },
+      error: (err) => {
+        console.error('Failed to load user profile:', err);
+      },
+    });
+  }
+
+  toggleEditProfile(): void {
+    this.isEditingProfile = !this.isEditingProfile;
+    if (this.isEditingProfile) {
+      this.profileForm.reset({
+        name: this.userProfile.Name || this.userProfile.name,
+        phoneNumber:
+          this.userProfile.PhoneNumber || this.userProfile.phoneNumber,
+        address: this.userProfile.Address || this.userProfile.address,
       });
     }
   }
 
-  // Cập nhật validators cho quantity control
+  cancelEditProfile(): void {
+    this.isEditingProfile = false;
+    this.profileForm.patchValue({
+      name: this.userProfile.Name || this.userProfile.name,
+      phoneNumber: this.userProfile.PhoneNumber || this.userProfile.phoneNumber,
+      address: this.userProfile.Address || this.userProfile.address,
+    });
+  }
+
+  saveProfile(): void {
+    if (this.profileForm.valid) {
+      const profileData = {
+        Name: this.profileForm.get('name')?.value,
+        PhoneNumber: this.profileForm.get('phoneNumber')?.value,
+        Address: this.profileForm.get('address')?.value,
+      };
+
+      this.loginService.putProfile(profileData).subscribe({
+        next: (response) => {
+          alert('Cập nhật thông tin thành công!');
+          this.isEditingProfile = false;
+          this.loadUserProfile();
+        },
+        error: (err) => {
+          console.error('Failed to update profile:', err);
+          alert('Cập nhật thông tin thất bại, vui lòng thử lại!');
+        },
+      });
+    } else {
+      alert('Vui lòng kiểm tra lại thông tin đã nhập!');
+      this.markFormGroupTouched(this.profileForm);
+    }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
+
   private updateQuantityValidators(): void {
     if (this.product.IsOutOfStock) {
-      // Nếu hết hàng, disable quantity control
       this.quantityControl.disable();
       this.quantityControl.setValue(0);
     } else {
-      // Cập nhật max validator dựa trên Quantity
       this.quantityControl.setValidators([
         Validators.required,
         Validators.min(1),
@@ -78,16 +157,13 @@ export class ProductItemComponent implements OnInit {
       ]);
       this.quantityControl.updateValueAndValidity();
 
-      // Nếu giá trị hiện tại vượt quá stock, reset về 1
       const currentValue = this.quantityControl.value || 1;
       if (currentValue > this.product.Quantity) {
         this.quantityControl.setValue(this.product.Quantity);
       }
 
-      // Subscribe to value changes để validate real-time
       this.quantityControl.valueChanges.subscribe((value) => {
         if (value && (value < 1 || value > this.product.Quantity)) {
-          // Nếu giá trị không hợp lệ, không cập nhật
           setTimeout(() => {
             const clampedValue = Math.max(
               1,
@@ -123,25 +199,21 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
-  // Xử lý khi người dùng nhập trực tiếp vào input
   onQuantityInputChange(event: any): void {
     const inputValue = parseInt(event.target.value, 10);
 
-    if (isNaN(inputValue) || inputValue < 1) {
-      // Nếu không phải số hoặc nhỏ hơn 1, set về 1
+    if (isNaN(inputValue)) {
+      this.quantityControl.setValue(1);
+    } else if (inputValue < 1) {
       this.quantityControl.setValue(1);
     } else if (inputValue > this.product.Quantity) {
-      // Nếu vượt quá stock, set về max stock
       this.quantityControl.setValue(this.product.Quantity);
-      // Hiển thị thông báo
       alert(`Số lượng tối đa có thể đặt là ${this.product.Quantity}`);
     } else {
-      // Giá trị hợp lệ
       this.quantityControl.setValue(inputValue);
     }
   }
 
-  // Validation khi người dùng rời khỏi input (blur)
   validateQuantityInput(): void {
     const currentValue = this.quantityControl.value || 1;
 
@@ -153,23 +225,18 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
-  // Ngăn chặn nhập ký tự không hợp lệ
   onQuantityKeyDown(event: KeyboardEvent): void {
-    // Cho phép: backspace, delete, tab, escape, enter
     if (
       [8, 9, 27, 13, 46].indexOf(event.keyCode) !== -1 ||
-      // Cho phép Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
       (event.keyCode === 65 && event.ctrlKey === true) ||
       (event.keyCode === 67 && event.ctrlKey === true) ||
       (event.keyCode === 86 && event.ctrlKey === true) ||
       (event.keyCode === 88 && event.ctrlKey === true) ||
-      // Cho phép home, end, left, right
       (event.keyCode >= 35 && event.keyCode <= 39)
     ) {
       return;
     }
 
-    // Chỉ cho phép số (0-9)
     if (
       (event.shiftKey || event.keyCode < 48 || event.keyCode > 57) &&
       (event.keyCode < 96 || event.keyCode > 105)
@@ -186,41 +253,39 @@ export class ProductItemComponent implements OnInit {
     return this.product.Price * quantity;
   }
 
-  // Kiểm tra xem có thể đặt hàng không
   canPlaceOrder(): boolean {
     const quantity = this.quantityControl.value || 0;
     return (
       !this.product.IsOutOfStock &&
       this.quantityControl.valid &&
       quantity <= this.product.Quantity &&
-      quantity > 0
+      quantity > 0 &&
+      this.userProfile
     );
   }
 
   submitOrder(): void {
     if (this.canPlaceOrder()) {
-      // Kiểm tra xem có phải đặt hàng từ giỏ hàng không
       if (this.cartItemId) {
-        // Tạo đơn hàng từ giỏ hàng
         this.createOrderFromCart();
       } else {
-        // Tạo đơn hàng thường
         this.createNormalOrder();
       }
     } else {
-      alert('Vui lòng kiểm tra lại thông tin đặt hàng!');
+      if (!this.userProfile) {
+        alert('Vui lòng đăng nhập để đặt hàng!');
+      } else {
+        alert('Vui lòng kiểm tra lại thông tin đặt hàng!');
+      }
     }
   }
 
-  // Tạo đơn hàng thường
   private createNormalOrder(): void {
     const orderData = {
       ProductId: this.product.Id,
       Quantity: this.quantityControl.value || 1,
       Note: this.orderForm.get('note')?.value || '',
     };
-
-    console.log('Creating normal order with data:', orderData);
 
     this.orderService.createOrder(orderData).subscribe({
       next: (response) => {
@@ -232,14 +297,11 @@ export class ProductItemComponent implements OnInit {
     });
   }
 
-  // Tạo đơn hàng từ giỏ hàng
   private createOrderFromCart(): void {
     const orderData = {
       CartItemId: this.cartItemId,
       Note: this.orderForm.get('note')?.value || '',
     };
-
-    console.log('Creating order from cart with data:', orderData);
 
     this.orderService.createOrderFromCart(orderData).subscribe({
       next: (response) => {
@@ -251,7 +313,6 @@ export class ProductItemComponent implements OnInit {
     });
   }
 
-  // Xử lý khi tạo đơn hàng thành công
   private handleOrderSuccess(message: string): void {
     alert(message);
     this.orderForm.reset();
@@ -263,12 +324,10 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
-  // Xử lý lỗi khi tạo đơn hàng
   private handleOrderError(err: any): void {
     console.error('Order creation failed:', err);
     if (err.status === 400 && err.error?.message?.includes('stock')) {
       alert('Số lượng yêu cầu vượt quá số lượng có sẵn!');
-      // Refresh product data để cập nhật stock
       this.ngOnInit();
     } else {
       alert('Gửi đơn hàng thất bại, vui lòng thử lại!');

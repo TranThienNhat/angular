@@ -42,7 +42,7 @@ export class OrderUserComponent implements OnInit {
       canCancel: true,
       isProcessing: true,
     },
-    DaXacNhan: {
+    DaXacMinh: {
       label: 'Đã xác nhận',
       class: 'info',
       canCancel: false,
@@ -100,7 +100,7 @@ export class OrderUserComponent implements OnInit {
       // Đang xử lý: DangXuLy, DaXacNhan
       return this.orders.filter(
         (order) =>
-          order.OrderStatus === 'DangXuLy' || order.OrderStatus === 'DaXacNhan'
+          order.OrderStatus === 'DangXuLy' || order.OrderStatus === 'DaXacMinh'
       );
     } else if (this.activeTab === 'history') {
       // Lịch sử: DaGiao, DaHuy, DangGiao
@@ -172,9 +172,11 @@ export class OrderUserComponent implements OnInit {
   }
 
   formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'decimal',
-      currency: 'VND',
-    }).format(amount) + ' VNĐ';
+    return (
+      new Intl.NumberFormat('vi-VN', {
+        style: 'decimal',
+        currency: 'VND',
+      }).format(amount) + ' VNĐ'
+    );
   }
 }

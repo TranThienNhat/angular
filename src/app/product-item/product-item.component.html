@@ -114,21 +114,200 @@
     </div>
   </div>
 
-  <!-- Order Form Section -->
-  <div class="card" *ngIf="!product.IsOutOfStock">
+  <!-- User Profile Section -->
+  <div class="card mt-4" *ngIf="userProfile">
     <div class="card-body">
-      <h2>Thông tin đặt hàng</h2>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">
+          <i class="fas fa-user me-2"></i>
+          Thông tin người nhận
+        </h3>
+        <button
+          class="btn btn-outline-primary btn-sm"
+          (click)="toggleEditProfile()"
+          *ngIf="!isEditingProfile"
+        >
+          <i class="fas fa-edit me-1"></i>
+          Chỉnh sửa
+        </button>
+      </div>
+
+      <!-- Display Mode -->
+      <div *ngIf="!isEditingProfile">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label fw-semibold text-muted">Họ và tên:</label>
+            <div class="p-2 bg-light rounded">
+              {{ userProfile.Name || userProfile.name }}
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label fw-semibold text-muted"
+              >Số điện thoại:</label
+            >
+            <div class="p-2 bg-light rounded">
+              {{ userProfile.PhoneNumber || userProfile.phoneNumber }}
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label fw-semibold text-muted">Địa chỉ:</label>
+            <div class="p-2 bg-light rounded">
+              {{ userProfile.Address || userProfile.address }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div *ngIf="isEditingProfile">
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="name" class="form-label fw-semibold"
+                >Họ và tên <span class="text-danger">*</span></label
+              >
+              <input
+                id="name"
+                type="text"
+                class="form-control"
+                formControlName="name"
+                [value]="userProfile.Name || userProfile.name"
+                [class.is-invalid]="
+                  profileForm.get('name')?.touched &&
+                  profileForm.get('name')?.invalid
+                "
+                placeholder="Nhập họ và tên"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  profileForm.get('name')?.touched &&
+                  profileForm.get('name')?.invalid
+                "
+              >
+                <small *ngIf="profileForm.get('name')?.errors?.['required']"
+                  >Họ và tên là bắt buộc</small
+                >
+                <small *ngIf="profileForm.get('name')?.errors?.['minlength']"
+                  >Họ và tên phải có ít nhất 2 ký tự</small
+                >
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="phoneNumber" class="form-label fw-semibold"
+                >Số điện thoại <span class="text-danger">*</span></label
+              >
+              <input
+                id="phoneNumber"
+                type="tel"
+                class="form-control"
+                formControlName="phoneNumber"
+                [value]="userProfile.PhoneNumber || userProfile.phoneNumber"
+                [class.is-invalid]="
+                  profileForm.get('phoneNumber')?.touched &&
+                  profileForm.get('phoneNumber')?.invalid
+                "
+                placeholder="Nhập số điện thoại"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  profileForm.get('phoneNumber')?.touched &&
+                  profileForm.get('phoneNumber')?.invalid
+                "
+              >
+                <small
+                  *ngIf="profileForm.get('phoneNumber')?.errors?.['required']"
+                  >Số điện thoại là bắt buộc</small
+                >
+                <small
+                  *ngIf="profileForm.get('phoneNumber')?.errors?.['pattern']"
+                  >Số điện thoại không hợp lệ (10-11 chữ số)</small
+                >
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="address" class="form-label fw-semibold"
+                >Địa chỉ <span class="text-danger">*</span></label
+              >
+              <input
+                id="address"
+                class="form-control"
+                formControlName="address"
+                [value]="userProfile.Address || userProfile.address"
+                [class.is-invalid]="
+                  profileForm.get('address')?.touched &&
+                  profileForm.get('address')?.invalid
+                "
+                placeholder="Nhập địa chỉ chi tiết"
+                rows="2"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  profileForm.get('address')?.touched &&
+                  profileForm.get('address')?.invalid
+                "
+              >
+                <small *ngIf="profileForm.get('address')?.errors?.['required']"
+                  >Địa chỉ là bắt buộc</small
+                >
+                <small *ngIf="profileForm.get('address')?.errors?.['minlength']"
+                  >Địa chỉ phải có ít nhất 10 ký tự</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-save me-1"></i>
+              Lưu thay đổi
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cancelEditProfile()"
+            >
+              <i class="fas fa-times me-1"></i>
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Notice -->
+  <div class="card mt-4" *ngIf="!userProfile">
+    <div class="card-body text-center">
+      <div class="alert alert-warning mb-0">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Vui lòng đăng nhập để xem thông tin và đặt hàng!</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Form Section -->
+  <div class="card mt-4" *ngIf="!product.IsOutOfStock && userProfile">
+    <div class="card-body">
+      <h3 class="mb-3">
+        <i class="fas fa-shopping-cart me-2"></i>
+        Thông tin đặt hàng
+      </h3>
 
       <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
         <!-- Note Field -->
         <div class="mb-3">
-          <label for="note" class="form-label">Ghi chú</label>
+          <label for="note" class="form-label fw-semibold">Ghi chú</label>
           <textarea
             id="note"
             class="form-control"
             formControlName="note"
             rows="3"
-            placeholder="Ghi chú thêm (nếu có)"
+            placeholder="Ghi chú thêm về đơn hàng (nếu có)"
           ></textarea>
         </div>
 
@@ -137,13 +316,26 @@
           <button
             class="btn btn-success btn-lg"
             type="submit"
-            [disabled]="quantityControl.invalid"
+            [disabled]="!canPlaceOrder()"
           >
             <i class="fas fa-shopping-cart me-2"></i>
-            Đặt hàng
+            Đặt hàng ngay
+            <span class="ms-2 badge bg-light text-success">
+              {{ getTotalPrice() | number : "1.0-0" }} VND
+            </span>
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Order Disabled Message -->
+  <div class="card mt-4" *ngIf="!product.IsOutOfStock && !userProfile">
+    <div class="card-body">
+      <div class="alert alert-info text-center mb-0">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Vui lòng đăng nhập để có thể đặt hàng!</strong>
+      </div>
     </div>
   </div>
 </div>
