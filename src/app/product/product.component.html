@@ -4,10 +4,10 @@
   <div *ngIf="products.length > 0" class="row w-100 justify-content-center g-4">
     <div
       *ngFor="let product of products"
-      class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
+      class="col-12 col-sm-6 col-md-6 col-lg-3 d-flex justify-content-center"
     >
       <div class="card product-card shadow rounded-4 border-0 h-100">
-        <div class="product-image-container p-3 pb-0">
+        <div class="product-image-container p-4 pb-0 mb-2">
           <img
             [src]="'https://localhost:44384' + product.ImageUrl"
             class="card-img-top product-image rounded-3 shadow-sm mx-auto"
@@ -18,90 +18,57 @@
           </div>
         </div>
         <div class="card-body d-flex flex-column align-items-center">
-          <p class="card-text text-muted small mb-1 text-center">
-            {{ product.Categories.join(", ") }}
-          </p>
-          <h5 class="card-title product-name flex-grow-1 text-center">
-            {{ product.Name }}
-          </h5>
-          <div class="w-100 mb-2 text-center">
-            <p class="card-text mb-1 price-text">
-              <strong>Giá:</strong>
-              <span class="text-danger fw-bold"
-                >{{ product.Price | number : "1.0-0" }} VND</span
-              >
+          <div class="product-info-block w-100 d-flex flex-column align-items-center mb-4 mt-2">
+            <p class="card-text text-muted small mb-1 text-center">
+              {{ product.Categories.join(", ") }}
             </p>
-            <p class="card-text mb-0 quantity-text">
-              <strong>Còn lại:</strong>
-              <span class="fw-bold">{{ product.Quantity }}</span>
-            </p>
+            <h5 class="card-title product-name flex-grow-1 text-center">{{ product.Name }}</h5>
+            <div class="w-100 mb-1 text-center">
+              <p class="card-text mb-1 price-text">
+                <strong>Giá:</strong>
+                <span class="text-danger fw-bold">{{ product.Price | number : '1.0-0' }} VND</span>
+              </p>
+              <p class="card-text mb-0 quantity-text">
+                <strong>Còn lại:</strong>
+                <span class="fw-bold">{{ product.Quantity }}</span>
+              </p>
+            </div>
           </div>
-          <div class="w-100 mt-auto" *ngIf="!product.IsOutOfStock && isUser">
-            <div class="mb-2">
-              <label class="form-label d-block text-center small mb-1"
-                >Số lượng:</label
-              >
-              <div
-                class="input-group input-group-sm quantity-input-group justify-content-center"
-              >
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  (click)="decreaseQuantity(product.Id)"
-                  [disabled]="getSelectedQuantity(product.Id) <= 1"
-                >
+          <div class="w-100 mt-auto" *ngIf="!isUser">
+            <button class="btn btn-outline-primary btn-lg w-100" [routerLink]="['/user/login']">
+              <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập để mua
+            </button>
+          </div>
+          <div class="w-100 mt-auto" *ngIf="isUser">
+            <div class="mb-3">
+              <label class="form-label d-block text-center small mb-2">Số lượng:</label>
+              <div class="input-group input-group-sm quantity-input-group justify-content-center flex-nowrap">
+                <button class="btn btn-outline-secondary quantity-btn" type="button" (click)="decreaseQuantity(product.Id)" [disabled]="getSelectedQuantity(product.Id) <= 1">
                   <i class="fas fa-minus"></i>
                 </button>
-                <input
-                  type="number"
-                  class="form-control text-center mx-1"
-                  [(ngModel)]="selectedQuantities[product.Id]"
-                  (change)="validateQuantity(product.Id, product.Quantity)"
-                  min="1"
-                  [max]="product.Quantity"
-                  style="max-width: 50px"
-                />
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  (click)="increaseQuantity(product.Id, product.Quantity)"
-                >
+                <input type="number" class="form-control text-center mx-1 quantity-input" [(ngModel)]="selectedQuantities[product.Id]" (change)="validateQuantity(product.Id, product.Quantity)" min="1" [max]="product.Quantity" />
+                <button class="btn btn-outline-secondary quantity-btn" type="button" (click)="increaseQuantity(product.Id, product.Quantity)">
                   <i class="fas fa-plus"></i>
                 </button>
               </div>
             </div>
-            <div class="d-grid gap-2">
-              <button
-                class="btn btn-primary btn-lg fw-semibold shadow-sm"
-                (click)="addToCart(product.Id, getSelectedQuantity(product.Id))"
-                [disabled]="isAddingToCart[product.Id]"
-              >
+            <div class="d-flex gap-2 mb-2">
+              <button class="btn btn-primary btn-lg fw-semibold shadow-sm rounded-3 py-2 d-flex align-items-center justify-content-center flex-fill" (click)="addToCart(product.Id, getSelectedQuantity(product.Id))" [disabled]="isAddingToCart[product.Id]">
                 <span *ngIf="!isAddingToCart[product.Id]">
-                  <i class="fas fa-shopping-cart me-1"></i>Thêm vào giỏ
+                  <i class="fas fa-shopping-cart"></i>
                 </span>
                 <span *ngIf="isAddingToCart[product.Id]">
-                  <i class="fas fa-spinner fa-spin me-1"></i>Đang thêm...
+                  <i class="fas fa-spinner fa-spin"></i>
                 </span>
               </button>
-              <button
-                class="btn btn-outline-success btn-lg fw-semibold shadow-sm"
-                [routerLink]="['/products', product.Id]"
-              >
+              <button class="btn btn-outline-success btn-lg fw-semibold shadow-sm rounded-3 py-2 d-flex align-items-center justify-content-center flex-fill" [routerLink]="['/products', product.Id]" [disabled]="product.IsOutOfStock">
                 <i class="bi bi-cash-coin me-1"></i>Mua ngay
               </button>
             </div>
-            <div
-              *ngIf="cartMessages[product.Id]"
-              class="alert alert-success alert-sm mt-2 mb-0 py-1 px-2 small text-center"
-            >
+            <div *ngIf="cartMessages[product.Id]" class="alert alert-success alert-sm mt-2 mb-0 py-1 px-2 small text-center">
               <i class="fas fa-check-circle me-1"></i>
               {{ cartMessages[product.Id] }}
             </div>
-          </div>
-          <div class="w-100 mt-auto" *ngIf="product.IsOutOfStock && !isUser">
-            <button class="btn btn-outline-primary btn-lg w-100" [routerLink]="['/user/login']">
-              <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập để mua
-            </button>
           </div>
         </div>
       </div>
